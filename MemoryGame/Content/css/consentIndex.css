@@ -1,0 +1,13 @@
+﻿body {
+    background-image: url('/MemoryGame/resources/background.PNG');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.text_body {
+    text-align: center;
+    font-weight: 600;
+    margin-left: 100px;
+    margin-right: 100px;
+}
