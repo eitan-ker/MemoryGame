@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "EndPage";
+}
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/EndPage.js"></script>
+}
+<link rel="stylesheet" href="~/Content/css/consent.css" />
+
+<body>
+    <div>
+        <br /><br />
+        <div id="Consent_Form">
+            <p>
+                Thank you for your participation!
+            </p>
+
+            <p>
+                You can now submit the assignment.
+            </p>
+            <p>
+                You will be paid within 12 hours of submission.
+            </p>
+            <p>
+                If you have any problems, please contact the HIT requester.
+            </p>
+
+
+        </div>
+        <div class="Center">
+            <button id="agree_button_id" type="submit" class="Green_Button" style="height:auto" onclick="Submit(); return false;">Submit assignment</button>
+        </div>
+    </div>
+</body>

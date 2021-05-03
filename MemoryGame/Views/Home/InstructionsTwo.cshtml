@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "InstructionsTwo";
+}
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/InstructionsTwo.js"></script>
+}
+<link rel="stylesheet" href="~/Content/css/consent.css" />
+<body>
+    <h2>
+        Word Search Game
+    </h2>
+    <h3>
+        Instructions – 2/2
+    </h3>
+    <div class="Running_Text" id="textbox">
+        On each board, you have a target word placed in one of eight possible directions - horizontally, vertically or diagonally (see example below).
+        Once the target word is found, a new board will appear.
+        <br />
+        The game will end after 20 boards are solved.
+        <br />
+        To help you, we have added a virtual player, Bob, who will share the load, so that each of you will solve  10 boards.
+        <br />
+        You will play in turns; each time, one of you will need to solve a board, and the other one will rest.
+        <br />
+        Each board can be solved in maximum time of one minute.
+        <br />
+
+        If the board is not solved within this time, a new board will appear. Notice that the turn will pass to the other player only after the board is solved.
+
+    </div>
+
+    <div class="Center">
+        <button class="Continue_Button" type="submit" onclick="NextPage(); return false;">Continue</button>
+    </div>
+
+
+</body>

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "MobileError";
+}
+@section scripts {
+    <link rel="stylesheet" href="~/Content/css/consent.css" />
+    <script src="~/Scripts/MobileError.js"></script>
+}
+
+<body>
+    <div id="div_body">
+
+
+        <div id="Consent_Form">
+            <p>
+                Sorry, this HIT does not support mobile devices.
+            </p>
+            <p>
+                Please return the HIT.
+            </p>
+        </div>
+        <div class="Center">
+            <button class="Green_Button" type="submit" onclick="returnToAmazon(); return false;" style="height:auto">Return to Amazon</button>
+        </div>
+    </div>
+
+</body>
+

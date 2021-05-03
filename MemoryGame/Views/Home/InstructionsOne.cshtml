@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "InstructionsOne";
+}
+
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/InstructionsOne.js"></script>
+}
+<link rel="stylesheet" href="~/Content/css/consent.css" />
+
+
+<body>
+    <h2>
+        Word Search Game
+    </h2>
+    <h3>
+        Instructions – 1/2
+    </h3>
+
+    <div class="Running_Text">
+        Welcome! <br>
+        In this HIT, you will play a well-known word-search puzzle game, and then answer feedback questions.
+    </div>
+
+    <img id="Img_Example" src="~/Resources/tableExample.png" alt="Italian Trulli">
+    <div class="Running_Text">
+        Please note that after clicking the "Continue" button, it will not be possible to start the HIT
+        from the beginning.<br>
+        To avoid potential problems, please do NOT click the refresh button nor the
+        back button while working on this HIT.<br>
+        Also, please do not open the HIT in another tab/window.
+
+    </div>
+
+    <div class="Center">
+        <button class="Continue_Button" type="submit" onclick="NextPage(); return false;">Continue</button>
+    </div>
+
+</body>

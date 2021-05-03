@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "EndGame";
+}
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/EndGame.js"></script>
+}
+<link rel="stylesheet" href="~/Content/css/consent.css" />
+<link rel="stylesheet" href="~/Content/css/verificationRulesCSS.css" />
+
+<body>
+    <div id="InfoDiv" class="Justify_Content">
+
+        <div>
+            <img class="Img_Player" src="~/Resources/HumenPic.jpg" />
+            <h3>You</h3>
+            <h3 id="globalTimerPlayer"></h3>
+        </div>
+
+        <div>
+            <img class="Img_Player" src="~/Resources/HumenPic.jpg" />
+            <h3>Bob</h3>
+            <h3 id="globalTimerBot"></h3>
+        </div>
+
+    </div>
+    <img style=" width: 300px;height:250px;align-items: center;margin-top: 10px; margin-bottom: 10px;" src="~/Resources/Done.png" />
+    <div id="textDiv">
+        <p>
+            You and Bob have successfully solved <span id="numOfBoardEach"></span> boards each.
+        </p>
+        <p>
+            To continue, please copy the time it took for each of you:
+        </p>
+        <p>
+            Me: <input type="text" class="css-input" id="PlayerMinutes" /> minutes
+        </p>
+        <p>
+            Bob: <input type="text" class="css-input" id="BobMinutes" /> minutes
+        </p>
+    </div>
+    <div class="failed" style="margin-top: 50px ;position:initial;display:none;" id="failed">
+        <h4>Some of your answers were incorrect</h4>
+        <button id="failed_button" onclick="anotherTry();" class="filed_button">Please try again</button>
+    </div>
+
+    <button id="agree_button_id" type="submit" class="Green_Button" style="background-color:#4ef18f" onclick="checkAns(); return false;">Submit</button>
+</body>
+

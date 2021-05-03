@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "Game";
+}
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/Game.js"></script>
+<link rel="stylesheet" href="~/Content/css/game.css" />
+<body>
+
+    <h2 id="scoreBoard">
+        Boards Completed: 0
+    </h2>
+
+    <div id="InfoDiv" class="Justify_Content">
+
+        <div>
+            <img class="Img_Player" src="~/Resources/HumenPic.jpg" />
+            <h3>You</h3>
+            <div style="display: flex;justify-content: space-between;  ">
+                <h3 id="globalTimerPlayer" style="margin-right:10px">00:00 </h3>
+                <h3> so far</h3>
+            </div>
+
+        </div>
+
+        <div>
+            <img class="Img_Player" src="~/Resources/HumenPic.jpg" />
+            <h3>Bob</h3>
+            <div style="display: flex; justify-content: space-between;  ">
+                <h3 id="globalTimerBot" style="margin-right:10px">00:00</h3>
+                <h3> so far</h3>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="BoardDiv" class="Justify_Content" style="justify-content: space-evenly; margin-left:100px; margin-right:100px">
+
+        <div>
+            <!-- Board Player-->
+            <div id="PlayerBoardDiv" style="text-align: center;max-width: 300px; margin-left:20px;">
+                <div style="display: flex;justify-content: center;">
+                    <h5 id="InstructionsPlayer" style="color:dodgerblue"> </h5>
+                    <h5 id="wordPlayer" style="color:red"></h5>
+                </div>
+                <div id="PlayerTable">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="Justify_Content">
+            <img id="leftArrow" src="~/Resources/arrowToLeft.png" />
+            <h5 id="Turn">
+                Your Turn
+            </h5>
+            <img id="rightArrow" src="~/Resources/arrowToRight.png" style="visibility: hidden;" />
+        </div>
+
+
+        <div>
+            <!-- Board Bot-->
+            <div id="BotBoardDiv" style="text-align: center; max-width: 300px; margin-right:20px;">
+                <div style="display: flex;justify-content: center;">
+                    <h5 id="InstructionsBot" style="color:dodgerblue"> </h5>
+                    <h5 id="wordBot" style="        color: red
+"></h5>
+                </div>
+
+                <div id="BotTable">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Timers -->
+    <div class="Justify_Content">
+        <div id="timerDivPlayer">
+            <img class="timer" src="~/Resources/timer.png">
+            <h5 id="userCurrentTimer" class="time_left">Time Left: <span id="timeLeftPlayer" /></h5>
+        </div>
+
+        <div id="timerDivBot" style="        visibility: hidden
+">
+            <img class="timer" src="~/Resources/timer.png">
+            <h5 id="botCurrentTimer" class="time_left">Time Left: <span id="timeLeftBot" /></h5>
+        </div>
+    </div>
+
+    <!-- Arrows
+        <div id="Div_Turn" class="Justify_Content">
+            <img id="leftArrow" src="~/arrowToLeft.png" />
+            <h3 id="Turn">
+                Your Turn
+            </h3>
+            <img id="rightArrow" src="~/arrowToRight.png" style="visibility: hidden;" />
+        </div>
+    -->
+
+    <button id="agree_button_id" class="Green_Button" style="margin-left:10px" type="submit" onclick="submit(); return false;">Submit</button>
+
+
+
+</body>
+
+
