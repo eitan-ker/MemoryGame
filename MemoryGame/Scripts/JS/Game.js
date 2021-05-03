@@ -29,7 +29,7 @@ $(function () {
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/WordSearchAMT/Data/ClientIsDone",
+                url: "/MemoryGame/Data/ClientIsDone",
                 // The key needs to match your method's input parameter (case-sensitive).
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -43,7 +43,7 @@ $(function () {
     $.ajax({
         type: "GET",
         dataType: 'json',
-        url: "/WordSearchAMT/Data/GetInitGameInfo",
+        url: "/MemoryGame/Data/GetInitGameInfo",
         // The key needs to match your method's input parameter (case-sensitive).
         contentType: "application/json; charset=utf-8",
         success: function (data) {
@@ -114,7 +114,7 @@ function initMatrix() {
     var params = {
         type: "GET",
         dataType: 'json',
-        url: "/WordSearchAMT/Data/GetBoard",
+        url: "/MemoryGame/Data/GetBoard",
         success: function (data) {
             console.log(data);
             // save the data from the server in the Board Info object
@@ -411,7 +411,7 @@ function saveInfo() {
     $.ajax({
         async: false,
         type: "POST",
-        url: "/WordSearchAMT/Data/TotalTurnInfo",
+        url: "/MemoryGame/Data/TotalTurnInfo",
         // The key needs to match your method's input parameter (case-sensitive).
         data: stringTosend,
         contentType: "application/json; charset=utf-8",
@@ -632,11 +632,11 @@ function sendTime() {
     //[beginTime, endTime, "ConsentIndex"];
     $.ajax({
         type: "POST",
-        url: "/WordSearchAMT/Data/TimeInPage",
+        url: "/MemoryGame/Data/TimeInPage",
         data: stringTosend,
         contentType: "application/json",
         success: function (data) {
-            window.location.replace("/WordSearchAMT/Home/EndGame");
+            window.location.replace("/MemoryGame/Home/EndGame");
         },
         error: function (errMsg) {
             alert(errMsg);

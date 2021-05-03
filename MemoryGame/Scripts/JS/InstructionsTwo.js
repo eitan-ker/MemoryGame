@@ -3,7 +3,7 @@ var done = false;
 $(function () {
     $.ajax({
         type: "Get",
-        url: "/WordSearchAMT/Data/GetScore",
+        url: "/MemoryGame/Data/GetScore",
         contentType: "application/json",
         success: function (data) {
             console.log(data);
@@ -32,7 +32,7 @@ $(function () {
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/WordSearchAMT/Data/ClientIsDone",
+                url: "/MemoryGame/Data/ClientIsDone",
                 // The key needs to match your method's input parameter (case-sensitive).
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -53,12 +53,12 @@ function NextPage() {
     //[beginTime, endTime, "ConsentIndex"];
     $.ajax({
         type: "POST",
-        url: "/WordSearchAMT/Data/TimeInPage",
+        url: "/MemoryGame/Data/TimeInPage",
         data: stringTosend,
         contentType: "application/json",
         success: function (data) {
             done = true;
-            window.location.replace("/WordSearchAMT/Home/interfaceExample"); //to prevent page back
+            window.location.replace("/MemoryGame/Home/interfaceExample"); //to prevent page back
         },
         error: function (errMsg) {
             alert(errMsg);

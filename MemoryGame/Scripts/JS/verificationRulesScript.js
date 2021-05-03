@@ -20,7 +20,7 @@ $(function () {
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/WordSearchAMT/Data/ClientIsDone",
+                url: "/MemoryGame/Data/ClientIsDone",
                 // The key needs to match your method's input parameter (case-sensitive).
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -248,7 +248,7 @@ function nextPage(e) {
 
         $.ajax({
             type: "POST",
-            url: "/WordSearchAMT/Data/VerificationRulesInfo",
+            url: "/MemoryGame/Data/VerificationRulesInfo",
             data: stringTosend,
             contentType: "application/json",
             success: function (data) {
@@ -270,7 +270,7 @@ function nextPage(e) {
             console.log(stringTosend);
             $.ajax({
                 type: "POST",
-                url: "/WordSearchAMT/Data/VerificationRulesInfo",
+                url: "/MemoryGame/Data/VerificationRulesInfo",
                 data: stringTosend,
                 contentType: "application/json",
                 success: function (data) {
@@ -363,7 +363,7 @@ function sendTime(flag) {
     //[beginTime, endTime, "ConsentIndex"];
     $.ajax({
         type: "POST",
-        url: "/WordSearchAMT/Data/TimeInPage",
+        url: "/MemoryGame/Data/TimeInPage",
         data: stringTosend,
         contentType: "application/json",
         success: function (data) {
@@ -381,12 +381,12 @@ function sendTime(flag) {
 
 function moveToErrorTriesPage() {
     done = true;
-    window.location.replace("/WordSearchAMT/Home/TooManyTries"); //to prevent page back
+    window.location.replace("/MemoryGame/Home/TooManyTries"); //to prevent page back
 }
 
 function moveToNextPage() {
     done = true;
-    window.location.replace("/WordSearchAMT/Home/PersonalDetails"); //to prevent page back
+    window.location.replace("/MemoryGame/Home/PersonalDetails"); //to prevent page back
 }
 
 function checkTime(i) {

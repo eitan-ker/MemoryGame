@@ -13,7 +13,7 @@ $(function () {
         //[beginTime, endTime, "ConsentIndex"];
         $.ajax({
             type: "POST",
-            url: "/WordSearchAMT/Data/TimeInPage",
+            url: "/MemoryGame/Data/TimeInPage",
             data: stringTosend,
             contentType: "application/json",
             success: function (data) {
@@ -30,7 +30,7 @@ $(function () {
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/WordSearchAMT/Data/ClientIsDone",
+                url: "/MemoryGame/Data/ClientIsDone",
                 // The key needs to match your method's input parameter (case-sensitive).
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -46,7 +46,7 @@ $(function () {
 
 function returnToAmazon() {
     //// replace this url to amazon
-    //window.location.replace("/WordSearchAMT/Home/InstructionsOne");
+    //window.location.replace("/MemoryGame/Home/InstructionsOne");
 }
 function checkTime(i) {
     if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10

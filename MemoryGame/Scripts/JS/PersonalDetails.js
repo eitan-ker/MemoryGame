@@ -11,7 +11,7 @@ $(function () {
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/WordSearchAMT/Data/ClientIsDone",
+                url: "/MemoryGame/Data/ClientIsDone",
                 // The key needs to match your method's input parameter (case-sensitive).
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -91,15 +91,15 @@ function SubmitAnswers() {
             // write data.
             $.ajax({
                 type: "POST",
-                url: "/WordSearchAMT/Data/PersonalDetailsInfo",
+                url: "/MemoryGame/Data/PersonalDetailsInfo",
                 data: stringTosend,
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function () {
-                    nextPage("/WordSearchAMT/Home/TooManyTries");
+                    nextPage("/MemoryGame/Home/TooManyTries");
                 },
                 error: function (jqXHR, exception) {
-                    nextPage("/WordSearchAMT/Home/ErrorPage")
+                    nextPage("/MemoryGame/Home/ErrorPage")
                 }
             });
         }
@@ -111,17 +111,17 @@ function SubmitAnswers() {
         console.log(stringTosend);
         $.ajax({
             type: "POST",
-            url: "/WordSearchAMT/Data/PersonalDetailsInfo",
+            url: "/MemoryGame/Data/PersonalDetailsInfo",
             data: stringTosend,
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function () {
                 done = true;
-                nextPage("/WordSearchAMT/Home/Game");
+                nextPage("/MemoryGame/Home/Game");
             },
             error: function (jqXHR, exception) {
                 //alert("Something went wrong. Please contact the HIT requester.");
-                nextPage("/WordSearchAMT/Home/ErrorPage");
+                nextPage("/MemoryGame/Home/ErrorPage");
             }
         });  
     }
@@ -132,7 +132,7 @@ function SubmitAnswers() {
 }*/
 function nextPageFordev() {
     done = true;
-    nextPage("/WordSearchAMT/Home/Game");
+    nextPage("/MemoryGame/Home/Game");
 }
 function nextPage(url) {
     done = true;
@@ -144,7 +144,7 @@ function nextPage(url) {
     //[beginTime, endTime, "ConsentIndex"];
     $.ajax({
         type: "POST",
-        url: "/WordSearchAMT/Data/TimeInPage",
+        url: "/MemoryGame/Data/TimeInPage",
         data: stringTosend,
         contentType: "application/json",
         success: function (data) {
