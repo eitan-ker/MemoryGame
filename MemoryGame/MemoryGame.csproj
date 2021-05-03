@@ -147,6 +147,21 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JS\consent.js" />
+    <Content Include="Scripts\JS\DisagreePage.js" />
+    <Content Include="Scripts\JS\EndGame.js" />
+    <Content Include="Scripts\JS\EndPage.js" />
+    <Content Include="Scripts\JS\ErrorPage.js" />
+    <Content Include="Scripts\JS\feedback.js" />
+    <Content Include="Scripts\JS\Game.js" />
+    <Content Include="Scripts\JS\InstructionsOne.js" />
+    <Content Include="Scripts\JS\InstructionsTwo.js" />
+    <Content Include="Scripts\JS\interfaceExample.js" />
+    <Content Include="Scripts\JS\MobileError.js" />
+    <Content Include="Scripts\JS\PersonalDetails.js" />
+    <Content Include="Scripts\JS\SecondTimeError.js" />
+    <Content Include="Scripts\JS\TooManyTries.js" />
+    <Content Include="Scripts\JS\verificationRulesScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -162,7 +177,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\ConsentIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
