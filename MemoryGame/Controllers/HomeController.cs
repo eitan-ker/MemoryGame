@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace MemoryGame.Controllers
 {
@@ -16,6 +18,7 @@ namespace MemoryGame.Controllers
         }
         public ActionResult ConsentIndex()
         {
+
             if (Request.Browser.IsMobileDevice)
             {
                 return RedirectToAction("MobileError");
@@ -51,6 +54,7 @@ namespace MemoryGame.Controllers
             amazonInfoModel.WorkerId = Session["workerId"].ToString();
             //ClientsHandlerModel.AddNewUser(amazonInfoModel);
             Session["last_page"] = "ConsentIndex";
+
             return View();
         }
 
@@ -60,11 +64,13 @@ namespace MemoryGame.Controllers
         }
         public ActionResult InstructionsOne()
         {
+
             if (!Session["last_page"].Equals("ConsentIndex"))
             {
                 return RedirectToAction("ErrorPage");
             }
             Session["last_page"] = "InstructionsOne";
+
             return View();
         }
         public ActionResult InstructionsTwo()
@@ -166,6 +172,7 @@ namespace MemoryGame.Controllers
 
             return View();
         }
+
         public AmazonInfoModel CreateAmazonInfoModel()
         {
             AmazonInfoModel amazonInfoModel = new AmazonInfoModel();
@@ -173,6 +180,12 @@ namespace MemoryGame.Controllers
             amazonInfoModel.HitId = Session["hitId"].ToString();
             amazonInfoModel.WorkerId = Session["workerId"].ToString();
             return amazonInfoModel;
+
+
+        public ActionResult Game1()
+        {
+            return View();
+
         }
     }
 }
