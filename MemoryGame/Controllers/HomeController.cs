@@ -15,30 +15,6 @@ namespace MemoryGame.Controllers
         }
         public ActionResult ConsentIndex()
         {
-            /*
-            string assignmentId = Request.QueryString["assignmentId"];
-            string workerId = Request.QueryString["workerId"];
-            string hitId = Request.QueryString["hitId"];
-
-
-            if (assignmentId == null || workerId == null || hitId == null)
-            {
-                Session["assignmentId"] = "1";
-                Session["workerId"] = "12";
-                Session["hitId"] = "123";
-            }
-            else
-            {
-                Session["assignmentId"] = assignmentId;
-                Session["workerId"] = workerId;
-                Session["hitId"] = hitId;
-            }
-            AmazonInfoModel amazonInfoModel = new AmazonInfoModel();
-            amazonInfoModel.AssId = Session["assignmentId"].ToString();
-            amazonInfoModel.HitId = Session["hitId"].ToString();
-            amazonInfoModel.WorkerId = Session["workerId"].ToString();
-            ClientsHandlerModel.AddNewUser(amazonInfoModel);
-            */
             return View();
         }
 
@@ -48,7 +24,6 @@ namespace MemoryGame.Controllers
         }
         public ActionResult InstructionsOne()
         {
-            //var bla = HttpContext.Session.GetString("assignmentId");
             return View();
         }
         public ActionResult InstructionsTwo()
@@ -113,6 +88,11 @@ namespace MemoryGame.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Game1()
+        {
             return View();
         }
     }
