@@ -205,7 +205,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AmazonInfoModel.cs" />
+    <Compile Include="Models\EndGameModels\EndGameModel.cs" />
+    <Compile Include="Models\EndGameModels\RealAnsOfTimeModel.cs" />
+    <Compile Include="Models\FeedBackModel.cs" />
+    <Compile Include="Models\PersonalDetailsModel.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\AnswerModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\QuestionModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\VerificationRulesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
