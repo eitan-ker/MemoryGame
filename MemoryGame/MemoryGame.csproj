@@ -254,6 +254,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\consentIndex.css" />
     <Content Include="Content\DataTable.css" />
+    <Content Include="Content\css\game1.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
