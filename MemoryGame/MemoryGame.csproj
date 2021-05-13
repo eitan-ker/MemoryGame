@@ -65,6 +65,9 @@
     <Reference Include="MongoDB.Libmongocrypt, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Libmongocrypt.1.2.1\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -208,7 +211,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AmazonInfoModel.cs" />
+    <Compile Include="Models\EndGameModels\EndGameModel.cs" />
+    <Compile Include="Models\EndGameModels\RealAnsOfTimeModel.cs" />
+    <Compile Include="Models\FeedBackModels\FeedBackModel.cs" />
+    <Compile Include="Models\PersonalDetails.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\AnswerModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\QuestionModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\VerificationRulesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
