@@ -1,0 +1,32 @@
+﻿body {
+}
+h1 {
+    color: blue;
+    font-family: verdana;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 300%;
+}
+#cardFrame {
+    border-style: solid;
+    width: 120px;
+    height: 120px;
+}
+
+#card {
+    margin-left: auto;
+    margin-right: auto;
+    border-style: dotted;
+    background-color: aquamarine;
+    width: 115px;
+    height: 115px;
+}
+
+#board {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:auto;
+    margin-bottom:auto;
+}
