@@ -22,7 +22,7 @@ $(function () {
     setInterval(MyGetTime, 1000);
     //document.getElementById("time").innerHTML = turnTime.toString();
     //get size as parameter from configuration 
-    document.getElementById("board1").innerHTML = CreateBoard(2);
+    document.getElementById("board").innerHTML = CreateBoard(2);
     remainingCards = data.numOfCards;
         
     function IsPair(choicesIndexes) {

@@ -7,14 +7,30 @@ h1 {
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
-    font-size: 300%;
 }
+
 #cardFrame {
     border-style: solid;
     width: 120px;
     height: 120px;
 }
-
+.board_area{
+    display:flex;
+    justify-content:space-evenly;
+}
+.player {
+    display:flex;
+    justify-content:space-evenly;
+}
+.player_img {
+    max-block-size:100px;
+    height:auto;
+    width:auto;
+}
+.info_agent{
+    display:grid;
+    margin-top:15%;
+}
 #card {
     margin-left: auto;
     margin-right: auto;
