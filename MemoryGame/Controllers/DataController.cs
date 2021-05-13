@@ -10,6 +10,18 @@ namespace MemoryGame.Controllers
 {
     public class DataController : Controller
     {
+
+        public AmazonInfoModel CreateAmazonInfoModel()
+        {
+            
+            AmazonInfoModel amazonInfoModel = new AmazonInfoModel();
+            amazonInfoModel.AssId = Session["assignmentId"].ToString();
+            amazonInfoModel.HitId = Session["hitId"].ToString();
+            amazonInfoModel.WorkerId = Session["workerId"].ToString();
+            return amazonInfoModel;
+
+        }
+
         public ActionResult TimeInPage(TimeInPageModel timeInPageModel)
         {
             Console.WriteLine(timeInPageModel);
@@ -17,5 +29,6 @@ namespace MemoryGame.Controllers
             //ClientsHandlerModel.AddTimeModel(amazonInfoModel, timeInPageModel);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
+        
     }
 }
