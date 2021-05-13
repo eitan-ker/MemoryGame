@@ -1,4 +1,5 @@
 ﻿body {
+    background-color:lightgrey;
 }
 h1 {
     color: blue;
@@ -15,10 +16,12 @@ h1 {
     height: 120px;
 }
 .board_area{
+    margin: 10px;
     display:flex;
     justify-content:space-evenly;
 }
 .player {
+    background-color:darkgrey;
     display:flex;
     justify-content:space-evenly;
 }
@@ -31,18 +34,30 @@ h1 {
     display:grid;
     margin-top:15%;
 }
+#board_info{
+    background-color:darkgrey;
+    height:fit-content;
+    padding:20px;
+    margin-right:1%;
+    width:75%;
+}
 #card {
     margin-left: auto;
     margin-right: auto;
     border-style: dotted;
     background-color: aquamarine;
-    width: 115px;
-    height: 115px;
+    width: 70px;
+    height: 70px;
 }
 
 #board {
+    background-color:lightgrey;
     margin-left: auto;
     margin-right: auto;
     margin-top:auto;
     margin-bottom:auto;
+}
+#agent_area {
+    padding:10px;
+   box-shadow: inset 0 0 0 10px darkgrey;
 }
