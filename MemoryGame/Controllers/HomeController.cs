@@ -204,6 +204,11 @@ namespace MemoryGame.Controllers
             return amazonInfoModel;
         }
 
+        public ActionResult Game1()
+        {
+            return View();
+        }
+
         
     }
 
