@@ -11,7 +11,7 @@ function makeTable(data) {
     var tablearea = document.getElementById('tabledata');
     var table = document.createElement("table");
     var tr = document.createElement("tr");
-    console.log(order.length);
+    // make the header of the table
     for (var i = 0; i < order.length; i++) {
         var th = document.createElement("th");
         th.innerHTML = order[i];
@@ -19,6 +19,7 @@ function makeTable(data) {
         tr.appendChild(th);
     }
     table.appendChild(tr);
+    // make row for each user
     for (var i = 0; i < data.length; i++) {
         array[i] = document.createElement('tr');
         for (var j = 0; j < Object.keys(data[i]).length; j++) {
@@ -31,8 +32,5 @@ function makeTable(data) {
         }
         table.appendChild(array[i]);
     }
-    console.log(table);
-    tablearea.appendChild(table);
-    console.log(array);
-    
+    tablearea.appendChild(table);    
 }
