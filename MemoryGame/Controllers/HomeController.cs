@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MemoryGame.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -114,6 +115,14 @@ namespace MemoryGame.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public AmazonInfoModel CreateAmazonInfoModel()
+        {
+            AmazonInfoModel amazonInfoModel = new AmazonInfoModel();
+            amazonInfoModel.AssId = Session["assignmentId"].ToString();
+            amazonInfoModel.HitId = Session["hitId"].ToString();
+            amazonInfoModel.WorkerId = Session["workerId"].ToString();
+            return amazonInfoModel;
         }
     }
 }
