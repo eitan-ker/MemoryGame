@@ -16,6 +16,7 @@ namespace MemoryGame.Controllers
         {
             return View();
         }
+
         public ActionResult ConsentIndex()
         {
 
@@ -30,6 +31,7 @@ namespace MemoryGame.Controllers
             {
                 return RedirectToAction("ErrorPage");
             }
+
             string assignmentId = Request.QueryString["assignmentId"];
             string workerId = Request.QueryString["workerId"];
             string hitId = Request.QueryString["hitId"];
@@ -40,7 +42,7 @@ namespace MemoryGame.Controllers
                 Session["assignmentId"] = "1";
                 Session["workerId"] = "12";
                 Session["hitId"] = "123";
-               
+
             }
             else
             {
@@ -48,6 +50,7 @@ namespace MemoryGame.Controllers
                 Session["workerId"] = workerId;
                 Session["hitId"] = hitId;
             }
+
             AmazonInfoModel amazonInfoModel = new AmazonInfoModel();
             amazonInfoModel.AssId = Session["assignmentId"].ToString();
             amazonInfoModel.HitId = Session["hitId"].ToString();
@@ -62,6 +65,7 @@ namespace MemoryGame.Controllers
         {
             return View();
         }
+
         public ActionResult InstructionsOne()
         {
 
@@ -69,16 +73,19 @@ namespace MemoryGame.Controllers
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "InstructionsOne";
 
             return View();
         }
+
         public ActionResult InstructionsTwo()
         {
             if (!Session["last_page"].Equals("InstructionsOne"))
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "InstructionsTwo";
             return View();
         }
@@ -89,6 +96,7 @@ namespace MemoryGame.Controllers
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "Feedback";
             return View();
         }
@@ -99,61 +107,75 @@ namespace MemoryGame.Controllers
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "PersonalDetails";
             return View();
         }
+
         public ActionResult VerificationRules()
         {
             if (!Session["last_page"].Equals("interfaceExample"))
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "VerificationRules";
             return View();
         }
+
         public ActionResult InterfaceExample()
         {
             if (!Session["last_page"].Equals("InstructionsTwo"))
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "interfaceExample";
             return View();
         }
+
         public ActionResult MobileError()
         {
             return View();
         }
+
         public ActionResult SecondTimeError()
         {
             return View();
         }
+
         public ActionResult ErrorPage()
         {
             return View();
         }
+
         public ActionResult Game()
         {
             if (!Session["last_page"].Equals("PersonalDetails"))
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "Game";
             return View();
         }
+
         public ActionResult EndGame()
         {
             if (!Session["last_page"].Equals("Game"))
             {
                 return RedirectToAction("ErrorPage");
             }
+
             Session["last_page"] = "EndGame";
             return View();
         }
+
         public ActionResult EndPage()
         {
             return View();
         }
+
         public ActionResult Index()
         {
             return View();
@@ -180,12 +202,10 @@ namespace MemoryGame.Controllers
             amazonInfoModel.HitId = Session["hitId"].ToString();
             amazonInfoModel.WorkerId = Session["workerId"].ToString();
             return amazonInfoModel;
-
-
-        public ActionResult Game1()
-        {
-            return View();
-
         }
+
+        
     }
+
+
 }
