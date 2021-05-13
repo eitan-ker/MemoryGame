@@ -1,0 +1,78 @@
+﻿body {
+    background-image: url('/MemoryGame/resources/background.PNG');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+h2 {
+    text-align: center;
+    color: #002966;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-top: 10px;
+}
+
+h3 {
+    text-align: center;
+    color: #002966;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 40px;
+}
+
+.text_body {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 4%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.Green_Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #73bf73;
+    margin-right: 20px;
+    color: white;
+}
+
+    .Green_Button:focus {
+        outline: none;
+    }
+
+    .Green_Button:hover {
+        background-color: #79d279;
+    }
+
+
+.Red_Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #ea5353;
+    margin-left: 20px;
+    color: white;
+}
+
+    .Red_Button:focus {
+        outline: none;
+    }
+
+    .Red_Button:hover {
+        background-color: #f35e5e;
+    }
+
