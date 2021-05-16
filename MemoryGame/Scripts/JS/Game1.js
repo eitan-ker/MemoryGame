@@ -50,14 +50,17 @@ $(function () {
         if (currentPlayer == noa - 1) {
             currentPlayer = 0;
             lockClicks = false;
+            $($("#agent_area").children()[noa -1]).css("background-color", "darkgrey");
+            $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
         } else {
             currentPlayer += 1;
             lockClicks = true;
             firstChoise = true;
             choicesIndexes = {};
+            $($("#agent_area").children()[currentPlayer % data.numOfAgents - 1]).css("background-color", "darkgrey");
+            $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
         }
-        $($( "#agent_area" ).children()[currentPlayer % data.numOfAgents - 1]).css("background-color", "darkgrey");
-        $($( "#agent_area" ).children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
+
         
         agents[currentPlayer]();
     }, data.personalTime)
@@ -70,7 +73,7 @@ $(function () {
     
     for (let i = 0; i < data.numOfAgents - 1; i++) {
         let player = document.getElementsByClassName("player")[0].cloneNode(true);
-        $( ".player" ).find( "h4" ).html("agent " + i);
+        $(player).find("h4").text("agent " + (i + 1));
         document.getElementById("agent_area").appendChild(player);
     }
     
