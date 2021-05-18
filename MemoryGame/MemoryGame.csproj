@@ -208,6 +208,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AmazonInfoModel.cs" />
+    <Compile Include="Models\InitData.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
