@@ -18,7 +18,6 @@ var data = {};
 crads_dict["cow"] = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 crads_dict["dog"] = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
 $(function () {
-
     //assume we've got data object from GET
     data = {
         overallTime: "",// times in milliseconds
@@ -43,8 +42,16 @@ $(function () {
     data = GetData();
     alert(data.numOfAgents);*/
     
-    
-    var agents = [
+
+    var agents = get_agents(data.numOfAgents, {
+        get_last_cards_show: (x)=> {
+            return [];
+        },
+        get_all_card: () =>{
+            return [0, 1];
+        }
+    })
+        /*
         function () { 
             console.log("player");
             //$($( "#agent_area" ).children()[0]).css("background-color", "yellow"); 
@@ -54,7 +61,9 @@ $(function () {
             //$($( "#agent_area" ).children()[0]).css("background-color", "darkgrey");
             //$($( "#agent_area" ).children()[1]).css("background-color", "yellow");
     },
-    function () { console.log("agent2"); }, function () { console.log("agent3"); }]
+    function () { console.log("agent2"); }, function () { console.log("agent3"); }
+    */
+    getCards(data.numOfCards *10);
     if( data!= undefined){
         agentsAmount = data.numOfAgents;
     }
@@ -81,7 +90,7 @@ $(function () {
             $($("#agent_area").children()[currentPlayer % data.numOfAgents - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
         }
-        agents[currentPlayer]();
+        agents[currentPlayer].choose_pair();
     }, data.personalTime)
 
     //Initialize board
@@ -192,7 +201,40 @@ function IsPair(choicesIndexes) {
 
 
 
+function getCards(num) {
+    // array of all the cards that we have in resources/Card_photos
+    var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
+    var choosen_card = [];
+    //choose indexs for the cards
+    while (choosen_card.length != num) {
+        let flag = 0;
+        let j = Math.floor(Math.random() * array.length);
+        for (let i = 0; i < choosen_card.length; i++) {
+            if (j == choicesIndexes[i]) {
+                flag = 1;
+                break;
+            }
+        }
+        if (!flag) {
+            choosen_card.push(j);
+        }
 
+    }
+    // make all the indexs twice
+    choosen_card= choosen_card.concat(choosen_card);
+    // shaffle the card array
+    for (let i = choosen_card.length - 1; i > 0; i--) {
+        let rand = Math.floor(Math.random() * (i + 1));
+        [choosen_card[i], choosen_card[rand]] = [choosen_card[rand], choosen_card[i]]
+    }
+    // convert the indexs to names
+    var names_array = [];
+    for (let i = 0; i < choosen_card.length; i++) {
+        names_array.push(array[choosen_card[i]]);
+    }
+    // return the array with names for the cards.
+    return names_array;
+}
 
 
 
