@@ -54,3 +54,15 @@ class Player {
         console.log("Player");
     }
 }
+
+/*
+handler={
+    get_all_card // return all the card that in the board now - only the indexs of the card
+    get_exposed_cards(number_of_card) // return the indexs and the value of the open cards, and it will be sorted by the time that the card was opened
+    get_all_score // get all the score of the players until now
+    get_score(agent_index) // get score for specific player until now
+    get_all_history // return all the turns that have been played - the indexs that was choose, success or fail, the time that take to the player to make the turn
+    get_history(number_of_turn_to_show) // return the last x turn that  have been played - the indexs that was choose, success or fail, the time that take to the player to make the turn
+    get_time_for_turn // return the time for each turn
+    get_all_time_for_players // return the time that each agent play until now
+}*/
