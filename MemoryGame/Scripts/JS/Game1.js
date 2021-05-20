@@ -8,9 +8,12 @@ var choicesIndexes = {};
 var turns = [];
 var remainingCards;
 var size;
-var currentPlayer = 0;
+var currentPlayer = -1;
 var agentsAmount;
-var score = 0;
+var totalScore = 0;
+var scores = {
+    "agent0":0
+};
 var globalTime = new Date(0);
 var lockClicks;
 var crads_dict = {};
@@ -55,9 +58,9 @@ $(function () {
             //$($( "#agent_area" ).children()[1]).css("background-color", "yellow");
     },
     function () { console.log("agent2"); }, function () { console.log("agent3"); }]
-    if( data!= undefined){
-        agentsAmount = data.numOfAgents;
-    }
+    
+    agentsAmount = data.numOfAgents;
+    
     
     //sets the global time of the game.
     setInterval(function () {
@@ -68,7 +71,7 @@ $(function () {
     //set interval to change turns between players
     
     setInterval(function () {
-        if (currentPlayer == agentsAmount - 1) {
+        if (currentPlayer == agentsAmount - 1 || currentPlayer ==-1) {
             currentPlayer = 0;
             lockClicks = false;
             $($("#agent_area").children()[agentsAmount - 1]).css("background-color", "darkgrey");
@@ -89,13 +92,14 @@ $(function () {
     remainingCards = data.numOfCards * data.numOfCards;
     
     //Initialize agents area with desired num of agents
-    
+    let player = document.getElementsByClassName("player")[0];
+    player.setAttribute("id", "agent" + 0);
     for (let i = 0; i < data.numOfAgents - 1; i++) {
         let player = document.getElementsByClassName("player")[0].cloneNode(true);
         player.setAttribute("id", "agent" + i);
         $(player).find( "h4" ).text("agent " + (i + 1));
         document.getElementById("agent_area").appendChild(player);
-        
+        scores["agent" + (i + 1)] = 0;
     }
     
     /*function IsPair(choicesIndexes) {
@@ -182,8 +186,17 @@ function IsPair(choicesIndexes) {
         cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]];
         $(cell).hide();
         remainingCards -= 2;
-        score += 1;
-        $("#total_score").text(score);
+        totalScore += 1;
+        $("#total_score").text(totalScore);
+       /* if(currentPlayer == 0){
+            scores["agent0"] +=1 ;
+            $(".player").find( ".score_agent" ).text(scores["agent"+currentPlayer]);
+        } else{
+            scores["agent"+currentPlayer] +=1;
+            $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
+        }*/
+        scores["agent"+currentPlayer] +=1;
+        $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer - 1)]);
     }
 }
 
