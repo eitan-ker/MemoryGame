@@ -61,6 +61,12 @@ $(function () {
     
     agentsAmount = data.numOfAgents;
     
+    function () { console.log("agent2"); }, function () { console.log("agent3"); }
+    */
+    getCards(data.numOfCards *10);
+    if( data!= undefined){
+        agentsAmount = data.numOfAgents;
+    }
     
     //sets the global time of the game.
     setInterval(function () {
@@ -71,7 +77,7 @@ $(function () {
     //set interval to change turns between players
     
     setInterval(function () {
-        if (currentPlayer == agentsAmount - 1 || currentPlayer ==-1) {
+        if (currentPlayer == agentsAmount - 1) {
             currentPlayer = 0;
             lockClicks = false;
             $($("#agent_area").children()[agentsAmount - 1]).css("background-color", "darkgrey");
@@ -84,7 +90,7 @@ $(function () {
             $($("#agent_area").children()[currentPlayer % data.numOfAgents - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
         }
-        agents[currentPlayer]();
+        agents[currentPlayer].choose_pair();
     }, data.personalTime)
 
     //Initialize board
@@ -205,7 +211,40 @@ function IsPair(choicesIndexes) {
 
 
 
+function getCards(num) {
+    // array of all the cards that we have in resources/Card_photos
+    var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
+    var choosen_card = [];
+    //choose indexs for the cards
+    while (choosen_card.length != num) {
+        let flag = 0;
+        let j = Math.floor(Math.random() * array.length);
+        for (let i = 0; i < choosen_card.length; i++) {
+            if (j == choicesIndexes[i]) {
+                flag = 1;
+                break;
+            }
+        }
+        if (!flag) {
+            choosen_card.push(j);
+        }
 
+    }
+    // make all the indexs twice
+    choosen_card= choosen_card.concat(choosen_card);
+    // shaffle the card array
+    for (let i = choosen_card.length - 1; i > 0; i--) {
+        let rand = Math.floor(Math.random() * (i + 1));
+        [choosen_card[i], choosen_card[rand]] = [choosen_card[rand], choosen_card[i]]
+    }
+    // convert the indexs to names
+    var names_array = [];
+    for (let i = 0; i < choosen_card.length; i++) {
+        names_array.push(array[choosen_card[i]]);
+    }
+    // return the array with names for the cards.
+    return names_array;
+}
 
 
 
