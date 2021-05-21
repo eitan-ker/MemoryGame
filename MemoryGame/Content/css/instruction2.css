@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     background-color: aliceblue;
     background-size: cover;
 }
@@ -23,16 +24,13 @@ h3 {
 }
 
 .text_body {
-    text-align: center;
+    text-align: left;
     font-weight: 600;
     margin-top: 4%;
     margin-left: 15%;
     margin-right: 15%;
 }
 
-.container.Container_Space_Evenly {
-    margin-top: 50px;
-}
 
 .Green_Button {
     display: inline-block;
@@ -56,26 +54,7 @@ h3 {
         background-color: #79d279;
     }
 
-
-.Red_Button {
-    display: inline-block;
+.clickers {
     text-align: center;
-    vertical-align: middle;
-    border: none;
-    width: 120px;
-    height: 50px;
-    border-radius: 8px;
-    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
-    background-color: #ea5353;
-    margin-left: 20px;
-    color: white;
+    margin-top: 50px;
 }
-
-    .Red_Button:focus {
-        outline: none;
-    }
-
-    .Red_Button:hover {
-        background-color: #f35e5e;
-    }
-
