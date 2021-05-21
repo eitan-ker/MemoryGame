@@ -50,15 +50,18 @@ $(function () {
     
     var agents = [
         function () { 
-            console.log("player");
+            //console.log("player");
             //$($( "#agent_area" ).children()[0]).css("background-color", "yellow"); 
     }, 
         function () { 
-            console.log("agent1");
+            //console.log("agent1");
             //$($( "#agent_area" ).children()[0]).css("background-color", "darkgrey");
             //$($( "#agent_area" ).children()[1]).css("background-color", "yellow");
     },
-    function () { console.log("agent2"); }, function () { console.log("agent3"); }]
+    function () { //console.log("agent2"); 
+         }
+         , function () { //console.log("agent3"); 
+    }]
     
     agentsAmount = data.numOfAgents;
     
