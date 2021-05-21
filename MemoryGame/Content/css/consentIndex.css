@@ -1,6 +1,5 @@
 ﻿body {
-    background-image: url('/MemoryGame/resources/background.PNG');
-    background-repeat: no-repeat;
+    background-color: bisque;
     background-size: cover;
 }
 
@@ -29,6 +28,10 @@ h3 {
     margin-top: 4%;
     margin-left: 15%;
     margin-right: 15%;
+}
+
+.container.Container_Space_Evenly {
+    margin-top: 50px;
 }
 
 .Green_Button {
