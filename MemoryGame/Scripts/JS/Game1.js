@@ -5,7 +5,8 @@ var cards = [[cow, dog], [cow, dog]];
 var cardsNames = [["cow", "dog"], ["cow", "dog"]];
 var firstChoise = true;
 var choicesIndexes = {};
-var turns = [];
+var turnsDocumentation = [];
+var turn = {};
 var remainingCards;
 var size;
 var currentPlayer = -1;
@@ -49,24 +50,23 @@ $(function () {
     
     var agents = [
         function () { 
-            console.log("player");
+            //console.log("player");
             //$($( "#agent_area" ).children()[0]).css("background-color", "yellow"); 
     }, 
         function () { 
-            console.log("agent1");
+            //console.log("agent1");
             //$($( "#agent_area" ).children()[0]).css("background-color", "darkgrey");
             //$($( "#agent_area" ).children()[1]).css("background-color", "yellow");
     },
-    function () { console.log("agent2"); }, function () { console.log("agent3"); }]
+    function () { //console.log("agent2"); 
+         }
+         , function () { //console.log("agent3"); 
+    }]
     
     agentsAmount = data.numOfAgents;
     
-    function () { console.log("agent2"); }, function () { console.log("agent3"); }
-    */
-    getCards(data.numOfCards *10);
-    if( data!= undefined){
-        agentsAmount = data.numOfAgents;
-    }
+    getCards(data.numOfCards * 10);
+    agentsAmount = data.numOfAgents;
     
     //sets the global time of the game.
     setInterval(function () {
@@ -90,7 +90,7 @@ $(function () {
             $($("#agent_area").children()[currentPlayer % data.numOfAgents - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
         }
-        agents[currentPlayer].choose_pair();
+        agents[currentPlayer]();
     }, data.personalTime)
 
     //Initialize board
@@ -147,23 +147,34 @@ $(function () {
         if (firstChoise) {
             firstChoise = false;
             choicesIndexes[0] = [p_row, p_col];
+            turn = turn.concat({
+                choiseOne:choicesIndexes[0],
+                time: new Date(globalTime.getMinutes(), globalTime.getSeconds())
+            });
         } else {
             firstChoise = true;
             choicesIndexes[1] = [p_row, p_col]
             IsPair(choicesIndexes);
-            turns.concat(choicesIndexes);
-            
+            //save documentation of the turn with 
+            turn = turn.concat(
+                {
+                    choiseTow:choicesIndexes[1],
+                    time: new Date(globalTime.getMinutes(), globalTime.getSeconds())
+                }
+            );
+            alert(choicesIndexes[0], choicesIndexes[1]);
             if (remainingCards == 0) {
                 document.getElementById("board").innerHTML = "<h1>game over</h1>";
             }
             lockClicks = true; // lock the clicks after second card choise
             firstChoise = true;
             choicesIndexes = {}; // initilize the choices
+            
         }
-        
-        
+        alert(turn);
+        turnsDocumentation.concat(turn);
+        turn = {}; 
     });
-   
 });
 
 function sleep(ms) {
@@ -206,11 +217,6 @@ function IsPair(choicesIndexes) {
     }
 }
 
-
-
-
-
-
 function getCards(num) {
     // array of all the cards that we have in resources/Card_photos
     var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
@@ -244,26 +250,6 @@ function getCards(num) {
     }
     // return the array with names for the cards.
     return names_array;
-}
-
-
-
-function checkTime(i) {
-    if (i < 10) 
-        i = "0" + i;  // add zero in front of numbers < 10
-    return i;
-}
-
-//get current UTC Time
-function MyGetTime() {
-    let now = new Date();
-    let year = now.getUTCFullYear();
-    let month = checkTime(now.getUTCMonth() + 1);
-    let day = checkTime(now.getUTCDate());
-    let hour = checkTime(now.getUTCHours());
-    let minute = checkTime(now.getUTCMinutes());
-    let second = checkTime(now.getUTCSeconds());
-    return year + '-' + month + '-' + day + 'T' + hour + ':' + minute + ':' + second + 'Z';
 }
 
 
