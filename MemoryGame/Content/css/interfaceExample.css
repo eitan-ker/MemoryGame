@@ -1,0 +1,41 @@
+﻿
+body {
+    background-color: aliceblue;
+    background-size: cover;
+}
+
+h3 {
+    text-align: center;
+    color: #002966;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 40px;
+}
+
+.Green_Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #73bf73;
+    margin-right: 20px;
+    color: white;
+}
+
+    .Green_Button:focus {
+        outline: none;
+    }
+
+    .Green_Button:hover {
+        background-color: #79d279;
+    }
+
+.clickers {
+    text-align: center;
+    margin-top: 50px;
+}

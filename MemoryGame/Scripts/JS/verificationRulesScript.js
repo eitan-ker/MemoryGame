@@ -121,7 +121,7 @@ function assignCorrectAnswers() {
 function makeHtml() {
     let html = "";
     for (let k = 0; k < questions.length; k++) {
-        html += '<div id="question' + k + '">Question</div><div id="answer-buttons' + k + '" class="btn-grid'+ k +'"> </div>';
+        html += '<div class="QAsection"><div class="question" id="question' + k + '">Question</div><div id="answer-buttons' + k + '" class="btn-grid' + k +'"> </div></div>';
           /*  < button class="btn" > Answer 1</button >
                 <button class="btn">Answer 2</button>
                 <button class="btn">Answer 3</button>
@@ -157,7 +157,7 @@ function startQuiz() {
             button.classList.add('btn')
 
             button.setAttribute("id", String(answerCounter));
-            button.setAttribute("style", "color:black; border: none; background-color: rgb(240,248,255); font-weight: none;");
+            button.setAttribute("style", "color: rgb(255 255 255); border: none; background-color: rgb(136 171 243); font-weight: 600;");
 
             if (answer.correct) {
                 button.dataset.correct = answer.correct
@@ -231,6 +231,7 @@ function clearStatusClass(element) {
 }
 
 function nextPage(e) {
+    console.log("cotinue")
     var i
     var counter = 0
     for (i = 0; i < numOfquestions; i++) {
@@ -329,12 +330,12 @@ function anotherTry() {
 function clearAllMarks() {
     for (i = 0; i < answerId.length; i++) {
         document.getElementById(correctAnswersId[i]).style.border = "none";
-        document.getElementById(correctAnswersId[i]).style.backgroundColor = "rgb(240,248,255)";
+        document.getElementById(correctAnswersId[i]).style.backgroundColor = "rgb(136 171 243)";
         document.getElementById(correctAnswersId[i]).style.fontWeight = "normal";
 
         if (indexOfAnswer[i] != -1 && answerId[i] != correctAnswersId[i]) {
             document.getElementById(answerId[i]).style.border = "none";
-            document.getElementById(answerId[i]).style.backgroundColor = "rgb(240,248,255)";
+            document.getElementById(answerId[i]).style.backgroundColor = "rgb(136 171 243)";
             document.getElementById(answerId[i]).style.fontWeight = "normal";
         }
     }

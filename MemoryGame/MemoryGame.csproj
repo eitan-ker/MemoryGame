@@ -223,6 +223,8 @@
     <Content Include="Content\css\game1.css" />
     <Content Include="Content\css\instruction1.css" />
     <Content Include="Content\css\instruction2.css" />
+    <Content Include="Content\css\interfaceExample.css" />
+    <Content Include="Content\css\verificationRules.css" />
     <Content Include="Content\DataTable.css" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
@@ -541,7 +543,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54650</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44396/MemoryGame/</IISUrl>
+          <IISUrl>https://localhost:44392/MemoryGame/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
