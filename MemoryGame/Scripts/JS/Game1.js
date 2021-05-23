@@ -27,7 +27,7 @@ $(function () {
     data = {
         overallTime: "",// times in milliseconds
         personalTime: 3000,
-        numOfCards: 2,
+        numOfCards: 20,
         numOfAgents: 4
     };
     /*function GetData(){
@@ -65,7 +65,9 @@ $(function () {
     
     agentsAmount = data.numOfAgents;
     
-    getCards(data.numOfCards * 10);
+    cards = getCards(data.numOfCards, 4);
+    cardNames = cards;
+    
     agentsAmount = data.numOfAgents;
     
     //sets the global time of the game.
@@ -94,7 +96,7 @@ $(function () {
     }, data.personalTime)
 
     //Initialize board
-    document.getElementById("board").innerHTML = CreateBoard(data.numOfCards);
+    document.getElementById("board").innerHTML = CreateBoard(4,data.numOfCards/4);
     remainingCards = data.numOfCards * data.numOfCards;
     
     //Initialize agents area with desired num of agents
@@ -132,10 +134,10 @@ $(function () {
 
         let img = document.createElement('img');
         img.id = "cardId";
-        img.src = cards[parseInt(p_row)][parseInt(p_col)];
+        img.src = "/MemoryGame/resources/Card_photos/"+cards[parseInt(p_row)][parseInt(p_col)]+".jpeg";
         img.alt = "cow";
-        img.width = 65;
-        img.height = 65;
+        img.width = 70;
+        img.height = 70;
         
         //$(this).css("background-color", "yellow")
         //var imageUrl = cards[parseInt(p_row)][parseInt(p_col)];
@@ -143,7 +145,7 @@ $(function () {
         $(this).append(img);
         await sleep(3000);
         $(img).fadeOut();
-        $(this).css("background-color", "cadetblue")
+        //$(this).css("background-color", "cadetblue")
         if (firstChoise) {
             firstChoise = false;
             choicesIndexes[0] = [p_row, p_col];
@@ -181,12 +183,12 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function CreateBoard(size) {
+function CreateBoard(row, column) {
     tableTag = '';
     tableTag += "<table id=\"memoryTable\">"
-    for (let i = 0; i < size; i++) {
+    for (let i = 0; i < row; i++) {
         tableTag += "<tr id=\"row " + i + "\">"; // <tr id="row i">
-        for (let j = 0; j < size; j++) {
+        for (let j = 0; j < column; j++) {
             tableTag += "<td class=\"cardFrame\" ws-column=\"" + j + "\" ws-row=\"" + i + "\">\n<button id=\"card\"/>\n</td>";
         }
         tableTag += "</tr>";
@@ -217,7 +219,7 @@ function IsPair(choicesIndexes) {
     }
 }
 
-function getCards(num) {
+function getCards(num,rowsize) {
     // array of all the cards that we have in resources/Card_photos
     var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
     var choosen_card = [];
@@ -246,7 +248,10 @@ function getCards(num) {
     // convert the indexs to names
     var names_array = [];
     for (let i = 0; i < choosen_card.length; i++) {
-        names_array.push(array[choosen_card[i]]);
+        names_array.push([]);
+        for (let j = 0; j < rowsize; j++) {
+            names_array[i].push(array[choosen_card[i * rowsize + j]]);
+        }
     }
     // return the array with names for the cards.
     return names_array;
