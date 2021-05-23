@@ -175,7 +175,7 @@ function scaleBuilder(questionType, counter) {
         }
         html += '</div>';
     }
-    html += '</div></br></div>';
+    html += '</div></div>';
     return html;
 
 }
@@ -219,7 +219,7 @@ function dropDownBuilder(questionType, counter) {
 
 function textBoxBuilder(questionType, counter) {
     let html = ' <div class= "container"><div class="question"><h4>' + questionType.question + '</h4></div >' ;
-    html += '<div class="text_input"><input id = "textBox' + String(counter) +'" placeholder = "Enter Anything" ></br></div></div>';
+    html += '<div class="text_input"><input id = "textBox' + String(counter) +'" placeholder = "Enter Anything" ></div></div>';
     return html;
 }
 
@@ -248,9 +248,9 @@ function changeTitle(option, typeCounter) {
 }
 
 function initialize() {
-    var html = '<h4>Thank you and Bob for solving the boards!</h4>';
-    html += '<div class="question"><h4> We would appreciate your help answering the following questions about this HIT.</h4>';
-    html += '<h4>Your sincere and detailed answers are veluable to us, so please answer honestly.</h4></div><br/> ';
+    var html = '<div><h4>Thank you and Bob for solving the boards!</h4>';
+    html += '<h5> We would appreciate your help answering the following questions about this HIT.</h5>';
+    html += '<h5>Your sincere and detailed answers are veluable to us, so please answer honestly.</h5></div> ';
     html += '<div class="page_head_line"><h4> Feedback Question</h4></div><br/>'
     return html;
 }

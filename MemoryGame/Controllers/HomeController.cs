@@ -92,10 +92,10 @@ namespace MemoryGame.Controllers
 
         public ActionResult Feedback()
         {
-            if (!Session["last_page"].Equals("EndGame"))
+           /* if (!Session["last_page"].Equals("EndGame"))
             {
                 return RedirectToAction("ErrorPage");
-            }
+            }*/
 
             Session["last_page"] = "Feedback";
             return View();
