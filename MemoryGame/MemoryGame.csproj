@@ -394,6 +394,7 @@
     <Content Include="Scripts\JS\Player.js" />
     <Content Include="Scripts\JS\SecondTimeError.js" />
     <Content Include="Scripts\JS\TooManyTries.js" />
+    <Content Include="Scripts\JS\Turn.js" />
     <Content Include="Scripts\JS\VerificationRulesScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />

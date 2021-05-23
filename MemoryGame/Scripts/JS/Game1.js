@@ -1,4 +1,7 @@
-﻿var query;
+﻿/*import Board from "./Board";
+import Card from "./Board";*/
+
+var query;
 var cow = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 var dog = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
 var cards = [[cow, dog], [cow, dog]];
@@ -6,7 +9,8 @@ var cardsNames = [["cow", "dog"], ["cow", "dog"]];
 var firstChoise = true;
 var choicesIndexes = {};
 var turnsDocumentation = [];
-var turn = {};
+var turn;
+var agents = [];
 var remainingCards;
 var size;
 var currentPlayer = -1;
@@ -16,9 +20,11 @@ var scores = {
     "agent0":0
 };
 var globalTime = new Date(0);
+var firstRound = true;
 var lockClicks;
 var crads_dict = {};
 var data = {};
+var board = new Board([2,2], [new Card([0,0], "cow"),new Card([0,1], "dog"),new Card([1,0], "cow"),new Card([1,1], "dog")]);
 crads_dict["cow"] = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 crads_dict["dog"] = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
 $(function () {
@@ -26,7 +32,7 @@ $(function () {
     //assume we've got data object from GET
     data = {
         overallTime: "",// times in milliseconds
-        personalTime: 3000,
+        personalTime: 8000,
         numOfCards: 2,
         numOfAgents: 4
     };
@@ -47,21 +53,40 @@ $(function () {
     data = GetData();
     alert(data.numOfAgents);*/
     
-    
-    var agents = [
+    for(let i = 0; i < data.numOfAgents; i++){
+        agents.push(new Agent1(function (){}, i));
+    }
+    agents[0].SetHandler(
+        function (){
+        data.personalTime = 10000;
+        console.log("new time is 10000");
+    })
+    agents[1].SetHandler(
+        function (){
+            data.personalTime = 30;
+            console.log("new time is 300");
+        })
+    /*
+    agents = [
         function () { 
+            turn = new Turn(new Agent1(0 ,function (){console.log("agent 0");
+            data.personalTime = 10000;}), board);
             //console.log("player");
             //$($( "#agent_area" ).children()[0]).css("background-color", "yellow"); 
     }, 
-        function () { 
+        function () {
+            turn = new Turn(new Agent1(1 ,function (){console.log("agent 1");
+            data.personalTime = 300;}), board);
             //console.log("agent1");
             //$($( "#agent_area" ).children()[0]).css("background-color", "darkgrey");
             //$($( "#agent_area" ).children()[1]).css("background-color", "yellow");
     },
-    function () { //console.log("agent2"); 
-         }
-         , function () { //console.log("agent3"); 
-    }]
+        function () { //console.log("agent2"); 
+            turn = new Turn(new Agent1(2 ,function (){console.log("agent 2")}), board);
+    }, 
+        function () { //console.log("agent3"); 
+            turn = new Turn(new Agent1(3 ,function (){console.log("agent 3")}), board);
+    }]*/
     
     agentsAmount = data.numOfAgents;
     
@@ -71,13 +96,23 @@ $(function () {
     //sets the global time of the game.
     setInterval(function () {
         globalTime.setSeconds(globalTime.getSeconds() + 1);
-        document.getElementById("time").innerHTML = globalTime.toLocaleTimeString();
+        document.getElementById("total_time_text").innerHTML = globalTime.toLocaleTimeString();
     }, 1000);
 
     //set interval to change turns between players
     
     setInterval(function () {
-        if (currentPlayer == agentsAmount - 1) {
+        if(firstRound === true) {
+            $($("#agent_area").children()[0]).css("background-color", "red");
+            lockClicks = false;
+            firstRound = false;
+            agents[0].PlayTurn();
+            board.turnsArray.push(turn);
+            turn = new Turn(agents[1], board);
+            currentPlayer += 1;
+            return ;
+        }
+        if (currentPlayer === agentsAmount - 1) {
             currentPlayer = 0;
             lockClicks = false;
             $($("#agent_area").children()[agentsAmount - 1]).css("background-color", "darkgrey");
@@ -90,9 +125,15 @@ $(function () {
             $($("#agent_area").children()[currentPlayer % data.numOfAgents - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
         }
-        agents[currentPlayer]();
+        agents[currentPlayer].PlayTurn();
+        board.turnsArray.push(turn);
+        turn = new Turn(agents[currentPlayer % data.numOfAgents], board);
+        
     }, data.personalTime)
 
+    
+    
+    
     //Initialize board
     document.getElementById("board").innerHTML = CreateBoard(data.numOfCards);
     remainingCards = data.numOfCards * data.numOfCards;
@@ -122,8 +163,11 @@ $(function () {
     }*/
   
     $("button").click(async function () {
+        await sleep(300);
         console.log(currentPlayer);
         if (currentPlayer % agentsAmount != 0 || lockClicks) {
+            if(currentPlayer % agentsAmount === 0)
+                console.log("too much clicks");
             return;
         }
         parent = $(this).parent();
@@ -147,33 +191,35 @@ $(function () {
         if (firstChoise) {
             firstChoise = false;
             choicesIndexes[0] = [p_row, p_col];
-            turn = turn.concat({
+            /*turn = turn.concat({
                 choiseOne:choicesIndexes[0],
                 time: new Date(globalTime.getMinutes(), globalTime.getSeconds())
-            });
+            });*/
+            turn.PickCard(board.boardArray[p_row][p_col]);
+            
         } else {
+            await sleep(300);
             firstChoise = true;
-            choicesIndexes[1] = [p_row, p_col]
+            choicesIndexes[1] = [p_row, p_col];
             IsPair(choicesIndexes);
             //save documentation of the turn with 
-            turn = turn.concat(
+            /*turn = turn.concat(
                 {
                     choiseTow:choicesIndexes[1],
                     time: new Date(globalTime.getMinutes(), globalTime.getSeconds())
                 }
-            );
+            );*/
+            turn.PickCard(board.boardArray[p_row][p_col]);
             alert(choicesIndexes[0], choicesIndexes[1]);
-            if (remainingCards == 0) {
+            if (remainingCards === 0) {
                 document.getElementById("board").innerHTML = "<h1>game over</h1>";
             }
             lockClicks = true; // lock the clicks after second card choise
             firstChoise = true;
             choicesIndexes = {}; // initilize the choices
-            
         }
-        alert(turn);
-        turnsDocumentation.concat(turn);
-        turn = {}; 
+        //alert(turn);
+        turnsDocumentation = turnsDocumentation.concat(turn);
     });
 });
 
@@ -199,9 +245,9 @@ function IsPair(choicesIndexes) {
     if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] == cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
         var table = $("#memoryTable")[0];
         var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
-        $(cell).hide();
+        $(cell).css({'visibility':'hidden'});
         cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]];
-        $(cell).hide();
+        $(cell).css({'visibility':'hidden'});
         remainingCards -= 2;
         totalScore += 1;
         $("#total_score").text(totalScore);
@@ -213,7 +259,7 @@ function IsPair(choicesIndexes) {
             $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
         }*/
         scores["agent"+currentPlayer] +=1;
-        $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer - 1)]);
+        $("#agent"+currentPlayer).find( "#score_text" ).text(scores["agent"+(currentPlayer)]);
     }
 }
 
