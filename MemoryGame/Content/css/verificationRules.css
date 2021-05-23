@@ -3,35 +3,49 @@
     background-size: cover;
 }
 
-
-h2 {
-    text-align: center;
-    color: #002966;
-    font-size: 28px;
-    font-weight: bold;
-    font-family: Georgia;
-    margin-top: 10px;
+.question_container {
+    margin: 10px;
+    padding: 10px;
 }
 
-h3 {
+h4 {
     text-align: center;
     color: #002966;
     font-size: 23px;
     font-weight: bold;
     font-family: Georgia;
     margin-bottom: 40px;
+    margin-top: 20px;
 }
 
-.text_body {
+h5 {
     text-align: center;
-    font-weight: 600;
-    margin-top: 4%;
-    margin-left: 10%;
-    margin-right: 10%;
+    color: #002966;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-.container.Container_Space_Evenly {
-    margin-top: 50px;
+.QAsection {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.question {
+    margin: 5px;
+    font-size: 18px;
+    font-weight: 600
+}
+
+.btn {
+    margin: 7px;
+    box-shadow: grey 5px 5px 5px;
+}
+
+.clickers {
+    text-align: center;
 }
 
 .Green_Button {
@@ -44,7 +58,6 @@ h3 {
     border-radius: 8px;
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
     background-color: #73bf73;
-    margin-right: 20px;
     color: white;
     box-shadow: grey 5px 5px 5px;
 }
@@ -57,18 +70,22 @@ h3 {
         background-color: #79d279;
     }
 
+.failed {
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: beige;
+}
 
 .Red_Button {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
-    border: none;
+    border: 2px ridge black;
     width: 120px;
-    height: 50px;
+    height: 60px;
     border-radius: 8px;
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
     background-color: #ea5353;
-    margin-left: 20px;
     color: white;
     box-shadow: grey 5px 5px 5px;
 }

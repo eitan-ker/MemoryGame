@@ -1,0 +1,28 @@
+﻿body {
+    background-color: aliceblue;
+    background-size: cover;
+}
+
+h4 {
+    text-align: center;
+    color: #002966;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+h5 {
+    text-align: center;
+    color: #002966;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.page_head_line {
+    margin-top: 50px;
+}

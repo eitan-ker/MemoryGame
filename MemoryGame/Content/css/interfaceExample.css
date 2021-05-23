@@ -4,16 +4,6 @@ body {
     background-size: cover;
 }
 
-
-h2 {
-    text-align: center;
-    color: #002966;
-    font-size: 28px;
-    font-weight: bold;
-    font-family: Georgia;
-    margin-top: 10px;
-}
-
 h3 {
     text-align: center;
     color: #002966;
@@ -22,15 +12,6 @@ h3 {
     font-family: Georgia;
     margin-bottom: 40px;
 }
-
-.text_body {
-    text-align: center;
-    font-weight: 600;
-    margin-top: 4%;
-    margin-left: 15%;
-    margin-right: 15%;
-}
-
 
 .Green_Button {
     display: inline-block;
