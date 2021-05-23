@@ -3,15 +3,16 @@
     background-size: cover;
 }
 
-
 h2 {
     text-align: center;
     color: #002966;
     font-size: 28px;
     font-weight: bold;
     font-family: Georgia;
-    margin-top: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
+
 
 h3 {
     text-align: center;
@@ -19,20 +20,35 @@ h3 {
     font-size: 23px;
     font-weight: bold;
     font-family: Georgia;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 
-.text_body {
+h5 {
     text-align: center;
-    font-weight: 600;
-    margin-top: 4%;
-    margin-left: 10%;
-    margin-right: 10%;
+    color: #002966;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-.container.Container_Space_Evenly {
-    margin-top: 50px;
+.QA {
+    margin:30px;
 }
+
+
+.clickers {
+    text-align: center;
+}
+
+
+.failed {
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: beige;
+}
+
 
 .Green_Button {
     display: inline-block;
@@ -44,7 +60,6 @@ h3 {
     border-radius: 8px;
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
     background-color: #73bf73;
-    margin-right: 20px;
     color: white;
     box-shadow: grey 5px 5px 5px;
 }
@@ -57,18 +72,16 @@ h3 {
         background-color: #79d279;
     }
 
-
 .Red_Button {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
-    border: none;
+    border: 2px ridge black;
     width: 120px;
-    height: 50px;
+    height: 60px;
     border-radius: 8px;
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
     background-color: #ea5353;
-    margin-left: 20px;
     color: white;
     box-shadow: grey 5px 5px 5px;
 }

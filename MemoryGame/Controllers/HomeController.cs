@@ -103,10 +103,10 @@ namespace MemoryGame.Controllers
 
         public ActionResult PersonalDetails()
         {
-            if (!Session["last_page"].Equals("VerificationRules"))
+           /* if (!Session["last_page"].Equals("VerificationRules"))
             {
                 return RedirectToAction("ErrorPage");
-            }
+            }*/
 
             Session["last_page"] = "PersonalDetails";
             return View();

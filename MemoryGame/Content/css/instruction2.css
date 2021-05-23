@@ -44,6 +44,7 @@ h3 {
     background-color: #73bf73;
     margin-right: 20px;
     color: white;
+    box-shadow: grey 5px 5px 5px;
 }
 
     .Green_Button:focus {

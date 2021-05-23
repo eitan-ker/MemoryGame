@@ -54,41 +54,42 @@ const continue_btn = document.getElementById('continue-btn');
 
 const questions = [
     {
-        question: 'When will the game end? Choose the most correct answer.',
+        question: 'how many cards there will be from each type?',
         answers: [
-            { text: 'When Bob has solved ' + sessionStorage.getItem('score_target') + ' boards alone', correct: false, index: 0 },
-            { text: 'When I have solved ' + sessionStorage.getItem('score_target') + ' boards alone', correct: false, index: 1},
-            { text: 'When Bob and I have solved ' + sessionStorage.getItem('score_target') + ' boards together', correct: true, index: 2 }
+            { text: '5', correct: false, index: 0 },
+            { text: '3', correct: false, index: 1},
+            { text: '2', correct: true, index: 2 },
+            { text: '1', correct: false, index: 0 }
+
         ]
     },
     {
-        question: 'Are you and Bob competing?',
+        question: 'when other player is playing, can you see his choice?',
         answers: [
-            { text: 'yes', correct: false, index: 0},
-            { text: 'no', correct: true, index: 1},
+            { text: 'No', correct: false, index: 0},
+            { text: 'Yes', correct: true, index: 1},
         ]
     },
     {
-        question: 'What does the counter marked in blue indicate?',
+        question: 'How a player can get extra points?',
         answers: [
-            { text: 'The cumulative time Bob has been solving boards so far', correct: false, index: 0},
-            { text: 'The cumulative time I have been solving boards so far', correct: true , index: 1 },
-            { text: 'The cumulative time I have been solving the current board', correct: false , index: 2 },
+            { text: 'By being pretty', correct: false, index: 0},
+            { text: 'Finding two identical cards', correct: true , index: 1 },
+            { text: 'Bribing Eitan', correct: false , index: 2 },
         ]
     },
     {
-        question: 'What does the counter marked in red indicate?',
+        question: 'What happens after an attempt of picking up 2 identical cards?',
         answers: [
-            { text: 'The time left for me to solve the current board', correct: true, index: 0},
-            { text: 'The time left to the completion of the HIT', correct: false, index: 1},
-            { text: 'The time left for Bob to solve the current board', correct: false, index: 2},
+            { text: 'the turn moves to the next plater', correct: true, index: 0},
+            { text: 'a big light from the sky', correct: false, index: 1},
         ]
     },
     {
-        question: 'What happens if a player (you or Bob) fail to solve the board on time?',
+        question: 'what is your job?',
         answers: [
-            { text: 'A new board will appear for the other player', correct: false, index: 0},
-            { text: 'A new board will appear for this player', correct: true, index: 1}
+            { text: 'find the meaning of life', correct: false, index: 0},
+            { text: 'to get the maximum score possible within th given time', correct: true, index: 1}
         ]
     }
 ]

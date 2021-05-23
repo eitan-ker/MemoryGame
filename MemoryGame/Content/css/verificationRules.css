@@ -59,6 +59,7 @@ h5 {
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
     background-color: #73bf73;
     color: white;
+    box-shadow: grey 5px 5px 5px;
 }
 
     .Green_Button:focus {
@@ -79,13 +80,14 @@ h5 {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
-    border: 3px solid black;
+    border: 2px ridge black;
     width: 120px;
     height: 60px;
     border-radius: 8px;
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
     background-color: #ea5353;
     color: white;
+    box-shadow: grey 5px 5px 5px;
 }
 
     .Red_Button:focus {
