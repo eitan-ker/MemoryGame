@@ -40,8 +40,8 @@ h5 {
 }
 
 .btn {
-    margin: 5px;
-
+    margin: 7px;
+    box-shadow: grey 5px 5px 5px;
 }
 
 .clickers {

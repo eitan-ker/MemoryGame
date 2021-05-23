@@ -545,7 +545,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54650</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44392/MemoryGame/</IISUrl>
+          <IISUrl>https://localhost:44393/MemoryGame/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
