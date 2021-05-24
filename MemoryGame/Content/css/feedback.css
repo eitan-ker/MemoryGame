@@ -26,3 +26,54 @@ h5 {
 .page_head_line {
     margin-top: 50px;
 }
+
+.QA {
+    margin: 50px;
+}
+
+.likert {
+    height:180px
+}
+
+.likert_opt {
+    height: 160px;
+    width:60px;
+    vertical-align: text-top;
+    margin-top:10px;
+    margin-right:10px;
+    margin-left:10px;
+}
+
+.text_input {
+    width: 800px;
+    height: 100px;
+    text-align: center;
+
+    
+}
+
+.clickers {
+    text-align: center;
+}
+
+.Green_Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #73bf73;
+    color: white;
+    box-shadow: grey 5px 5px 5px;
+}
+
+    .Green_Button:focus {
+        outline: none;
+    }
+
+    .Green_Button:hover {
+        background-color: #79d279;
+    }
