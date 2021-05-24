@@ -1,12 +1,12 @@
 ﻿var query;
 var cow = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 var dog = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
-var cards = [[cow, dog], [cow, dog]];
-var cardsNames = [["cow", "dog"], ["cow", "dog"]];
+var cards; //= [[cow, dog], [cow, dog]];
+var cardsNames;// = [["cow", "dog"], ["cow", "dog"]];
 var firstChoise = true;
 var choicesIndexes = {};
 var turnsDocumentation = [];
-var turn;
+
 var agents = [];
 var remainingCards;
 var size;
@@ -19,9 +19,11 @@ var scores = {
 var globalTime = new Date(0);
 var firstRound = true;
 var lockClicks;
+var works;
 var crads_dict = {};
 var data = {};
 var board = new Board([2,2], [new Card([0,0], "cow"),new Card([0,1], "dog"),new Card([1,0], "cow"),new Card([1,1], "dog")]);
+var turn = new Turn(agents[0], board);
 crads_dict["cow"] = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 crads_dict["dog"] = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
 $(function () {
@@ -30,8 +32,8 @@ $(function () {
     data = {
         overallTime: "",// times in milliseconds
         personalTime: 8000,
-        numOfCards: 20,
-        numOfAgents: 4
+        numOfCards: [5,4],
+        numOfAgents: 2
     };
     /*function GetData(){
         return $.get("/MemoryGame/Data/GetInitData", function(initData, status){
@@ -44,7 +46,9 @@ $(function () {
                 numOfAgents: parseInt(json.num_of_agents)
             };
             alert("agents: " + data+ "\nStatus: " + status);
+            works = true;
             return data1;
+            
         });
     }
     data = GetData();
@@ -53,7 +57,7 @@ $(function () {
     for(let i = 0; i < data.numOfAgents; i++){
         agents.push(new Agent1(function (){}, i));
     }
-    agents[0].SetHandler(
+    /*agents[0].SetHandler(
         function (){
         data.personalTime = 10000;
         console.log("new time is 10000");
@@ -62,27 +66,14 @@ $(function () {
         function (){
             data.personalTime = 30;
             console.log("new time is 300");
-        })
-    /*
-    agents = [
-        function () { 
-            //console.log("player");
-            //$($( "#agent_area" ).children()[0]).css("background-color", "yellow"); 
-    }, 
-        function () { 
-            //console.log("agent1");
-            //$($( "#agent_area" ).children()[0]).css("background-color", "darkgrey");
-            //$($( "#agent_area" ).children()[1]).css("background-color", "yellow");
-    },
-    function () { //console.log("agent2"); 
-         }
-         , function () { //console.log("agent3"); 
-    }]
-    */
+        })*/
+    
     agentsAmount = data.numOfAgents;
     
-    cards = getCards(data.numOfCards, 4);
-    cardNames = cards;
+    
+    cardNames = getCards(10, 4);
+    
+    board = new Board([data.numOfCards[0], data.numOfCards[1]], cardNames)
     
     agentsAmount = data.numOfAgents;
     
@@ -99,6 +90,7 @@ $(function () {
             $($("#agent_area").children()[0]).css("background-color", "red");
             lockClicks = false;
             firstRound = false;
+            firstChoise = true;
             agents[0].PlayTurn();
             board.turnsArray.push(turn);
             turn = new Turn(agents[1], board);
@@ -108,12 +100,13 @@ $(function () {
         if (currentPlayer === agentsAmount - 1) {
             currentPlayer = 0;
             lockClicks = false;
+            firstChoise = true;
             $($("#agent_area").children()[agentsAmount - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "red");
         } else {
             currentPlayer += 1;
             lockClicks = true;
-            firstChoise = true;
+            //firstChoise = true;
             choicesIndexes = {};
             $($("#agent_area").children()[currentPlayer % data.numOfAgents - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "yellow");
@@ -125,8 +118,8 @@ $(function () {
     }, data.personalTime)
 
     //Initialize board
-    document.getElementById("board").innerHTML = CreateBoard(4,data.numOfCards/4);
-    remainingCards = data.numOfCards * data.numOfCards;
+    document.getElementById("board").innerHTML = CreateBoard(data.numOfCards[0], data.numOfCards[1]);
+    remainingCards = data.numOfCards[0][1];
     
     //Initialize agents area with desired num of agents
     let player = document.getElementsByClassName("player")[0];
@@ -151,61 +144,55 @@ $(function () {
             $("#total_score").text(score);
         }
     }*/
+    
   
     $("button").click(async function () {
-        await sleep(300);
+        /*if(firstChoise===false) {
+            lockClicks = true;
+        }*/
+        //await sleep(300);
         console.log(currentPlayer);
-        if (currentPlayer % agentsAmount != 0 || lockClicks) {
+        if (currentPlayer % agentsAmount !== 0 || lockClicks) {
             if(currentPlayer % agentsAmount === 0)
                 console.log("too much clicks");
             return;
         }
+        
         parent = $(this).parent();
         var p_row = parent.attr("ws-Row");
         var p_col = parent.attr("ws-Column");
-
         let img = document.createElement('img');
         img.id = "cardId";
-        img.src = "/MemoryGame/resources/Card_photos/"+cards[parseInt(p_row)][parseInt(p_col)]+".jpeg";
+        //img.src = "/MemoryGame/resources/Card_photos/"+cards[parseInt(p_row)][parseInt(p_col)]+".jpeg";
+        img.src = "/MemoryGame/resources/Card_photos/"+board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
         img.alt = "cow";
         img.width = 70;
         img.height = 70;
-        
-        //$(this).css("background-color", "yellow")
-        //var imageUrl = cards[parseInt(p_row)][parseInt(p_col)];
-        //$(this).css({ "background-image": "url(" + imageUrl + ")", "background - position": "center", "background - repeat": "no - repeat", "background - size": "auto" });
+        lockClicks = true;
         $(this).append(img);
-        await sleep(3000);
+        await sleep(data.personalTime / 3);
+        lockClicks = false;
         $(img).fadeOut();
-        //$(this).css("background-color", "cadetblue")
         if (firstChoise) {
             firstChoise = false;
             choicesIndexes[0] = [p_row, p_col];
-            /*turn = turn.concat({
-                choiseOne:choicesIndexes[0],
-                time: new Date(globalTime.getMinutes(), globalTime.getSeconds())
-            });*/
             turn.PickCard(board.boardArray[p_row][p_col]);
             
         } else {
+            lockClicks = true; // lock the clicks after second card choise
             await sleep(300);
-            firstChoise = true;
+            //firstChoise = true;
             choicesIndexes[1] = [p_row, p_col];
             IsPair(choicesIndexes);
             //save documentation of the turn with 
-            /*turn = turn.concat(
-                {
-                    choiseTow:choicesIndexes[1],
-                    time: new Date(globalTime.getMinutes(), globalTime.getSeconds())
-                }
-            );*/
+            
             turn.PickCard(board.boardArray[p_row][p_col]);
-            alert(choicesIndexes[0], choicesIndexes[1]);
+            //alert(choicesIndexes[0].concat( choicesIndexes[1]));
             if (remainingCards === 0) {
                 document.getElementById("board").innerHTML = "<h1>game over</h1>";
             }
-            lockClicks = true; // lock the clicks after second card choise
-            firstChoise = true;
+            
+            //firstChoise = true;
             choicesIndexes = {}; // initilize the choices
             
         }
@@ -233,7 +220,10 @@ function CreateBoard(row, column) {
 }
 
 function IsPair(choicesIndexes) {
-    if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] == cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
+    //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
+    if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
+    && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
+        console.log([choicesIndexes[0][0],choicesIndexes[0][1]]+","+[choicesIndexes[1][0],choicesIndexes[1][1]]);
         var table = $("#memoryTable")[0];
         var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
         $(cell).css({'visibility':'hidden'});
@@ -254,7 +244,7 @@ function IsPair(choicesIndexes) {
     }
 }
 
-function getCards(num,rowsize) {
+function getCards(num, rowsize) {
     // array of all the cards that we have in resources/Card_photos
     var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
     var choosen_card = [];

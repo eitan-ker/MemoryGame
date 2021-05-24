@@ -52,7 +52,7 @@ class Board{
                 /*if(j === 0) {
                     this.boardArray[i] = cards[i * (size[1] - 1) + j];
                 }else {*/
-                this.boardArray[i].push(cards[i * (size[1] - 1) + j]);
+                this.boardArray[i].push(new Card([i,j],cards[i][j]));//cards[i * (size[1] - 1) + j]));
                 //}
             } 
         }
