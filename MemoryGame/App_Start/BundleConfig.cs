@@ -25,6 +25,8 @@ namespace MemoryGame
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/Scripts/JS/Game1.js").Include("~/Scripts/JS/Game1.js"));
+            //bundles.Add(new ScriptBundle("~/Scripts/JS/Game1.js"));
         }
     }
 }

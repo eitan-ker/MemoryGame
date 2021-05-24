@@ -15,9 +15,15 @@ function get_agents(num, handler) {
 // output = {indexs:[i,j], time: 10}//
 
 class Agent1 {
-    constructor(handler,index) {
+    constructor(handler, index) {
         this.handler = handler;
         this.index = index;
+    }
+    PlayTurn(){
+        this.handler();
+    }
+    SetHandler(newHandler){
+        this.handler = newHandler;
     }
     choose_random() {
         let board = this.handler.get_all_card();
