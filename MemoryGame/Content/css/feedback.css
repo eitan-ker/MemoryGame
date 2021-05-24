@@ -29,6 +29,9 @@ h5 {
 
 .QA {
     margin: 50px;
+    border: 2px solid black;
+    background-color: rgb(51 82 134 / 55%);
+    border-radius: 8px;
 }
 
 .likert {
