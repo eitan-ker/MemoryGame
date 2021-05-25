@@ -12,17 +12,17 @@
 h4 {
     text-align: center;
     color: #002966;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: bold;
     font-family: Georgia;
-    margin-bottom: 40px;
-    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-top: 40px;
 }
 
 h5 {
     text-align: center;
     color: #002966;
-    font-size: 23px;
+    font-size: 18px;
     font-weight: bold;
     font-family: Georgia;
     margin-bottom: 10px;
@@ -32,17 +32,24 @@ h5 {
 .QAsection {
     margin-top: 2%;
     margin-bottom: 2%;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: rgb(51 82 134 / 55%);
+
+    padding: 1%;
 }
 
 .question {
     margin: 5px;
     font-size: 18px;
-    font-weight: 600
+    font-weight: bold;
+    font-family: Georgia;
 }
 
 .btn {
-    margin: 7px;
-    box-shadow: grey 5px 5px 5px;
+    margin: 8px;
+    box-shadow: black 5px 5px 10px;
 }
 
 .clickers {

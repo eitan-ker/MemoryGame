@@ -158,7 +158,7 @@ function startQuiz() {
             button.classList.add('btn')
 
             button.setAttribute("id", String(answerCounter));
-            button.setAttribute("style", "color: rgb(255 255 255); border: none; background-color: rgb(136 171 243); font-weight: 600;");
+            button.setAttribute("style", "color: rgb(255 255 255); background-color: rgb(33 55 128 / 90%); font-weight: 600;");
 
             if (answer.correct) {
                 button.dataset.correct = answer.correct
@@ -330,13 +330,11 @@ function anotherTry() {
 
 function clearAllMarks() {
     for (i = 0; i < answerId.length; i++) {
-        document.getElementById(correctAnswersId[i]).style.border = "none";
-        document.getElementById(correctAnswersId[i]).style.backgroundColor = "rgb(136 171 243)";
+        document.getElementById(correctAnswersId[i]).style.backgroundColor = "rgb(33 55 128 / 90%)";
         document.getElementById(correctAnswersId[i]).style.fontWeight = "normal";
 
         if (indexOfAnswer[i] != -1 && answerId[i] != correctAnswersId[i]) {
-            document.getElementById(answerId[i]).style.border = "none";
-            document.getElementById(answerId[i]).style.backgroundColor = "rgb(136 171 243)";
+            document.getElementById(answerId[i]).style.backgroundColor = "rgb(33 55 128 / 90%)";
             document.getElementById(answerId[i]).style.fontWeight = "normal";
         }
     }
