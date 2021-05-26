@@ -12,7 +12,7 @@
 h4 {
     text-align: center;
     color: #002966;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     font-family: Georgia;
     margin-bottom: 20px;
@@ -22,7 +22,7 @@ h4 {
 h5 {
     text-align: center;
     color: #002966;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     font-family: Georgia;
     margin-bottom: 10px;
@@ -35,14 +35,13 @@ h5 {
     text-align: center;
     border: 2px solid black;
     border-radius: 8px;
-    background-color: rgb(51 82 134 / 55%);
-
+    background-color: rgb(164 179 241 / 55%);
     padding: 1%;
 }
 
 .question {
     margin: 5px;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     font-family: Georgia;
 }
