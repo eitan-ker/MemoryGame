@@ -35,7 +35,11 @@ h5 {
 .QA {
     margin:30px;
 }
-
+.Input {
+    width: 20%;
+    height: 50px;
+    text-align: center;
+}
 
 .clickers {
     text-align: center;
