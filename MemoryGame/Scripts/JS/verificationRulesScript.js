@@ -232,7 +232,6 @@ function clearStatusClass(element) {
 }
 
 function nextPage(e) {
-    console.log("cotinue")
     var i
     var counter = 0
     for (i = 0; i < numOfquestions; i++) {
@@ -263,7 +262,8 @@ function nextPage(e) {
     } else {
         markAnswersRedGreen();
         disableAllButtons()
-        show_and_hide();
+        show_and_hide('failed');
+        show_and_hide('continue-btn');
         //error page
         if (iter == 3) {
             let dataOfVer = {Questions: questions, AttempsInfo: attempsInfo, NumOfTries: iter };
@@ -302,10 +302,11 @@ function markAnswersRedGreen() {
     }
 }
 
-function show_and_hide() {
-    var click = document.getElementById("failed");
+function show_and_hide(str) {
+    console.log(str)
+    var click = document.getElementById(str);
     if (click.style.display === "none") {
-        click.style.display = "block";
+        click.style.display = "inline-block";
     } else {
         click.style.display = "none";
     }
@@ -322,7 +323,8 @@ function disableAllButtons() {
 }
 
 function anotherTry() {
-    show_and_hide();
+    show_and_hide('failed');
+    show_and_hide('continue-btn')
     anableAllButton();
     clearAllMarks();
     restartArrays();

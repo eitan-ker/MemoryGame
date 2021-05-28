@@ -46,6 +46,8 @@ h5 {
     border: 2px solid black;
     border-radius: 8px;
     background-color: beige;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 

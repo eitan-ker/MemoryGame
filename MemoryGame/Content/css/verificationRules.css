@@ -81,6 +81,8 @@ h5 {
     border: 2px solid black;
     border-radius: 8px;
     background-color: beige;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 .Red_Button {
