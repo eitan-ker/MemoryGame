@@ -24,6 +24,8 @@ var crads_dict = {};
 var data = {};
 var board = new Board([2,2], [new Card([0,0], "cow"),new Card([0,1], "dog"),new Card([1,0], "cow"),new Card([1,1], "dog")]);
 var turn = new Turn(agents[0], board);
+var img = [];
+var card_num = 0;
 crads_dict["cow"] = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 crads_dict["dog"] = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
 $(function () {
@@ -52,6 +54,7 @@ $(function () {
         });
     }
     data = GetData();
+    
     alert(data.numOfAgents);*/
     
     for(let i = 0; i < data.numOfAgents; i++){
@@ -101,6 +104,7 @@ $(function () {
             currentPlayer = 0;
             lockClicks = false;
             firstChoise = true;
+            card_num = 0;
             $($("#agent_area").children()[agentsAmount - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % data.numOfAgents]).css("background-color", "red");
         } else {
@@ -151,8 +155,9 @@ $(function () {
             lockClicks = true;
         }*/
         //await sleep(300);
+        
         console.log(currentPlayer);
-        if (currentPlayer % agentsAmount !== 0 || lockClicks) {
+        if (currentPlayer % agentsAmount !== 0 || lockClicks || card_num > 1) {
             if(currentPlayer % agentsAmount === 0)
                 console.log("too much clicks");
             return;
@@ -161,18 +166,17 @@ $(function () {
         parent = $(this).parent();
         var p_row = parent.attr("ws-Row");
         var p_col = parent.attr("ws-Column");
-        let img = document.createElement('img');
-        img.id = "cardId";
-        //img.src = "/MemoryGame/resources/Card_photos/"+cards[parseInt(p_row)][parseInt(p_col)]+".jpeg";
-        img.src = "/MemoryGame/resources/Card_photos/"+board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
-        img.alt = "cow";
-        img.width = 70;
-        img.height = 70;
-        lockClicks = true;
-        $(this).append(img);
-        await sleep(data.personalTime / 3);
-        lockClicks = false;
-        $(img).fadeOut();
+        img[card_num] = document.createElement('img');
+        img[card_num].id = "cardId";
+        img[card_num].src = "/MemoryGame/resources/Card_photos/"+board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
+        img[card_num].alt = "cow";
+        img[card_num].width = 70;
+        img[card_num].height = 70;
+        $(this).append(img[card_num]);
+        card_num = card_num + 1;
+        //await sleep(data.personalTime / 3);
+        //lockClicks = false;
+        //$(img).fadeOut();
         if (firstChoise) {
             firstChoise = false;
             choicesIndexes[0] = [p_row, p_col];
@@ -180,7 +184,7 @@ $(function () {
             
         } else {
             lockClicks = true; // lock the clicks after second card choise
-            await sleep(300);
+            
             //firstChoise = true;
             choicesIndexes[1] = [p_row, p_col];
             IsPair(choicesIndexes);
@@ -194,10 +198,15 @@ $(function () {
             
             //firstChoise = true;
             choicesIndexes = {}; // initilize the choices
-            
+            await sleep(1000);
+            for(image of img){
+                
+                $(image).fadeOut();
+            }
         }
         //alert(turn);
         turnsDocumentation = turnsDocumentation.concat(turn);
+        
     });
 });
 
