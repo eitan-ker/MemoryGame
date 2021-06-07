@@ -161,13 +161,13 @@ function generatePage() {
 function scaleBuilder(questionType, counter) {
     scaleSize = questionType.maxRangeValue - questionType.minRangeValue + 1;
     var i = 0;
-    let html = '<div class= "QA"><div class="question"><h4>' + questionType.question + '</h4></div>';
+    let html = '<div class= "QA"><div class="question"><h5>' + questionType.question + '</h5></div>';
     html += '<div class="likert" style="display: flex; justify-content: space-around; align-items: center; ">';
     for (i = 0; i < scaleSize; i++) {
         var scaleId = String(counter) + 'rd' + String(i);
         html += '<div  class="likert_opt" onclick="scaleClicker(\'' + String(scaleId) + '\', ' + String(counter) + ')">';
         html += '<div class="single_likert"><input  id="' + String(scaleId) + '" name="grp' + counter + '" type="radio" value="' + String(i) + '"></div>';
-        html += '<div class="likert_num"><h4>' + String(i) + '</h4></div>';
+        html += '<div class="likert_num"><h5>' + String(i) + '</h5></div>';
         if (i == 0) {
             html += '<div class="dislike"><li> Not at all </li></div>';
         } else if (i == scaleSize - 1) {
@@ -202,8 +202,8 @@ function scaleClicker(option, typeCounter) {
 } */
 
 function dropDownBuilder(questionType, counter) {
-    let html = '<div class= "QA"><div style="color: #000080;">'; 
-    html += '<h4>' + questionType.question+'</h4>';
+    let html = '<div class= "QA"><div>'; 
+    html += '<h5>' + questionType.question+'</h5>';
     html += '<div class="dropdown">';
     html += '<select id="dropdown' + counter + '" class="btn-default dropdown-toggle">';
     html += '<option value="">-- Select one --</option>'
@@ -218,8 +218,8 @@ function dropDownBuilder(questionType, counter) {
 
 
 function textBoxBuilder(questionType, counter) {
-    let html = ' <div class= "QA"><div class="question"><h4>' + questionType.question + '</h4></div >' ;
-    html += '<div><textarea class="text_input" id = "textBox rows="5" cols="33"' + String(counter) +'" placeholder = "Answer here"></textarea></div></div>';
+    let html = ' <div class= "QA"><div class="question"><h5>' + questionType.question + '</h5></div >' ;
+    html += '<div><textarea class="text_input"  id = "textBox' + String(counter) +'" placeholder = "Answer here"></textarea></div></div>';
     return html;
 }
 

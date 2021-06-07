@@ -8,35 +8,9 @@ p {
 
     text-align: center;
     color: #002966;
-    font-size: 23px;
+    font-size: 22px;
     font-weight: bold;
     font-family: Georgia;
     margin-bottom: 40px;
     margin-top: 40px;
 }
-
-.clickers {
-    text-align: center;
-}
-
-.Green_Button {
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    border: none;
-    width: 120px;
-    height: 50px;
-    border-radius: 8px;
-    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
-    background-color: #73bf73;
-    color: white;
-    box-shadow: grey 5px 5px 5px;
-}
-
-    .Green_Button:focus {
-        outline: none;
-    }
-
-    .Green_Button:hover {
-        background-color: #79d279;
-    }

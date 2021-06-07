@@ -114,10 +114,10 @@ namespace MemoryGame.Controllers
 
         public ActionResult VerificationRules()
         {
-            if (!Session["last_page"].Equals("interfaceExample"))
+          /*  if (!Session["last_page"].Equals("interfaceExample"))
             {
                 return RedirectToAction("ErrorPage");
-            }
+            }*/
 
             Session["last_page"] = "VerificationRules";
             return View();

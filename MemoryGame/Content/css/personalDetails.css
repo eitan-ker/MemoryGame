@@ -16,8 +16,7 @@ h2 {
 
 h3 {
     text-align: center;
-    color: #002966;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: bold;
     font-family: Georgia;
     margin-bottom: 10px;
@@ -25,7 +24,6 @@ h3 {
 
 h5 {
     text-align: center;
-    color: #002966;
     font-size: 18px;
     font-weight: bold;
     font-family: Georgia;
@@ -33,10 +31,15 @@ h5 {
     margin-top: 10px;
 }
 
+
 .QA {
     margin:30px;
 }
-
+.Input {
+    width: 20%;
+    height: 50px;
+    text-align: center;
+}
 
 .clickers {
     text-align: center;
@@ -47,6 +50,8 @@ h5 {
     border: 2px solid black;
     border-radius: 8px;
     background-color: beige;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 

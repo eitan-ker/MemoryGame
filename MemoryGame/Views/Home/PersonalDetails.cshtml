@@ -11,14 +11,14 @@
     <div style="text-align: center;" >
         <h2> Personal Details </h2>
         <div class="QA">
-            <div style="color: #000080;">
+            <div>
                 <h3>Age</h3>
                 <input type="number" class="Input" id="age_id" min="18" max="120">
             </div>
         </div>
 
         <div class="QA">
-            <div style="color: #000080;">
+            <div>
                 <h3>Gender</h3>
                 <div class="dropdown">
                     <select id="gender_id" class="btn-default dropdown-toggle">
@@ -32,7 +32,7 @@
         </div>
 
         <div class="QA">
-            <div style="color: #000080;">
+            <div>
                 <h3>Country</h3>
                 <div class="dropdown">
                     <select id="country_id" class="btn-default dropdown-toggle">
@@ -291,7 +291,7 @@
         </div>
 
         <div class="QA">
-            <div style="color: #000080;">
+            <div>
                 <h3>Education</h3>
                 <dropdown class="dropdown">
                     <select id="education_id" class="btn-default dropdown-toggle">
@@ -312,14 +312,14 @@
 
 
         <div class="QA">
-            <p style="text-align:center;">
+            <p>
                 <img src="~/Resources/images/human.png" height="150">
             </p>
 
             <h3> Please confirm that you are not a robot by answering the following questions. </h3>
 
             <h5>What is written below? (case-sensitive. No spaces needed)</h5>
-            <input type="text" class="Input" id="cap_id" />
+            <textarea type="text" class="Input" id="cap_id" placeholder = "Answer here"></textarea>
 
             <p style="text-align:center;">
                 <img src="~/Resources/images/capatche.png" height="80">
@@ -327,10 +327,10 @@
 
 
             <h5>How many minutes are there in three hours?</h5>
-            <input type="text" class="Input" id="minutes_id" />
+            <textarea type="text" class="Input" id="minutes_id" placeholder = "Answer here"></textarea>
         </div>
         
-        <div class="clickers" style="text-align:center">
+        <div class="clickers">
             <div class="failed" style="display:none;" id="failed">
                 <h5 id="errorText"></h5>
                 <button id="failed_button" onclick="anotherTry();" class="Red_Button">Please try again</button>
@@ -338,7 +338,7 @@
 
             </div>
 
-            <button type="submit" class="Green_Button" name="personalInfo" id="cont_str_info_id" onclick="SubmitAnswers(); return false;">Continue</button>
+            <button type="submit" class="Green_Button" name="personalInfo" style="display:inline-block;" id="cont_str_info_id" onclick="SubmitAnswers(); return false;">Continue</button>
         </div>
 
     </div>
