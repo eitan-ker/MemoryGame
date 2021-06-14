@@ -25,6 +25,20 @@ $(function () {
             alert(errMsg);
         }
     });
+    $.ajax({
+        type: "GET",
+        dataType: 'json',
+        url: "/MemoryGame/Data/GetInitData",
+        // The key needs to match your method's input parameter (case-sensitive).
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            sessionStorage.setItem('configurationData', data);
+            console.log(data)
+        },
+        error: function (errMsg) {
+            alert(errMsg);
+        }
+    });
     sessionStorage.setItem('currentPage', "InstructionsTwo");
     startTime = MyGetTime()
     window.onbeforeunload = function () {

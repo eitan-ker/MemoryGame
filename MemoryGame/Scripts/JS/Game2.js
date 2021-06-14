@@ -8,13 +8,15 @@ $(function () {
         fontSize: 40,
         'margin-top': ($("#board_info").height() - $("#board_info").find("p").height()) / 2
     });
+    data = sessionStorage.getItem('configurationData')
+
     //assume we've got data object from GET
-    data = {
+   /* data = {
         overallTime: "",// times in milliseconds
         personalTime: 8000,
         numOfCards: [5, 2],
         numOfAgents: 2
-    };
+    };*/
     agentsAmount = data.numOfAgents;
     gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime);
     let player = new Agent1(()=>{
@@ -81,3 +83,4 @@ $(function () {
     gameManager.agents[0] = player;
     turn = new Turn(gameManager.agents[0], gameManager.board, gameManager);
 });
+

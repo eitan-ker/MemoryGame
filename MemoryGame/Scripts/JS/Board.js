@@ -1,18 +1,27 @@
 ﻿
 class Card{
+    #secondHalf
     constructor(index, name) {
         this.index = index;
         this.name = name;
+        this.found = false;
+        this.turns = [];
     }
     SetSecondHalf(secondHalf) {
-        this.secondHalf = secondHalf;
+        this.#secondHalf = secondHalf;
+    }
+    isUp() {
+        return this.found;
+    }
+    getExposedTurn() {
+        return this.turns;
     }
     GetSecondHalf() {
-        if(typeof this.secondHalf === 'undefined'){
+        if(typeof this.#secondHalf === 'undefined'){
             // this statement will not execute
             throw "second half isn't defined";
         }
-        return this.secondHalf;
+        return this.#secondHalf;
     }
 }
 
@@ -27,18 +36,54 @@ class Board{
         }
         this.size = size;
         this.boardArray = [];
-        this.boardDict = {};
         for(let i = 0; i < size[0]; i++){
             this.boardArray.push([]);
             for (let j = 0; j < size[1]; j++) {
                 this.boardArray[i].push(new Card([i,j],cards[i][j]));
             } 
         }
+        this.livedCards = this.boardArray;
+        this.exposedCards = [];
         this.globalTime = new Date(0);
         this.turnsArray = [];
-
         
     }
+    getBoardDimensins(){
+        return this.size;
+    }
+    getLiveCards() {
+        return this.livedCards;
+    }
+    getNumOfCardOnBoard(){
+        return this.livedCards.length;
+    }
+    getAllPairExposed(){
+        let answer = [];
+        let indexArray = [];
+        for (let i = 0; i < this.exposedCards.length; i++) {
+            for (let j = i + 1; j < this.exposedCards.length; j++) {
+                // check if the cards is a pair
+                if (this.exposedCards[i].name == this.exposedCards[j].name) {
+                    let flag = 1;
+                    // check if we alrady insert those cards to the answer
+                    for (let k = 0; k < indexArray.length; k++) {
+                        if (indexArray[k] == i) {
+                            flag = 0;
+                            break;
+                        }
+                    }
+                    // if we didn't insert already the cards to the answer so add it now
+                    if (flag) {
+                        indexArray.push(i);
+                        indexArray.push(j);
+                        answer.push([this.exposedCards[i], this.exposedCards[j]]);
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+
     
     GetBoard(){
         return this;
@@ -47,8 +92,8 @@ class Board{
     GetCard(row, col) {
         return this.boardArray[row][col];
     }
-    GetTime(){
-        return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
+    GetTime() {
+        return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
     }
 
 }

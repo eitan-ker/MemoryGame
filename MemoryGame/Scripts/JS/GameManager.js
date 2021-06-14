@@ -17,7 +17,9 @@ class GameManager{
         this.img = [];
         this.card_num = 0;
         this.turnsArray = [];
-        this.agents = []
+        this.agents = [];
+        this.currentTurn = 0;
+        this.personalTime = personalTime;
         this.choicesIndexes = {};
         this.globalTime = new Date(0);
         
@@ -56,8 +58,7 @@ class GameManager{
             }
         } 
     }
-    
-    
+
     Intervals(numOfAgents, personalTime,globalTime, agents, turnsArray, turn, board){
         //sets the global time of the game.
         setInterval(function () {
@@ -156,7 +157,7 @@ class GameManager{
 
     CreateAgents(numOfAgents){
         for(let i = 0; i < numOfAgents; i++){
-            this.agents.push(new Agent1(function (){}, i));
+            this.agents.push(new Agent1(function (){}, "agent "+i));
         }
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
@@ -166,7 +167,7 @@ class GameManager{
             player.setAttribute("id", "agent" + i);
             $(player).find( "h4" ).text("agent " + (i + 1));
             document.getElementById("agent_area").appendChild(player);
-            this.scores["agent" + (i + 1)] = 0;
+            this.scores["agent " + (i + 1)] = 0;
         }
     }
 
@@ -251,5 +252,54 @@ class GameManager{
         }
         // return the array with names for the cards.
         return names_array;
+    }
+    getAgents(){
+        let answer = [];
+        for (let i = 0; i < this.agents.length; i++) {
+            answer.push(this.agents[i].name);
+        }
+        return answer;
+    }
+    getAllTurns(){
+        return this.turnsArray;
+    }
+    getScorePerAgent(nameOfAgent){
+        if (nameOfAgent == "player") {
+            return this.scores["agent0"];
+        }
+        if (this.scores[nameOfAgent] != null) {
+            return this.scores[nameOfAgent];
+        }
+    }
+    getAllTimeTurnsPerAgent(nameOfAgent) {
+        for (let i = 0; i < this.agents.length; i++) {
+            if (this.agents[i].name == nameOfAgent) {
+                return this.agents[i].getAllTimeTurnsPerAgent();
+            }
+        }
+    }
+    getBoardDimensins() {
+        return this.board.getBoardDimensins();
+    }
+    getLiveCards() {
+        return this.board.getLiveCards();
+    }
+    getNumOfCardOnBoard() {
+        return this.board.getNumOfCardOnBoard;
+    }
+    getAllPairExposed() {
+        return this.board.getAllPairExposed();
+    }
+    getSecondHalf(row, col) {
+
+    }
+    pickCard(row, col) {
+
+    }
+    getCard(row, col) {
+
+    }
+    getHint() {
+
     }
 }
