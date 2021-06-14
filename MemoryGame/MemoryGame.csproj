@@ -391,6 +391,8 @@
     <Content Include="Scripts\JS\Feedback.js" />
     <Content Include="Scripts\JS\Game.js" />
     <Content Include="Scripts\JS\Game1.js" />
+    <Content Include="Scripts\JS\Game2.js" />
+    <Content Include="Scripts\JS\GameManager.js" />
     <Content Include="Scripts\JS\InstructionsOne.js" />
     <Content Include="Scripts\JS\InstructionsTwo.js" />
     <Content Include="Scripts\JS\InterfaceExample.js" />

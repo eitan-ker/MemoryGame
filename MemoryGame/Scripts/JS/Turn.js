@@ -1,4 +1,4 @@
-﻿class Turn{
+﻿class Turn {
     constructor(agent, board) {
         this.clicks = 0;
         this.time = board.GetTime();
@@ -22,5 +22,4 @@
         this.choosenCards.push({"card":card, "time": new Date(this.time.getMinutes(), this.time.getSeconds(), this.time.getMilliseconds())});
         this.clicks++;
     }
-    
-    }
+}

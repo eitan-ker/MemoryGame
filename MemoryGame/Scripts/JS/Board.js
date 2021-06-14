@@ -1,37 +1,19 @@
-﻿class CardsDict{
-    constructor() {
-        this.dict = {};
-    }
-    getDict(){
-        return this;
-    }
-}
-
+﻿
 class Card{
-   /* constructor(index, name) {
-        this.index = index;
-        this.name = name;
-    }*/
     constructor(index, name) {
         this.index = index;
         this.name = name;
-        /*
-        object which holds information on the board
-        the idea is to make the card aware to the board current state..        
-        * */ 
-        //this.cardsDict = cardsDict;
     }
-    
-    SetDict(cardsDict) {
-        this.cardsDict = cardsDict;
+    SetSecondHalf(secondHalf) {
+        this.secondHalf = secondHalf;
     }
-    
-   /* getSecondHalf(){
-        if(this.cardsDict.getDict()[this.name][0] === this.index){
-            return this.cardsDict.getDict()[this.name][0];
+    GetSecondHalf() {
+        if(typeof this.secondHalf === 'undefined'){
+            // this statement will not execute
+            throw "second half isn't defined";
         }
-        return this.cardsDict.getDict()[this.name][1];
-    }*/
+        return this.secondHalf;
+    }
 }
 
 /*
@@ -49,15 +31,13 @@ class Board{
         for(let i = 0; i < size[0]; i++){
             this.boardArray.push([]);
             for (let j = 0; j < size[1]; j++) {
-                /*if(j === 0) {
-                    this.boardArray[i] = cards[i * (size[1] - 1) + j];
-                }else {*/
-                this.boardArray[i].push(new Card([i,j],cards[i][j]));//cards[i * (size[1] - 1) + j]));
-                //}
+                this.boardArray[i].push(new Card([i,j],cards[i][j]));
             } 
         }
         this.globalTime = new Date(0);
         this.turnsArray = [];
+
+        
     }
     
     GetBoard(){
@@ -70,6 +50,6 @@ class Board{
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
     }
+
 }
 
-//module.exports = { Board, Card, CardsDict }

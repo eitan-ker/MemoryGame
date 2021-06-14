@@ -29,12 +29,13 @@ var card_num = 0;
 crads_dict["cow"] = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 crads_dict["dog"] = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
 $(function () {
-
+    $("#board_info").append( "<p>Loading</p>" );
+    $("#board_info").find("p").css({fontSize:40, 'margin-top': ($("#board_info").height() - $("#board_info").find("p").height()) / 2});
     //assume we've got data object from GET
     data = {
         overallTime: "",// times in milliseconds
         personalTime: 8000,
-        numOfCards: [5,4],
+        numOfCards: [5,2],
         numOfAgents: 2
     };
     /*function GetData(){
@@ -71,10 +72,9 @@ $(function () {
             console.log("new time is 300");
         })*/
     
-    agentsAmount = data.numOfAgents;
+      
     
-    
-    cardNames = getCards(10, 4);
+    cardNames = getCards(data.numOfCards[0] * data.numOfCards[1], 4);
     
     board = new Board([data.numOfCards[0], data.numOfCards[1]], cardNames)
     
@@ -86,10 +86,11 @@ $(function () {
         document.getElementById("total_time_text").innerHTML = globalTime.toLocaleTimeString();
     }, 1000);
 
-    //set interval to change turns between players
+    // set interval to change turns between players
     
     setInterval(function () {
         if(firstRound === true) {
+            $($( "#board_info" ).find( "p" )).fadeOut();
             $($("#agent_area").children()[0]).css("background-color", "red");
             lockClicks = false;
             firstRound = false;
@@ -228,13 +229,14 @@ function CreateBoard(row, column) {
     return tableTag;
 }
 
-function IsPair(choicesIndexes) {
+async function IsPair(choicesIndexes) {
     //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
     if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
     && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
         console.log([choicesIndexes[0][0],choicesIndexes[0][1]]+","+[choicesIndexes[1][0],choicesIndexes[1][1]]);
         var table = $("#memoryTable")[0];
         var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
+        await sleep(1000);
         $(cell).css({'visibility':'hidden'});
         cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]];
         $(cell).css({'visibility':'hidden'});
@@ -258,7 +260,7 @@ function getCards(num, rowsize) {
     var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
     var choosen_card = [];
     //choose indexs for the cards
-    while (choosen_card.length != num) {
+    while (choosen_card.length != num / 2) {
         let flag = 0;
         let j = Math.floor(Math.random() * array.length);
         for (let i = 0; i < choosen_card.length; i++) {
@@ -270,7 +272,6 @@ function getCards(num, rowsize) {
         if (!flag) {
             choosen_card.push(j);
         }
-
     }
     // make all the indexs twice
     choosen_card= choosen_card.concat(choosen_card);

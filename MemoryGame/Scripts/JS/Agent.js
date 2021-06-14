@@ -15,13 +15,15 @@ function get_agents(num, handler) {
 // output = {indexs:[i,j], time: 10}//
 
 class Agent1 {
-    constructor(handler, index) {
+    constructor(handler, index, gameManager) {
         this.handler = handler;
         this.index = index;
+        this.gameManager = gameManager;
     }
-    PlayTurn(){
+    PlayTurn() {
         this.handler();
     }
+    
     SetHandler(newHandler){
         this.handler = newHandler;
     }
