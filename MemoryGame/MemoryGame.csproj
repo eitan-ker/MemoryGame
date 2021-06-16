@@ -393,6 +393,7 @@
     <Content Include="Scripts\JS\Game1.js" />
     <Content Include="Scripts\JS\Game2.js" />
     <Content Include="Scripts\JS\GameManager.js" />
+    <Content Include="Scripts\JS\Handlers.js" />
     <Content Include="Scripts\JS\InstructionsOne.js" />
     <Content Include="Scripts\JS\InstructionsTwo.js" />
     <Content Include="Scripts\JS\InterfaceExample.js" />

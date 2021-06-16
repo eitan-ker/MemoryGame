@@ -1,12 +1,15 @@
 ﻿class Turn {
-    constructor(agent, gameManager) {
+    constructor(agent, gameManager, numOfTurn) {
         this.clicks = 0;
         this.gameManager = gameManager;
+        this.numOfTurn = numOfTurn;
         this.time = gameManager.GetTime();
         this.agent = agent;
         this.choosenCards = [];
         this.success = false;
+        this.scoreReward = 0;
         this.usedHint = false;
+        this.Hint = null;
         
     }
     PickCard(card) {
@@ -15,7 +18,7 @@
             return ;
         }
         if (this.clicks === 2){
-            if(card.name === card.GetSecondHalf().name){
+            if(card === card.GetSecondHalf()){
                 this.success = true;
             } 
         }

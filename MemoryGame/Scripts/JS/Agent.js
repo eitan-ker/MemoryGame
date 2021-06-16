@@ -8,11 +8,39 @@ function get_agents(num, handler) {
     return array_of_agent;
 }
 
-// function that the agent have access for them
-// agent1.choose_pair() /// state of the board, x last cards that wee see, history of success(according to agent), x last turn, get score(for all the agents)
-// get time(for each agent)
+class Agent {
+    constructor(handlerHistory, handlerStatus, name) {
+        this.handlerHistory = handlerHistory;
+        this.handlerStatus = handlerStatus;
+        this.name = name;
+        this.turnInfo = [];
+        this.successNumber = 0;
+        this.score = 0;
+    }
+    choosePair() {
 
-// output = {indexs:[i,j], time: 10}//
+    }
+    getAllTurnPerAgent(){
+        return this.turnInfo;
+    }
+    getAllTimeTurnsPerAgent(){
+        let answer = [];
+        for (let i; i = 0; i < this.turnInfo.length) {
+            answer.push(this.turnInfo[i].time);
+        }
+        return answer;
+    }
+    getScore(){
+        return this.score;
+    }
+    addTurn(turn){
+        this.turnInfo.push(turn);
+        if (turn.success) {
+            this.score += turn.scoreReward;
+            this.successNumber += 1;
+        }
+    }
+}
 
 class Agent1 {
     constructor(handler, index, gameManager) {

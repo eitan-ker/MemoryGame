@@ -32,7 +32,8 @@ $(function () {
         fontSize: 40,
         'margin-top': ($("#board_info").height() - $("#board_info").find("p").height()) / 2
     });
-    
+    //data = sessionStorage.getItem('configurationData')
+
     //assume we've got data object from GET
     data = {
         overallTime: "",// times in milliseconds
@@ -109,6 +110,7 @@ $(function () {
     });
 });
 
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -139,29 +141,3 @@ async function IsPair(choicesIndexes) {
         $("#agent" + currentPlayer).find("#score_text").text(this.scores["agent" + (currentPlayer)]);
     }
 }
-/*
-async function IsPair1(choosenCards) {
-    board = gameManager.board;
-    //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
-    if (choosenCards[0].index === choosenCards[1].GetSecondHalf()) {
-        // console.log([choicesIndexes[0][0],choicesIndexes[0][1]]+","+[choicesIndexes[1][0],choicesIndexes[1][1]]);
-        var table = $("#memoryTable")[0];
-        var cell = table.rows[choosenCards[0].index[0]].cells[choosenCards[0].index[1]];
-        await sleep(1000);
-        $(cell).css({'visibility':'hidden'});
-        cell = table.rows[choosenCards[1].index[0]].cells[choosenCards[1].index[1]];
-        $(cell).css({'visibility':'hidden'});
-        remainingCards -= 2;
-        totalScore += 1;
-        $("#total_score").text(totalScore);
-        /!* if(currentPlayer == 0){
-             scores["agent0"] +=1 ;
-             $(".player").find( ".score_agent" ).text(scores["agent"+currentPlayer]);
-         } else{
-             scores["agent"+currentPlayer] +=1;
-             $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
-         }*!/
-        gameManager.scores["agent"+currentPlayer] +=1;
-        $("#agent"+currentPlayer).find( "#score_text" ).text(this.scores["agent"+(currentPlayer)]);
-    }
-}*/

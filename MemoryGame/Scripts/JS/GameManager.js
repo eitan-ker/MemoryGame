@@ -17,7 +17,9 @@ class GameManager{
         this.img = [];
         this.card_num = 0;
         this.turnsArray = [];
-        this.agents = []
+        this.agents = [];
+        this.currentTurn = 0;
+        this.personalTime = personalTime;
         this.choicesIndexes = {};
         this.globalTime = new Date(0);
         
@@ -156,7 +158,7 @@ class GameManager{
 
     CreateAgents(numOfAgents){
         for(let i = 0; i < numOfAgents; i++){
-            this.agents.push(new Agent1(function (){}, i));
+            this.agents.push(new Agent1(function (){}, "agent "+i));
         }
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
@@ -190,6 +192,31 @@ class GameManager{
         }
     }
 */
+    async IsPair(choicesIndexes) {
+        //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
+        if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
+            && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
+            console.log([choicesIndexes[0][0],choicesIndexes[0][1]]+","+[choicesIndexes[1][0],choicesIndexes[1][1]]);
+            var table = $("#memoryTable")[0];
+            var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
+            await sleep(1000);
+            $(cell).css({'visibility':'hidden'});
+            cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]];
+            $(cell).css({'visibility':'hidden'});
+            remainingCards -= 2;
+            totalScore += 1;
+            $("#total_score").text(totalScore);
+            /* if(currentPlayer == 0){
+                 scores["agent0"] +=1 ;
+                 $(".player").find( ".score_agent" ).text(scores["agent"+currentPlayer]);
+             } else{
+                 scores["agent"+currentPlayer] +=1;
+                 $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
+             }*/
+            this.scores["agent"+currentPlayer] +=1;
+            $("#agent"+currentPlayer).find( "#score_text" ).text(this.scores["agent"+(currentPlayer)]);
+        }
+    }
 
     getCards(num, rowsize) {
         // array of all the cards that we have in resources/Card_photos
@@ -226,6 +253,55 @@ class GameManager{
         }
         // return the array with names for the cards.
         return names_array;
+    }
+    getAgents(){
+        let answer = [];
+        for (let i = 0; i < this.agents.length; i++) {
+            answer.push(this.agents[i].name);
+        }
+        return answer;
+    }
+    getAllTurns(){
+        return this.turnsArray;
+    }
+    getScorePerAgent(nameOfAgent){
+        if (nameOfAgent == "player") {
+            return this.scores["agent0"];
+        }
+        if (this.scores[nameOfAgent] != null) {
+            return this.scores[nameOfAgent];
+        }
+    }
+    getAllTimeTurnsPerAgent(nameOfAgent) {
+        for (let i = 0; i < this.agents.length; i++) {
+            if (this.agents[i].name == nameOfAgent) {
+                return this.agents[i].getAllTimeTurnsPerAgent();
+            }
+        }
+    }
+    getBoardDimensins() {
+        return this.board.getBoardDimensins();
+    }
+    getLiveCards() {
+        return this.board.getLiveCards();
+    }
+    getNumOfCardOnBoard() {
+        return this.board.getNumOfCardOnBoard;
+    }
+    getAllPairExposed() {
+        return this.board.getAllPairExposed();
+    }
+    getSecondHalf(row, col) {
+
+    }
+    pickCard(row, col) {
+
+    }
+    getCard(row, col) {
+
+    }
+    getHint() {
+
     }
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
