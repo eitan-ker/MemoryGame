@@ -34,7 +34,7 @@ class Board{
                 this.boardArray[i].push(new Card([i,j],cards[i][j]));
             } 
         }
-        this.globalTime = new Date(0);
+        
         this.turnsArray = [];
 
         
@@ -47,9 +47,6 @@ class Board{
     GetCard(row, col) {
         return this.boardArray[row][col];
     }
-    GetTime(){
-        return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
-    }
-
+    
 }
 

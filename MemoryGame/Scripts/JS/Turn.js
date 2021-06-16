@@ -1,7 +1,8 @@
 ﻿class Turn {
-    constructor(agent, board) {
+    constructor(agent, gameManager) {
         this.clicks = 0;
-        this.time = board.GetTime();
+        this.gameManager = gameManager;
+        this.time = gameManager.GetTime();
         this.agent = agent;
         this.choosenCards = [];
         this.success = false;
@@ -10,11 +11,11 @@
     }
     PickCard(card) {
         if(this.choosenCards.length > 2){
-            alert("tow much cards to this player");
+            //alert("tow much cards to this player");
             return ;
         }
         if (this.clicks === 2){
-            if(card.name === card.secondHalf().name){
+            if(card.name === card.GetSecondHalf().name){
                 this.success = true;
             } 
         }

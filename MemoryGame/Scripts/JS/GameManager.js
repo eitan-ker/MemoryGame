@@ -26,7 +26,7 @@ class GameManager{
         
         this.board = new Board([size[0], size[1]], this.cardNames);
         this.MakePairs();
-        this.turn = new Turn(this.agents[0], this.board);
+        this.turn = new Turn(this.agents[0], this);
         this.CreateAgents(numOfAgent);
         this.Intervals(numOfAgent, personalTime, this.globalTime, this.agents,  this.turnsArray, this.turn, this.board);
     }
@@ -76,7 +76,7 @@ class GameManager{
                 firstChoise = true;
                 agents[0].PlayTurn();
                 turnsArray.push(turn);
-                turn = new Turn(agents[1], board);
+                turn = new Turn(agents[1], this.gameManager);
                 currentPlayer += 1;
                 return ;
             }
@@ -97,7 +97,7 @@ class GameManager{
             }
             agents[currentPlayer].PlayTurn();
             turnsArray.push(turn);
-            turn = new Turn(agents[currentPlayer % numOfAgents], board);
+            turn = new Turn(agents[currentPlayer % numOfAgents], this.gameManager);
 
         }, personalTime)
     }
@@ -190,31 +190,6 @@ class GameManager{
         }
     }
 */
-    async IsPair(choicesIndexes) {
-        //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
-        if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
-            && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
-            console.log([choicesIndexes[0][0],choicesIndexes[0][1]]+","+[choicesIndexes[1][0],choicesIndexes[1][1]]);
-            var table = $("#memoryTable")[0];
-            var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
-            await sleep(1000);
-            $(cell).css({'visibility':'hidden'});
-            cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]];
-            $(cell).css({'visibility':'hidden'});
-            remainingCards -= 2;
-            totalScore += 1;
-            $("#total_score").text(totalScore);
-            /* if(currentPlayer == 0){
-                 scores["agent0"] +=1 ;
-                 $(".player").find( ".score_agent" ).text(scores["agent"+currentPlayer]);
-             } else{
-                 scores["agent"+currentPlayer] +=1;
-                 $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
-             }*/
-            this.scores["agent"+currentPlayer] +=1;
-            $("#agent"+currentPlayer).find( "#score_text" ).text(this.scores["agent"+(currentPlayer)]);
-        }
-    }
 
     getCards(num, rowsize) {
         // array of all the cards that we have in resources/Card_photos
@@ -225,7 +200,7 @@ class GameManager{
             let flag = 0;
             let j = Math.floor(Math.random() * array.length);
             for (let i = 0; i < choosen_card.length; i++) {
-                if (j == this.choicesIndexes[i]) {
+                if (j == choosen_card[i]) {
                     flag = 1;
                     break;
                 }
@@ -251,5 +226,8 @@ class GameManager{
         }
         // return the array with names for the cards.
         return names_array;
+    }
+    GetTime(){
+        return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
     }
 }
