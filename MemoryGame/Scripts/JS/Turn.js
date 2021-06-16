@@ -1,8 +1,9 @@
 ﻿class Turn {
-    constructor(agent, board,numOfTurn) {
+    constructor(agent, gameManager, numOfTurn) {
         this.clicks = 0;
+        this.gameManager = gameManager;
         this.numOfTurn = numOfTurn;
-        this.time = board.GetTime();
+        this.time = gameManager.GetTime();
         this.agent = agent;
         this.choosenCards = [];
         this.success = false;
@@ -13,16 +14,16 @@
     }
     PickCard(card) {
         if(this.choosenCards.length > 2){
-            alert("tow much cards to this player");
+            //alert("tow much cards to this player");
             return ;
         }
-        if (this.clicks === 2) {
-            if (card.name === this.choosenCards[0].name) {
+        if (this.clicks === 2){
+            if(card === card.GetSecondHalf()){
                 this.success = true;
             } 
         }
-
-        this.choosenCards.push({ "card": card.index, "name": card.name, "time": new Date(this.time.getMinutes(), this.time.getSeconds(), this.time.getMilliseconds()) });
+        
+        this.choosenCards.push({"card":card, "time": new Date(this.time.getMinutes(), this.time.getSeconds(), this.time.getMilliseconds())});
         this.clicks++;
     }
 }

@@ -42,10 +42,11 @@ class Board{
                 this.boardArray[i].push(new Card([i,j],cards[i][j]));
             } 
         }
+        
         this.livedCards = this.boardArray;
         this.exposedCards = [];
-        this.globalTime = new Date(0);
         this.turnsArray = [];
+
         
     }
     getBoardDimensins(){
@@ -92,9 +93,6 @@ class Board{
     GetCard(row, col) {
         return this.boardArray[row][col];
     }
-    GetTime() {
-        return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
-    }
-
+    
 }
 

@@ -28,7 +28,7 @@ class GameManager{
         
         this.board = new Board([size[0], size[1]], this.cardNames);
         this.MakePairs();
-        this.turn = new Turn(this.agents[0], this.board);
+        this.turn = new Turn(this.agents[0], this);
         this.CreateAgents(numOfAgent);
         this.Intervals(numOfAgent, personalTime, this.globalTime, this.agents,  this.turnsArray, this.turn, this.board);
     }
@@ -58,7 +58,8 @@ class GameManager{
             }
         } 
     }
-
+    
+    
     Intervals(numOfAgents, personalTime,globalTime, agents, turnsArray, turn, board){
         //sets the global time of the game.
         setInterval(function () {
@@ -77,7 +78,7 @@ class GameManager{
                 firstChoise = true;
                 agents[0].PlayTurn();
                 turnsArray.push(turn);
-                turn = new Turn(agents[1], board);
+                turn = new Turn(agents[1], this.gameManager);
                 currentPlayer += 1;
                 return ;
             }
@@ -98,7 +99,7 @@ class GameManager{
             }
             agents[currentPlayer].PlayTurn();
             turnsArray.push(turn);
-            turn = new Turn(agents[currentPlayer % numOfAgents], board);
+            turn = new Turn(agents[currentPlayer % numOfAgents], this.gameManager);
 
         }, personalTime)
     }
@@ -167,7 +168,7 @@ class GameManager{
             player.setAttribute("id", "agent" + i);
             $(player).find( "h4" ).text("agent " + (i + 1));
             document.getElementById("agent_area").appendChild(player);
-            this.scores["agent " + (i + 1)] = 0;
+            this.scores["agent" + (i + 1)] = 0;
         }
     }
 
@@ -226,7 +227,7 @@ class GameManager{
             let flag = 0;
             let j = Math.floor(Math.random() * array.length);
             for (let i = 0; i < choosen_card.length; i++) {
-                if (j == this.choicesIndexes[i]) {
+                if (j == choosen_card[i]) {
                     flag = 1;
                     break;
                 }
@@ -301,5 +302,8 @@ class GameManager{
     }
     getHint() {
 
+    }
+    GetTime(){
+        return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
     }
 }
