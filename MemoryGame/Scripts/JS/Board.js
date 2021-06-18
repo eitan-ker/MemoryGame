@@ -4,6 +4,7 @@ class Card{
     constructor(index, name) {
         this.index = index;
         this.name = name;
+        this.exposed = false;
         this.found = false;
         this.turns = [];
     }

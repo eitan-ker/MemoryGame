@@ -24,8 +24,8 @@
     getAllTurnPerAgent(nameOfAgent){
         let answer = []
         let turns = this.#gameManager.getAllTurns();
-        for (let i; i = 0; i < turns.length) {
-            if (turns[i].whoPlayed == nameOfAgent) {
+        for (let i = 0; i < turns.length; i++) {
+            if (turns[i].whoPlayed === nameOfAgent) {
                 answer.push(turn[i]);
             }
         }

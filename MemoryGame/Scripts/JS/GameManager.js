@@ -4,7 +4,7 @@ var lockClicks;
 var currentPlayer = -1;
 var img = [];
 var card_num = 0;
-
+var gm;
 class GameManager{
     constructor(size, numOfAgent, personalTime) {
         this.scores = {
@@ -13,7 +13,6 @@ class GameManager{
         this.firstChoise = true;
         this.firstRound = true;
         this.lockClicks;
-        this.currentPlayer = -1;
         this.img = [];
         this.card_num = 0;
         this.turnsArray = [];
@@ -22,14 +21,14 @@ class GameManager{
         this.personalTime = personalTime;
         this.choicesIndexes = {};
         this.globalTime = new Date(0);
-        
         this.cardNames = this.getCards(size[0] * size[1], size[1]);
         document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
         
         this.board = new Board([size[0], size[1]], this.cardNames);
         this.MakePairs();
-        this.turn = new Turn(this.agents[0], this);
+        this.turn;
         this.CreateAgents(numOfAgent);
+        gm = this;
         this.Intervals(numOfAgent, personalTime, this.globalTime, this.agents,  this.turnsArray, this.turn, this.board);
     }
     
@@ -70,6 +69,15 @@ class GameManager{
         // set interval to change turns between players
 
         setInterval(function () {
+            
+            // turn = new Turn(currentPlayer % numOfAgents, gameManager);
+            if(img.length > 0){
+                for(let i =0; i < img.length; i++){
+                    $(img[i]).fadeOut();
+                }
+                img = [];
+            }
+            
             if(firstRound === true) {
                 $($( "#board_info" ).find( "p" )).fadeOut();
                 $($("#agent_area").children()[0]).css("background-color", "red");
@@ -77,8 +85,8 @@ class GameManager{
                 firstRound = false;
                 firstChoise = true;
                 agents[0].PlayTurn();
-                turnsArray.push(turn);
-                turn = new Turn(agents[1], this.gameManager);
+                // turnsArray.push(turn);
+                gameManager.turn = new Turn(0, gm);
                 currentPlayer += 1;
                 return ;
             }
@@ -92,15 +100,17 @@ class GameManager{
             } else {
                 currentPlayer += 1;
                 lockClicks = true;
+                gameManager.turn = new Turn(currentPlayer % numOfAgents, gameManager);
                 //firstChoise = true;
                 this.choicesIndexes = {};
                 $($("#agent_area").children()[currentPlayer % numOfAgents - 1]).css("background-color", "darkgrey");
                 $($("#agent_area").children()[currentPlayer % numOfAgents]).css("background-color", "yellow");
             }
             agents[currentPlayer].PlayTurn();
-            turnsArray.push(turn);
-            turn = new Turn(agents[currentPlayer % numOfAgents], this.gameManager);
-
+            // turnsArray.push(turn);
+            gameManager.turnsArray = gameManager.turnsArray.concat(turn);
+            
+            
         }, personalTime)
     }
     
@@ -192,31 +202,6 @@ class GameManager{
         }
     }
 */
-    async IsPair(choicesIndexes) {
-        //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
-        if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
-            && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
-            console.log([choicesIndexes[0][0],choicesIndexes[0][1]]+","+[choicesIndexes[1][0],choicesIndexes[1][1]]);
-            var table = $("#memoryTable")[0];
-            var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
-            await sleep(1000);
-            $(cell).css({'visibility':'hidden'});
-            cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]];
-            $(cell).css({'visibility':'hidden'});
-            remainingCards -= 2;
-            totalScore += 1;
-            $("#total_score").text(totalScore);
-            /* if(currentPlayer == 0){
-                 scores["agent0"] +=1 ;
-                 $(".player").find( ".score_agent" ).text(scores["agent"+currentPlayer]);
-             } else{
-                 scores["agent"+currentPlayer] +=1;
-                 $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
-             }*/
-            this.scores["agent"+currentPlayer] +=1;
-            $("#agent"+currentPlayer).find( "#score_text" ).text(this.scores["agent"+(currentPlayer)]);
-        }
-    }
 
     getCards(num, rowsize) {
         // array of all the cards that we have in resources/Card_photos
@@ -305,5 +290,45 @@ class GameManager{
     }
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
+    }
+
+    async ShowCard(jqueryEllement) {
+        parent = jqueryEllement.parent();
+        var p_row = parent.attr("ws-Row");
+        var p_col = parent.attr("ws-Column");
+        img[card_num] = document.createElement('img');
+        img[card_num].id = "cardId";
+        img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
+        img[card_num].alt = gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
+        img[card_num].width = 70;
+        img[card_num].height = 70;
+        jqueryEllement.append(img[card_num]);
+        card_num = card_num + 1;
+        if (firstChoise) {
+            firstChoise = false;
+            choicesIndexes[0] = [p_row, p_col];
+            gameManager.turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
+
+        } else {
+            lockClicks = true; // lock the clicks after second card choise
+
+            //firstChoise = true;
+            choicesIndexes[1] = [p_row, p_col];
+            IsPair(choicesIndexes);
+            //save documentation of the turn with 
+
+            gameManager.turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
+            //alert(choicesIndexes[0].concat( choicesIndexes[1]));
+            if (remainingCards === 0) {
+                document.getElementById("board").innerHTML = "<h1>game over</h1>";
+            }
+
+            //firstChoise = true;
+            choicesIndexes = {}; // initilize the choices
+            await sleep(1000);
+            /*for(image of img){
+                $(image).fadeOut();
+            }*/
+        }
     }
 }

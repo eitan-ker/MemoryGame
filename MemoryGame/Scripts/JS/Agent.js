@@ -49,7 +49,6 @@ class Agent1 {
         this.gameManager = gameManager;
     }
     PlayTurn() {
-        this.handler();
     }
     
     SetHandler(newHandler){

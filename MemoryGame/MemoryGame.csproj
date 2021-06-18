@@ -399,7 +399,6 @@
     <Content Include="Scripts\JS\InterfaceExample.js" />
     <Content Include="Scripts\JS\MobileError.js" />
     <Content Include="Scripts\JS\PersonalDetails.js" />
-    <Content Include="Scripts\JS\Player.js" />
     <Content Include="Scripts\JS\SecondTimeError.js" />
     <Content Include="Scripts\JS\TooManyTries.js" />
     <Content Include="Scripts\JS\Turn.js" />

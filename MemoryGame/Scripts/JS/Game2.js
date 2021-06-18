@@ -51,35 +51,32 @@ $(function () {
 
 
     $("button").click(async function () {
-        /*if(firstChoise===false) {
-            lockClicks = true;
-        }*/
-        //await sleep(300);
-
+        
         console.log(currentPlayer);
         if (currentPlayer % agentsAmount !== 0 || lockClicks || card_num > 1) {
             if(currentPlayer % agentsAmount === 0)
                 console.log("too much clicks");
             return;
         }
-
-        parent = $(this).parent();
-        var p_row = parent.attr("ws-Row");
-        var p_col = parent.attr("ws-Column");
-        img[card_num] = document.createElement('img');
-        img[card_num].id = "cardId";
-        img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
-        img[card_num].alt = "cow";
-        img[card_num].width = 70;
-        img[card_num].height = 70;
-        $(this).append(img[card_num]);
-        card_num = card_num + 1;
-        //await sleep(data.personalTime / 3);
-        //lockClicks = false;
-        //$(img).fadeOut();
-        if (firstChoise) {
+        gameManager.ShowCard($(this));
+        /*
+            parent = $(this).parent();
+            var p_row = parent.attr("ws-Row");
+            var p_col = parent.attr("ws-Column");
+            img[card_num] = document.createElement('img');
+            img[card_num].id = "cardId";
+            img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
+            img[card_num].alt = "cow";
+            img[card_num].width = 70;
+            img[card_num].height = 70;
+            $(this).append(img[card_num]);
+            card_num = card_num + 1;
+        */
+        
+        /*if (firstChoise) {
             firstChoise = false;
             choicesIndexes[0] = [p_row, p_col];
+            
             turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
 
         } else {
@@ -103,10 +100,13 @@ $(function () {
 
                 $(image).fadeOut();
             }
-        }
+        }*/
         //alert(turn);
-        turnsDocumentation = turnsDocumentation.concat(turn);
-
+        
+        
+        // gameManager.turnsArray = gameManager.turnsArray.concat(turn);
+        // turn = new Turn(gameManager.currentTurn % data.numOfAgents, gameManager);
+        
     });
 });
 
