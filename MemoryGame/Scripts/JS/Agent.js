@@ -18,7 +18,9 @@ class Agent {
         this.score = 0;
     }
     choosePair() {
-
+        let lived = this.handlerStatus.getLivedCards();
+        this.handlerStatus.pickCard(lived[0][0], lived[0][1]);
+        this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
     }
     getAllTurnPerAgent(){
         return this.turnInfo;
@@ -41,6 +43,46 @@ class Agent {
         }
     }
 }
+
+choosePairTest() {
+    let lived = this.handlerStatus.getLivedCards();
+    console.log("test for handler status:")
+    console.log("the live card are: ");
+    console.log(lived);
+    console.log("get board dimensins")
+    console.log(this.handlerStatus.getBoardDimensins())
+    console.log("get Num Of Card On Board")
+    console.log(this.handlerStatus.getNumOfCardOnBoard())
+    console.log("get All Pair Exposed")
+    console.log(this.handlerStatus.getAllPairExposed())
+    console.log("get card")
+    console.log(this.handlerStatus.getCard(lived[0][0], lived[0][1]))
+    console.log("getHint")
+    console.log(this.handlerStatus.getHint())
+    console.log("test for handler history:")
+    console.log("getAgents")
+    let agents = this.handlerHistory.getAgents()
+    console.log(agents)
+    console.log("getAllTurns")
+    console.log(this.handlerHistory.getAllTurns())
+    console.log("getLastTurn")
+    console.log(this.handlerHistory.getLastTurn())
+    console.log("getLastPlayer")
+    console.log(this.handlerHistory.getLastPlayer())
+    console.log("getNumOfTurn")
+    console.log(this.handlerHistory.getNumOfTurn())
+    console.log("getAllTurnPerAgent")
+    console.log(this.handlerHistory.getAllTurnPerAgent(agents[0]))
+    console.log("getAllTimeTurnsPerAgent")
+    console.log(this.handlerHistory.getAllTimeTurnsPerAgent(agents[0]))
+    console.log("getScorePerAgent")
+    console.log(this.handlerHistory.getScorePerAgent(agents[0]))
+    this.handlerStatus.pickCard(lived[0][0], lived[0][1]);
+    this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
+
+}
+
+
 
 class Agent1 {
     constructor(handler, index, gameManager) {
