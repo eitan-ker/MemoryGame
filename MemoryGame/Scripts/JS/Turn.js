@@ -20,9 +20,9 @@
             this.firstCard = card;
             card.exposed = true;
         }
-        if (this.clicks === 1){
+        if (this.clicks >= 1){
             card.exposed = true;
-            if(this.firstCard === card.GetSecondHalf()){
+            if(this.firstCard.index[0] === card.GetSecondHalf()[0] && this.firstCard.index[1] === card.GetSecondHalf()[1]){
                 this.success = true;
                 card.found = true;
                 this.firstCard.found = true;

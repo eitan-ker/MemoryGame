@@ -107,6 +107,7 @@ class GameManager{
                 return ;
             }
             if (currentPlayer === numOfAgents - 1) {
+                gameManager.turn = new Turn(0, gm);
                 currentPlayer = 0;
                 lockClicks = false;
                 firstChoise = true;

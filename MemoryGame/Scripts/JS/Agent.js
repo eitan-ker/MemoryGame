@@ -44,7 +44,7 @@ class Agent {
     }
 }
 
-choosePairTest() {
+function choosePairTest() {
     let lived = this.handlerStatus.getLivedCards();
     console.log("test for handler status:")
     console.log("the live card are: ");
