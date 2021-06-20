@@ -6,35 +6,51 @@ var img = [];
 var card_num = 0;
 var gm;
 class GameManager{
+    #scores;
+    #choosen_card;
+    #turnsArray;
+    #firstChoise;
+    #firstRound;
+    #lockClicks;
+    #img;
+    #card_num;
+    #agents;
+    #currentTurn;
+    #personalTime;
+    // #choicesIndexes;
+    #globalTime;
+    #cardNames;
+    #board;
     constructor(size, numOfAgent, personalTime) {
-        this.scores = {
+        this.#scores = {
             "agent0":0
         };
-        this.firstChoise = true;
-        this.firstRound = true;
-        this.lockClicks;
-        this.img = [];
-        this.card_num = 0;
-        this.turnsArray = [];
-        this.agents = [];
-        this.currentTurn = 0;
-        this.personalTime = personalTime;
+        
+        this.#firstChoise = true;
+        this.#firstRound = true;
+        this.#lockClicks = true;
+        this.#img = [];
+        this.#card_num = 0;
+        this.#turnsArray = [];
+        this.#agents = [];
+        this.#currentTurn = 0;
+        this.#personalTime = personalTime;
         this.choicesIndexes = {};
-        this.globalTime = new Date(0);
-        this.cardNames = this.getCards(size[0] * size[1], size[1]);
+        this.#globalTime = new Date(0);
+        this.#cardNames = this.getCards(size[0] * size[1], size[1]);
         document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
         
-        this.board = new Board([size[0], size[1]], this.cardNames);
+        this.#board = new Board([size[0], size[1]], this.#cardNames);
         this.MakePairs();
         this.turn;
         this.CreateAgents(numOfAgent);
         gm = this;
-        this.Intervals(numOfAgent, personalTime, this.globalTime, this.agents,  this.turnsArray, this.turn, this.board);
+        this.Intervals(numOfAgent, personalTime, this.#globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
     }
     
     
     MakePairs(){
-        let board = this.board.boardArray;
+        let board = this.#board.boardArray;
         var indexses = {};
         for(let i = 0; i < board.length; i++){
             for(let j = 0; j < board[0].length; j++){
@@ -48,10 +64,10 @@ class GameManager{
         console.log(indexses);
         for(let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[0].length; j++) {
-                let potential = indexses[this.board.boardArray[i][j].name]
+                let potential = indexses[this.#board.boardArray[i][j].name]
                 for(let index of potential){
                     if(index[0] !== i || index[1] !== j){
-                        this.board.boardArray[i][j].SetSecondHalf(index);
+                        this.#board.boardArray[i][j].SetSecondHalf(index);
                     }
                 }
             }
@@ -108,12 +124,17 @@ class GameManager{
             }
             agents[currentPlayer].PlayTurn();
             // turnsArray.push(turn);
-            gameManager.turnsArray = gameManager.turnsArray.concat(turn);
+            gameManager.AddTurn(gameManager.turn);
             
             
         }, personalTime)
     }
-    
+    GetBoard(){
+        return this.#board.boardArray;
+    }
+    AddTurn(turn) {
+        this.#turnsArray = this.#turnsArray.concat(turn);
+    }
     GetRandomCards(num, rowSize) {
         // array of all the cards that we have in resources/Card_photos
         var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
@@ -123,7 +144,7 @@ class GameManager{
             let flag = 0;
             let j = Math.floor(Math.random() * array.length);
             for (let i = 0; i < choosen_card.length; i++) {
-                if (j == this.choosen_card[i]) {
+                if (j == this.#choosen_card[i]) {
                     flag = 1;
                     break;
                 }
@@ -168,7 +189,7 @@ class GameManager{
 
     CreateAgents(numOfAgents){
         for(let i = 0; i < numOfAgents; i++){
-            this.agents.push(new Agent1(function (){}, "agent "+i));
+            this.#agents.push(new Agent1(function (){}, "agent "+i));
         }
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
@@ -178,7 +199,7 @@ class GameManager{
             player.setAttribute("id", "agent" + i);
             $(player).find( "h4" ).text("agent " + (i + 1));
             document.getElementById("agent_area").appendChild(player);
-            this.scores["agent" + (i + 1)] = 0;
+            this.#scores["agent" + (i + 1)] = 0;
         }
     }
 
@@ -241,43 +262,49 @@ class GameManager{
     }
     getAgents(){
         let answer = [];
-        for (let i = 0; i < this.agents.length; i++) {
-            answer.push(this.agents[i].name);
+        for (let i = 0; i < this.#agents.length; i++) {
+            answer.push(this.#agents[i].name);
         }
         return answer;
     }
+    AddAgent(agent) {
+        this.#agents[this.#agents.length] = agent;
+    }
     getAllTurns(){
-        return this.turnsArray;
+        return this.#turnsArray;
+    }
+    addScorePerAgent(nameOfAgent){
+        this.#scores[nameOfAgent] += 1;
     }
     getScorePerAgent(nameOfAgent){
         if (nameOfAgent == "player") {
-            return this.scores["agent0"];
+            return this.#scores["agent0"];
         }
-        if (this.scores[nameOfAgent] != null) {
-            return this.scores[nameOfAgent];
+        if (this.#scores[nameOfAgent] != null) {
+            return this.#scores[nameOfAgent];
         }
     }
     getAllTimeTurnsPerAgent(nameOfAgent) {
-        for (let i = 0; i < this.agents.length; i++) {
-            if (this.agents[i].name == nameOfAgent) {
-                return this.agents[i].getAllTimeTurnsPerAgent();
+        for (let i = 0; i < this.#agents.length; i++) {
+            if (this.#agents[i].name == nameOfAgent) {
+                return this.#agents[i].getAllTimeTurnsPerAgent();
             }
         }
     }
     getBoardDimensins() {
-        return this.board.getBoardDimensins();
+        return this.#board.getBoardDimensins();
     }
     getLiveCards() {
-        return this.board.getLiveCards();
+        return this.#board.getLiveCards();
     }
     getNumOfCardOnBoard() {
-        return this.board.getNumOfCardOnBoard;
+        return this.#board.getNumOfCardOnBoard;
     }
     getAllPairExposed() {
-        return this.board.getAllPairExposed();
+        return this.#board.getAllPairExposed();
     }
     getSecondHalf(row, col) {
-
+        this.#board.boardArray[row][col].GetSecondHalf();
     }
     pickCard(row, col) {
 
@@ -289,7 +316,7 @@ class GameManager{
 
     }
     GetTime(){
-        return new Date(this.globalTime.getMinutes(), this.globalTime.getMinutes(), this.globalTime.getMilliseconds());
+        return new Date(this.#globalTime.getMinutes(), this.#globalTime.getSeconds(), this.#globalTime.getMilliseconds());
     }
 
     async ShowCard(jqueryEllement) {
@@ -298,8 +325,8 @@ class GameManager{
         var p_col = parent.attr("ws-Column");
         img[card_num] = document.createElement('img');
         img[card_num].id = "cardId";
-        img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
-        img[card_num].alt = gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
+        img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
+        img[card_num].alt = gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
         img[card_num].width = 70;
         img[card_num].height = 70;
         jqueryEllement.append(img[card_num]);
@@ -307,17 +334,17 @@ class GameManager{
         if (firstChoise) {
             firstChoise = false;
             choicesIndexes[0] = [p_row, p_col];
-            gameManager.turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
+            gameManager.turn.PickCard(gameManager.#board.boardArray[p_row][p_col]);
 
         } else {
             lockClicks = true; // lock the clicks after second card choise
 
             //firstChoise = true;
             choicesIndexes[1] = [p_row, p_col];
-            IsPair(choicesIndexes);
+            await IsPair(choicesIndexes);
             //save documentation of the turn with 
 
-            gameManager.turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
+            gameManager.turn.PickCard(gameManager.#board.boardArray[p_row][p_col]);
             //alert(choicesIndexes[0].concat( choicesIndexes[1]));
             if (remainingCards === 0) {
                 document.getElementById("board").innerHTML = "<h1>game over</h1>";

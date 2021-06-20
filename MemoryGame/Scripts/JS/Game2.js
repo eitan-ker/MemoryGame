@@ -45,8 +45,8 @@ $(function () {
     gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime);
     let player = new Agent1(()=>{
     } ,0)
-    gameManager.agents[0] = player;
-    turn = new Turn(gameManager.agents[0], gameManager);
+    gameManager.AddAgent(player);
+    turn = new Turn(gameManager.getAgents()[0], gameManager);
 
 
 
@@ -104,8 +104,8 @@ $(function () {
         //alert(turn);
         
         
-        // gameManager.turnsArray = gameManager.turnsArray.concat(turn);
-        // turn = new Turn(gameManager.currentTurn % data.numOfAgents, gameManager);
+        //gameManager.turnsArray = gameManager.turnsArray.concat(turn);
+        //turn = new Turn(gameManager.currentTurn % data.numOfAgents, gameManager);
         
     });
 });
@@ -116,10 +116,10 @@ function sleep(ms) {
 }
 
 async function IsPair(choicesIndexes) {
-    board = gameManager.board;
+    board = gameManager.GetBoard();
     //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
-    if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
-        && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
+    if (board[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board[choicesIndexes[1][0]][choicesIndexes[1][1]].name
+        && board[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
         console.log([choicesIndexes[0][0], choicesIndexes[0][1]] + "," + [choicesIndexes[1][0], choicesIndexes[1][1]]);
         var table = $("#memoryTable")[0];
         var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
@@ -137,7 +137,7 @@ async function IsPair(choicesIndexes) {
              scores["agent"+currentPlayer] +=1;
              $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
          }*/
-        gameManager.scores["agent" + currentPlayer] += 1;
-        $("#agent" + currentPlayer).find("#score_text").text(this.scores["agent" + (currentPlayer)]);
+        gameManager.addScorePerAgent("agent" + currentPlayer);
+        $("#agent" + currentPlayer).find("#score_text").text(gameManager.getScorePerAgent("agent" + (currentPlayer)));
     }
 }

@@ -11,8 +11,11 @@ class Card{
     SetSecondHalf(secondHalf) {
         this.#secondHalf = secondHalf;
     }
-    isUp() {
+    isFound() {
         return this.found;
+    }
+    isExposed() {
+        return this.exposed;
     }
     getExposedTurn() {
         return this.turns;
