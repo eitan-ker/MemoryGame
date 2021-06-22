@@ -6,13 +6,17 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MemoryGame.ClientHandler;
+using MemoryGame.Models.EndGameModels;
+using MemoryGame.Models.FeedBackModels;
+using MemoryGame.Models.VerificationRulesModels;
 using MongoDB.Bson;
-
+using MongoDB.Driver;
+using Newtonsoft.Json;
 
 namespace MemoryGame.Controllers
 {
-    public class 
-        DataController : Controller
+    public class DataController : Controller
     {
 
         public AmazonInfoModel CreateAmazonInfoModel()
@@ -26,31 +30,93 @@ namespace MemoryGame.Controllers
 
         }
 
-        public ActionResult TimeInPage(TimeInPageModel timeInPageModel)
+       public ActionResult VerificationRulesInfo(VerificationRulesModel verificationRulesModel)
         {
-            Console.WriteLine(timeInPageModel);
-            //AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
-            //ClientsHandlerModel.AddTimeModel(amazonInfoModel, timeInPageModel);
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddVerificationRulesModel(amazonInfoModel, verificationRulesModel);
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+        public ActionResult FeedBackInfo( FeedBackModel feedBackModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddFeedBackModel(amazonInfoModel, feedBackModel);
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        
-        [HttpGet]
-        public string GetInitData()
+        public ActionResult PersonalDetailsInfo(PersonalDetails personalDetailsModel)
         {
-            InitData initData = new InitData();
-            initData.overallTime = (3000 * 4 * 10).ToString();
-            initData.personalTime = 3000.ToString();
-            initData.numOfCards = 2.ToString();
-            initData.numOfAgents =4.ToString();
-            /*var data = {
-                overallTime= "",// times in milliseconds
-                personalTime: 3000,
-                numOfCards: 2,
-                numOfAgents: 4
-            };*/
-            return initData.ToJson();
-        } 
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddPersonalDetailsModel(amazonInfoModel, personalDetailsModel);
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+       
+
+        public ActionResult EndGameInfo( EndGameModel endGameModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddEndGameModel(amazonInfoModel, endGameModel);
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+        public ActionResult TimeInPage( TimeInPageModel timeInPageModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddTimeModel(amazonInfoModel, timeInPageModel);
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+        public async Task<ActionResult> IsNewClient()
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+
+            var uri = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            MongoClient dbClient = new MongoClient(uri);
+
+            var userCollection6 = await dbClient.GetDatabase("MemoryGame").GetCollection<AllUserDataModel>("Users").Find(new BsonDocument()).ToListAsync();
+
+            foreach (var c in userCollection6)
+            {
+                if (c._amazonInfoModel.WorkerId.Equals(amazonInfoModel.WorkerId))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                }
+
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+        }
+        
+
+        
+
+
+        public async Task<ActionResult> ClientIsDone()
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            
+            await ClientsHandlerModel.UploadUserToMongoAsync(amazonInfoModel);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
         
     }
 }

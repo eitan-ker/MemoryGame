@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MemoryGame.ClientHandler;
 
 
 namespace MemoryGame.Controllers
@@ -55,7 +56,7 @@ namespace MemoryGame.Controllers
             amazonInfoModel.AssId = Session["assignmentId"].ToString();
             amazonInfoModel.HitId = Session["hitId"].ToString();
             amazonInfoModel.WorkerId = Session["workerId"].ToString();
-            //ClientsHandlerModel.AddNewUser(amazonInfoModel);
+            ClientsHandlerModel.AddNewUser(amazonInfoModel);
             Session["last_page"] = "ConsentIndex";
 
             return View();
@@ -209,6 +210,7 @@ namespace MemoryGame.Controllers
             return View();
         }
 
+        
         
     }
 

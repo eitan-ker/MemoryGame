@@ -201,15 +201,24 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ClientHandler\ClientsHandlerModel.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AllUserDataModel.cs" />
     <Compile Include="Models\AmazonInfoModel.cs" />
+    <Compile Include="Models\EndGameModels\EndGameModel.cs" />
+    <Compile Include="Models\EndGameModels\RealAnsOfTimeModel.cs" />
+    <Compile Include="Models\FeedBackModels\FeedBackModel.cs" />
     <Compile Include="Models\InitData.cs" />
+    <Compile Include="Models\PersonalDetails.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\AnswerModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\QuestionModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\VerificationRulesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +528,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Game" />
     <Folder Include="Views\Data\" />
   </ItemGroup>
   <ItemGroup>
