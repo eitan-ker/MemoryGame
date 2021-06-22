@@ -161,13 +161,13 @@ function generatePage() {
 function scaleBuilder(questionType, counter) {
     scaleSize = questionType.maxRangeValue - questionType.minRangeValue + 1;
     var i = 0;
-    let html = '<div><div class="question"><h4>' + questionType.question + '</h4></div>';
+    let html = '<div class= "QA"><div class="question"><h5>' + questionType.question + '</h5></div>';
     html += '<div class="likert" style="display: flex; justify-content: space-around; align-items: center; ">';
     for (i = 0; i < scaleSize; i++) {
         var scaleId = String(counter) + 'rd' + String(i);
-        html += '<div  onclick="scaleClicker(\'' + String(scaleId) + '\', ' + String(counter) + ')">';
+        html += '<div  class="likert_opt" onclick="scaleClicker(\'' + String(scaleId) + '\', ' + String(counter) + ')">';
         html += '<div class="single_likert"><input  id="' + String(scaleId) + '" name="grp' + counter + '" type="radio" value="' + String(i) + '"></div>';
-        html += '<div class="likert_num"><h4>' + String(i) + '</h4></div>';
+        html += '<div class="likert_num"><h5>' + String(i) + '</h5></div>';
         if (i == 0) {
             html += '<div class="dislike"><li> Not at all </li></div>';
         } else if (i == scaleSize - 1) {
@@ -175,7 +175,7 @@ function scaleBuilder(questionType, counter) {
         }
         html += '</div>';
     }
-    html += '</div></br></div>';
+    html += '</div></div>';
     return html;
 
 }
@@ -202,24 +202,24 @@ function scaleClicker(option, typeCounter) {
 } */
 
 function dropDownBuilder(questionType, counter) {
-    let html = '<div><h4><span style="color: #000080;">'; 
-    html += '<strong>' + questionType.question+'</strong> <br>';
+    let html = '<div class= "QA"><div>'; 
+    html += '<h5>' + questionType.question+'</h5>';
     html += '<div class="dropdown">';
-    html += '<select id="dropdown' + counter + '" class="btn btn-default dropdown-toggle">';
+    html += '<select id="dropdown' + counter + '" class="btn-default dropdown-toggle">';
     html += '<option value="">-- Select one --</option>'
     var i = 0;
     for (i = 0; i < questionType.answers.length; i++) {
         html += '<option value="' + questionType.answers[i].text + '">' + questionType.answers[i].text+'</option>'
     }
-    html += '</select></div></span></h4></div >';
+    html += '</select></div></div></div >';
     return html;
 }
 
 
 
 function textBoxBuilder(questionType, counter) {
-    let html = ' <div class= "container"><div class="question"><h4>' + questionType.question + '</h4></div >' ;
-    html += '<div class="text_input"><input id = "textBox' + String(counter) +'" placeholder = "Enter Anything" ></br></div></div>';
+    let html = ' <div class= "QA"><div class="question"><h5>' + questionType.question + '</h5></div >' ;
+    html += '<div><textarea class="text_input"  id = "textBox' + String(counter) +'" placeholder = "Answer here"></textarea></div></div>';
     return html;
 }
 
@@ -248,16 +248,16 @@ function changeTitle(option, typeCounter) {
 }
 
 function initialize() {
-    var html = '<h4>Thank you and Bob for solving the boards!</h4>';
-    html += '<div class="question"><h4> We would appreciate your help answering the following questions about this HIT.</h4>';
-    html += '<h4>Your sincere and detailed answers are veluable to us, so please answer honestly.</h4></div><br/> ';
-    html += '<div class="page_head_line"><h4> Feedback Question</h4></div><br/>'
+    var html = '<div><h4>Thank you and Bob for solving the boards!</h4>';
+    html += '<h5> We would appreciate your help answering the following questions about this HIT.</h5>';
+    html += '<h5>Your sincere and detailed answers are veluable to us, so please answer honestly.</h5></div> ';
+    html += '<div class="page_head_line"><h4> Feedback Question</h4></div>'
     return html;
 }
 
 function addNextButton() {
-    var html = '<div class="container"> ';
-    html += '<br> <button class="next_Button" onclick="nextPage()" id="btn1">Submit Feedback</button>';
+    var html = '<div class="clickers"> ';
+    html += '<button class="Green_Button" onclick="nextPage()" id="btn1">Submit Feedback</button>';
     html += ' </div>';
     return html;
 }

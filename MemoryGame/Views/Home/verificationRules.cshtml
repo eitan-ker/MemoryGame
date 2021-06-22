@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="~/Content/css/verificationRulesCSS.css" rel="stylesheet">
+    <link href="~/Content/css/verificationRules.css" rel="stylesheet">
     <script defer src="~/Scripts/JS/VerificationRulesScript.js"></script>
     <title>verification Rules</title>
 </head>
@@ -24,13 +24,16 @@
             </div>
         </div>
 
-        <div class="control" style="text-align:center">
-            <button id="continue-btn" style="text-align:center" class="next-btn">Continue</button>
+        <div class="clickers" style="text-align:center">
+
+            <div class="failed" style="display:none;" id="failed">
+                <h5>Some of your answers were incorrect</h5>
+                <button id="failed_button" onclick="anotherTry();" class="Red_Button">Please try again</button>
+                <h5>You can not continue right now, click on "Please Try Again"</h5>
+            </div>
+            <button id="continue-btn" style="text-align: center; display: inline-block;" class="Green_Button">Continue</button>
         </div>
-        <div class="failed" style="display:none;" id="failed">
-            <h4>Some of your answers were incorrect</h4>
-            <button id="failed_button" onclick="anotherTry();" class="filed_button">Please try again</button>
-        </div>
+        
     
 
     </div>

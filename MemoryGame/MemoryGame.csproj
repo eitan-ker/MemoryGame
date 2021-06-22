@@ -65,9 +65,6 @@
     <Reference Include="MongoDB.Libmongocrypt, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Libmongocrypt.1.2.1\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -211,14 +208,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AmazonInfoModel.cs" />
-    <Compile Include="Models\EndGameModels\EndGameModel.cs" />
-    <Compile Include="Models\EndGameModels\RealAnsOfTimeModel.cs" />
-    <Compile Include="Models\FeedBackModels\FeedBackModel.cs" />
-    <Compile Include="Models\PersonalDetails.cs" />
+    <Compile Include="Models\InitData.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
-    <Compile Include="Models\VerificationRulesModels\AnswerModel.cs" />
-    <Compile Include="Models\VerificationRulesModels\QuestionModel.cs" />
-    <Compile Include="Models\VerificationRulesModels\VerificationRulesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,16 +220,130 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\consentIndex.css" />
+    <Content Include="Content\css\endings.css" />
+    <Content Include="Content\css\feedback.css" />
+    <Content Include="Content\css\game1.css" />
+    <Content Include="Content\css\instruction1.css" />
+    <Content Include="Content\css\instruction2.css" />
+    <Content Include="Content\css\interfaceExample.css" />
+    <Content Include="Content\css\personalDetails.css" />
+    <Content Include="Content\css\verificationRules.css" />
     <Content Include="Content\DataTable.css" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
-    <Content Include="Content\css\game1.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="mongocrypt.dll" />
     <Content Include="resources\background.PNG" />
+    <Content Include="resources\Card_photos\alligator.jpeg" />
+    <Content Include="resources\Card_photos\anteater.jpeg" />
+    <Content Include="resources\Card_photos\artic-fox.jpeg" />
+    <Content Include="resources\Card_photos\badger.jpeg" />
+    <Content Include="resources\Card_photos\bat.jpeg" />
+    <Content Include="resources\Card_photos\bear.jpeg" />
+    <Content Include="resources\Card_photos\beaver.jpeg" />
+    <Content Include="resources\Card_photos\bird.jpeg" />
+    <Content Include="resources\Card_photos\bison.jpeg" />
+    <Content Include="resources\Card_photos\boar.jpeg" />
+    <Content Include="resources\Card_photos\bugs.jpeg" />
+    <Content Include="resources\Card_photos\camel.jpeg" />
+    <Content Include="resources\Card_photos\cat.jpeg" />
+    <Content Include="resources\Card_photos\chicken.jpeg" />
+    <Content Include="resources\Card_photos\cow.jpeg" />
+    <Content Include="resources\Card_photos\coyote.jpeg" />
+    <Content Include="resources\Card_photos\crab.jpeg" />
+    <Content Include="resources\Card_photos\crocodile.jpeg" />
+    <Content Include="resources\Card_photos\deer.jpeg" />
+    <Content Include="resources\Card_photos\dog.jpeg" />
+    <Content Include="resources\Card_photos\dolphin.jpeg" />
+    <Content Include="resources\Card_photos\donkey.jpeg" />
+    <Content Include="resources\Card_photos\duck.jpeg" />
+    <Content Include="resources\Card_photos\eagle.jpeg" />
+    <Content Include="resources\Card_photos\eel.jpeg" />
+    <Content Include="resources\Card_photos\elephant.jpeg" />
+    <Content Include="resources\Card_photos\fish.jpeg" />
+    <Content Include="resources\Card_photos\flamingo.jpeg" />
+    <Content Include="resources\Card_photos\fox.jpeg" />
+    <Content Include="resources\Card_photos\frog.jpeg" />
+    <Content Include="resources\Card_photos\giraffe.jpeg" />
+    <Content Include="resources\Card_photos\goat.jpeg" />
+    <Content Include="resources\Card_photos\gorilla.jpeg" />
+    <Content Include="resources\Card_photos\guinea-pig.jpeg" />
+    <Content Include="resources\Card_photos\hawk.jpeg" />
+    <Content Include="resources\Card_photos\hedgehog.jpeg" />
+    <Content Include="resources\Card_photos\hen.jpeg" />
+    <Content Include="resources\Card_photos\hippo.jpeg" />
+    <Content Include="resources\Card_photos\horse.jpeg" />
+    <Content Include="resources\Card_photos\hyena.jpeg" />
+    <Content Include="resources\Card_photos\iguana.jpeg" />
+    <Content Include="resources\Card_photos\jellyfish.jpeg" />
+    <Content Include="resources\Card_photos\kangaroo.jpeg" />
+    <Content Include="resources\Card_photos\killer-whale.jpeg" />
+    <Content Include="resources\Card_photos\koala.jpeg" />
+    <Content Include="resources\Card_photos\Lemur.jpeg" />
+    <Content Include="resources\Card_photos\leopard.jpeg" />
+    <Content Include="resources\Card_photos\lion.jpeg" />
+    <Content Include="resources\Card_photos\Lizard.jpeg" />
+    <Content Include="resources\Card_photos\llama.jpeg" />
+    <Content Include="resources\Card_photos\Lobster.jpeg" />
+    <Content Include="resources\Card_photos\mole.jpeg" />
+    <Content Include="resources\Card_photos\monkey.jpeg" />
+    <Content Include="resources\Card_photos\moose.jpeg" />
+    <Content Include="resources\Card_photos\mouse.jpeg" />
+    <Content Include="resources\Card_photos\narwhal.jpeg" />
+    <Content Include="resources\Card_photos\newt.jpeg" />
+    <Content Include="resources\Card_photos\octopus.jpeg" />
+    <Content Include="resources\Card_photos\ostritch.jpeg" />
+    <Content Include="resources\Card_photos\otter.jpeg" />
+    <Content Include="resources\Card_photos\owl.jpeg" />
+    <Content Include="resources\Card_photos\panda.jpeg" />
+    <Content Include="resources\Card_photos\parrot.jpeg" />
+    <Content Include="resources\Card_photos\peacock.jpeg" />
+    <Content Include="resources\Card_photos\penguin.jpeg" />
+    <Content Include="resources\Card_photos\pig.jpeg" />
+    <Content Include="resources\Card_photos\pigeon.jpeg" />
+    <Content Include="resources\Card_photos\plankton.jpeg" />
+    <Content Include="resources\Card_photos\platypus.jpeg" />
+    <Content Include="resources\Card_photos\polar-bear.jpeg" />
+    <Content Include="resources\Card_photos\puffin.jpeg" />
+    <Content Include="resources\Card_photos\quail.jpeg" />
+    <Content Include="resources\Card_photos\queen-bee.jpeg" />
+    <Content Include="resources\Card_photos\rabbit.jpeg" />
+    <Content Include="resources\Card_photos\racoon.jpeg" />
+    <Content Include="resources\Card_photos\rat.jpeg" />
+    <Content Include="resources\Card_photos\rhino.jpeg" />
+    <Content Include="resources\Card_photos\rooster.jpeg" />
+    <Content Include="resources\Card_photos\scorpion.jpeg" />
+    <Content Include="resources\Card_photos\seagul.jpeg" />
+    <Content Include="resources\Card_photos\seahorse.jpeg" />
+    <Content Include="resources\Card_photos\seal.jpeg" />
+    <Content Include="resources\Card_photos\shark.jpeg" />
+    <Content Include="resources\Card_photos\sheep.jpeg" />
+    <Content Include="resources\Card_photos\shrimp.jpeg" />
+    <Content Include="resources\Card_photos\skunk.jpeg" />
+    <Content Include="resources\Card_photos\sloth.jpeg" />
+    <Content Include="resources\Card_photos\snake-2.jpeg" />
+    <Content Include="resources\Card_photos\snake-3.jpeg" />
+    <Content Include="resources\Card_photos\snake.jpeg" />
+    <Content Include="resources\Card_photos\squid.jpeg" />
+    <Content Include="resources\Card_photos\squirrel.jpeg" />
+    <Content Include="resources\Card_photos\starfish.jpeg" />
+    <Content Include="resources\Card_photos\stingray.jpeg" />
+    <Content Include="resources\Card_photos\swordfish.jpeg" />
+    <Content Include="resources\Card_photos\tarantula.jpeg" />
+    <Content Include="resources\Card_photos\tiger.jpeg" />
+    <Content Include="resources\Card_photos\toucan.jpeg" />
+    <Content Include="resources\Card_photos\turtle.jpeg" />
+    <Content Include="resources\Card_photos\urchin.jpeg" />
+    <Content Include="resources\Card_photos\vulture.jpeg" />
+    <Content Include="resources\Card_photos\walrus.jpeg" />
+    <Content Include="resources\Card_photos\whale.jpeg" />
+    <Content Include="resources\Card_photos\wolf.jpeg" />
+    <Content Include="resources\Card_photos\x-ray-fish.jpeg" />
+    <Content Include="resources\Card_photos\yak.jpeg" />
+    <Content Include="resources\Card_photos\zebra.jpeg" />
     <Content Include="resources\player1.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -275,6 +380,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JS\Agent.js" />
+    <Content Include="Scripts\JS\Board.js" />
     <Content Include="Scripts\JS\Consent.js" />
     <Content Include="Scripts\JS\DataTable.js" />
     <Content Include="Scripts\JS\DisagreePage.js" />
@@ -284,6 +391,9 @@
     <Content Include="Scripts\JS\Feedback.js" />
     <Content Include="Scripts\JS\Game.js" />
     <Content Include="Scripts\JS\Game1.js" />
+    <Content Include="Scripts\JS\Game2.js" />
+    <Content Include="Scripts\JS\GameManager.js" />
+    <Content Include="Scripts\JS\Handlers.js" />
     <Content Include="Scripts\JS\InstructionsOne.js" />
     <Content Include="Scripts\JS\InstructionsTwo.js" />
     <Content Include="Scripts\JS\InterfaceExample.js" />
@@ -291,6 +401,7 @@
     <Content Include="Scripts\JS\PersonalDetails.js" />
     <Content Include="Scripts\JS\SecondTimeError.js" />
     <Content Include="Scripts\JS\TooManyTries.js" />
+    <Content Include="Scripts\JS\Turn.js" />
     <Content Include="Scripts\JS\VerificationRulesScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />

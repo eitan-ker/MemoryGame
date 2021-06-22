@@ -1,0 +1,16 @@
+﻿body {
+    background-color: aliceblue;
+    background-size: cover;
+}
+
+
+p {
+
+    text-align: center;
+    color: #002966;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}

@@ -1,0 +1,101 @@
+﻿body {
+    background-color: aliceblue;
+    background-size: cover;
+}
+
+h2 {
+    text-align: center;
+    color: #002966;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+
+h3 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 10px;
+}
+
+h5 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+
+.QA {
+    margin:30px;
+}
+.Input {
+    width: 20%;
+    height: 50px;
+    text-align: center;
+}
+
+.clickers {
+    text-align: center;
+}
+
+
+.failed {
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: beige;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.Green_Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #73bf73;
+    color: white;
+    box-shadow: grey 5px 5px 5px;
+}
+
+    .Green_Button:focus {
+        outline: none;
+    }
+
+    .Green_Button:hover {
+        background-color: #79d279;
+    }
+
+.Red_Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px ridge black;
+    width: 120px;
+    height: 60px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #ea5353;
+    color: white;
+    box-shadow: grey 5px 5px 5px;
+}
+
+    .Red_Button:focus {
+        outline: none;
+    }
+
+    .Red_Button:hover {
+        background-color: #f35e5e;
+    }
+

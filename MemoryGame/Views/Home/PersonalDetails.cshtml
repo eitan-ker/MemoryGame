@@ -6,38 +6,36 @@
     <script type="text/javascript" src="~/Scripts/JS/PersonalDetails.js"></script>
 }
 
-<link rel="stylesheet" href="~/Content/css/PersonalDetails.css" />
+<link rel="stylesheet" href="~/Content/css/personalDetails.css" />
 <body>
-    <div style="text-align: center;">
-        <title_medium> Personal Details </title_medium>
-        <h4>
-            <span style="color: #000080;">
-                <strong>Age</strong> <br>
+    <div style="text-align: center;" >
+        <h2> Personal Details </h2>
+        <div class="QA">
+            <div>
+                <h3>Age</h3>
                 <input type="number" class="Input" id="age_id" min="18" max="120">
-            </span>
-        </h4>
-        <br />
+            </div>
+        </div>
 
-        <h4>
-            <span style="color: #000080;">
-                <strong>Gender</strong> <br>
+        <div class="QA">
+            <div>
+                <h3>Gender</h3>
                 <div class="dropdown">
-                    <select id="gender_id" class="btn btn-default dropdown-toggle">
+                    <select id="gender_id" class="btn-default dropdown-toggle">
                         <option value="">-- Select one --</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                     </select>
                 </div>
-            </span>
+            </div>
 
-        </h4>
-        <br />
+        </div>
 
-        <h4>
-            <span style="color: #000080;">
-                <strong>Country</strong>
+        <div class="QA">
+            <div>
+                <h3>Country</h3>
                 <div class="dropdown">
-                    <select id="country_id" class="btn btn-default dropdown-toggle">
+                    <select id="country_id" class="btn-default dropdown-toggle">
                         <option value="">-- Select one --</option>
                         <option value="Afganistan">Afghanistan</option>
                         <option value="Albania">Albania</option>
@@ -288,17 +286,15 @@
                         <option value="Zimbabwe">Zimbabwe</option>
                     </select>
                 </div>
-            </span>
+            </div>
 
-        </h4>
-        <br />
+        </div>
 
-        <h4>
-            <span style="color: #000080;">
-                <strong>Education</strong>
-                <br />
+        <div class="QA">
+            <div>
+                <h3>Education</h3>
                 <dropdown class="dropdown">
-                    <select id="education_id" class="btn btn-default dropdown-toggle">
+                    <select id="education_id" class="btn-default dropdown-toggle">
                         <option value="">-- Select one --</option>
                         <option value="No formal education">No formal education</option>
                         <option value="Primary education">Primary education</option>
@@ -310,47 +306,40 @@
                         <option value="Other">Other</option>
                     </select>
                 </dropdown>
-            </span>
+            </div>
 
-        </h4>
-
-
-        <br />
-
-        <p style="text-align:center;">
-            <img src="~/Resources/images/human.png" height="150">
-        </p>
-
-        <title_medium> Please confirm that you are not a robot by answering the following questions. </title_medium>
-        <br />
-
-        What is written below? (case-sensitive. No spaces needed)
-        <br />
-        <input type="text" class="Input" id="cap_id" />
-
-        <p style="text-align:center;">
-            <img src="~/Resources/images/capatche.png" height="80">
-        </p>
-
-        <br />
-
-        How many minutes are there in three hours?
-        <br />
-        <input type="text" class="Input" id="minutes_id" />
-
-        <br /><br />
-        <br />
-        <div class="failed" style="display:none;" id="failed">
-            <h4 id="errorText">Some of your answers were incorrect</h4>
-            <button id="failed_button" onclick="anotherTry();" class="filed_button">Please try again</button>
         </div>
 
-        <button type="submit" class="myButton" name="personalInfo" id="cont_str_info_id" onclick="SubmitAnswers(); return false;">Continue</button>
-        <!--
-              <button id="agree_button_id" type="submit" class="button4" style="background-color:#4ef18f" onclick="nextPageFordev(); return false;">continue for developer</button>
 
-        -->
+        <div class="QA">
+            <p>
+                <img src="~/Resources/images/human.png" height="150">
+            </p>
 
+            <h3> Please confirm that you are not a robot by answering the following questions. </h3>
+
+            <h5>What is written below? (case-sensitive. No spaces needed)</h5>
+            <textarea type="text" class="Input" id="cap_id" placeholder = "Answer here"></textarea>
+
+            <p style="text-align:center;">
+                <img src="~/Resources/images/capatche.png" height="80">
+            </p>
+
+
+            <h5>How many minutes are there in three hours?</h5>
+            <textarea type="text" class="Input" id="minutes_id" placeholder = "Answer here"></textarea>
+        </div>
+        
+        <div class="clickers">
+            <div class="failed" style="display:none;" id="failed">
+                <h5 id="errorText"></h5>
+                <button id="failed_button" onclick="anotherTry();" class="Red_Button">Please try again</button>
+                <h5>You can not continue right now, click on "Please Try Again"</h5>
+
+            </div>
+
+            <button type="submit" class="Green_Button" name="personalInfo" style="display:inline-block;" id="cont_str_info_id" onclick="SubmitAnswers(); return false;">Continue</button>
+        </div>
 
     </div>
 </body>

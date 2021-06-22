@@ -84,7 +84,8 @@ function SubmitAnswers() {
     if (flag) {
         disableAllButtons()
         document.getElementById('errorText').innerHTML = error
-        show_and_hide();
+        show_and_hide('failed')
+        show_and_hide('cont_str_info_id')
         // this is the 3d mistake
         if (numOfTries > 2) {
             var stringTosend = JSON.stringify({ questions: Questions, ArrayOfAnswers: allAnswers, tries: numOfTries, success: false });
@@ -207,15 +208,16 @@ function anableAllButton() {
     document.getElementById('cont_str_info_id').removeAttribute("disabled");
 }
 function anotherTry() {
-    show_and_hide();
+    show_and_hide('failed');
+    show_and_hide('cont_str_info_id');
     anableAllButton();
    
 }
 
-function show_and_hide() {
-    var click = document.getElementById("failed");
+function show_and_hide(str) {
+    var click = document.getElementById(str);
     if (click.style.display === "none") {
-        click.style.display = "block";
+        click.style.display = "inline-block";
     } else {
         click.style.display = "none";
     }

@@ -1,6 +1,5 @@
 ﻿body {
-    background-image: url('/MemoryGame/resources/background.PNG');
-    background-repeat: no-repeat;
+    background-color: aliceblue;
     background-size: cover;
 }
 
@@ -23,12 +22,24 @@ h3 {
     margin-bottom: 40px;
 }
 
+p {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-bottom: 20px;
+}
+
 .text_body {
     text-align: center;
     font-weight: 600;
     margin-top: 4%;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.container.Container_Space_Evenly {
+    margin-top: 50px;
 }
 
 .Green_Button {
@@ -43,6 +54,7 @@ h3 {
     background-color: #73bf73;
     margin-right: 20px;
     color: white;
+    box-shadow: grey 5px 5px 5px;
 }
 
     .Green_Button:focus {
@@ -66,6 +78,7 @@ h3 {
     background-color: #ea5353;
     margin-left: 20px;
     color: white;
+    box-shadow: grey 5px 5px 5px;
 }
 
     .Red_Button:focus {
