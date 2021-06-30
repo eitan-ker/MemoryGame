@@ -58,9 +58,9 @@ $(function () {
     
     alert(data.numOfAgents);*/
     
-    for(let i = 0; i < data.numOfAgents; i++){
+    /*for(let i = 0; i < data.numOfAgents; i++){
         agents.push(new Agent1(function (){}, i));
-    }
+    }*/
     /*agents[0].SetHandler(
         function (){
         data.personalTime = 10000;
@@ -251,8 +251,10 @@ async function IsPair(choicesIndexes) {
             $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
         }*/
         scores["agent"+currentPlayer] +=1;
-        $("#agent"+currentPlayer).find( "#score_text" ).text(scores["agent"+(currentPlayer)]);
+        $("#agent" + currentPlayer).find("#score_text").text(scores["agent" + (currentPlayer)]);
+        return true
     }
+    return false
 }
 
 function getCards(num, rowsize) {

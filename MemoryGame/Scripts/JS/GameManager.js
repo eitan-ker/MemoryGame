@@ -35,15 +35,15 @@ class GameManager{
         this.#agents = [];
         this.#currentTurn = 0;
         this.#personalTime = personalTime;
-        this.choicesIndexes = {};
+        this.choicesIndexes = [];
         this.#globalTime = new Date(0);
         this.#cardNames = this.getCards(size[0] * size[1], size[1]);
         document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
         
         this.#board = new Board([size[0], size[1]], this.#cardNames);
         this.MakePairs();
-        this.turn;
         this.CreateAgents(numOfAgent);
+        this.turn = new Turn(this.#agents[0],this);
         gm = this;
         this.Intervals(numOfAgent, personalTime, this.#globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
     }
@@ -85,7 +85,7 @@ class GameManager{
         // set interval to change turns between players
 
         setInterval(function () {
-            
+            this.choicesIndexes = [];
             // turn = new Turn(currentPlayer % numOfAgents, gameManager);
             if(img.length > 0){
                 for(let i =0; i < img.length; i++){
@@ -100,7 +100,7 @@ class GameManager{
                 lockClicks = false;
                 firstRound = false;
                 firstChoise = true;
-                agents[0].PlayTurn();
+                agents[0].choosePair();
                 // turnsArray.push(turn);
                 gameManager.turn = new Turn(0, gm);
                 currentPlayer += 1;
@@ -119,11 +119,12 @@ class GameManager{
                 lockClicks = true;
                 gameManager.turn = new Turn(currentPlayer % numOfAgents, gameManager);
                 //firstChoise = true;
-                this.choicesIndexes = {};
+                this.choicesIndexes = [];
                 $($("#agent_area").children()[currentPlayer % numOfAgents - 1]).css("background-color", "darkgrey");
                 $($("#agent_area").children()[currentPlayer % numOfAgents]).css("background-color", "yellow");
             }
-            agents[currentPlayer].PlayTurn();
+            console.log(agents)
+            agents[currentPlayer].choosePair();
             // turnsArray.push(turn);
             gameManager.AddTurn(gameManager.turn);
             
@@ -188,9 +189,10 @@ class GameManager{
         return tableTag;
     }
 
-    CreateAgents(numOfAgents){
-        for(let i = 0; i < numOfAgents; i++){
-            this.#agents.push(new Agent1(function (){}, "agent "+i));
+    CreateAgents(numOfAgents) {
+        this.#agents.push(new Player())
+        for (let i = 1; i <= numOfAgents; i++){
+            this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + i));
         }
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
@@ -203,27 +205,6 @@ class GameManager{
             this.#scores["agent" + (i + 1)] = 0;
         }
     }
-
-    /*getCards(num, rowsize) {
-        // array of all the cards that we have in resources/Card_photos
-        var array = ['alligator', 'anteater', 'artic-fox', 'badger', 'bat', 'bear', 'beaver', 'bird', 'bison', 'boar', 'bugs', 'camel', 'cat', 'chicken', 'cow', 'coyote', 'crab', 'crocodile', 'deer', 'dog', 'dolphin', 'donkey', 'duck', 'eagle', 'eel', 'elephant', 'fish', 'flamingo', 'fox', 'frog', 'giraffe', 'goat', 'gorilla', 'guinea-pig', 'hawk', 'hedgehog', 'hen', 'hippo', 'horse', 'hyena', 'iguana', 'jellyfish', 'kangaroo', 'killer-whale', 'koala', 'Lemur', 'leopard', 'lion', 'Lizard', 'llama', 'Lobster', 'mole', 'monkey', 'moose', 'mouse', 'narwhal', 'newt', 'octopus', 'ostritch', 'otter', 'owl', 'panda', 'parrot', 'peacock', 'penguin', 'pig', 'pigeon', 'plankton', 'platypus', 'polar-bear', 'puffin', 'quail', 'queen-bee', 'rabbit', 'racoon', 'rat', 'rhino', 'rooster', 'scorpion', 'seagul', 'seahorse', 'seal', 'shark', 'sheep', 'shrimp', 'skunk', 'sloth', 'snake-2', 'snake-3', 'snake', 'squid', 'squirrel', 'starfish', 'stingray', 'swordfish', 'tarantula', 'tiger', 'toucan', 'turtle', 'urchin', 'vulture', 'walrus', 'whale', 'wolf', 'x-ray-fish', 'yak', 'zebra']
-        var choosen_card = [];
-        //choose indexs for the cards
-        while (choosen_card.length != num / 2) {
-            let flag = 0;
-            let j = Math.floor(Math.random() * array.length);
-            for (let i = 0; i < choosen_card.length; i++) {
-                if (j == choicesIndexes[i]) {
-                    flag = 1;
-                    break;
-                }
-            }
-            if (!flag) {
-                choosen_card.push(j);
-            }
-        }
-    }
-*/
 
     getCards(num, rowsize) {
         // array of all the cards that we have in resources/Card_photos
@@ -307,8 +288,42 @@ class GameManager{
     getSecondHalf(row, col) {
         this.#board.boardArray[row][col].GetSecondHalf();
     }
-    pickCard(row, col) {
+    async pickCard(row, col) {
+        console.log("this is choices array", this.choicesIndexes)
+        //console.log(row, col)
+        let cards = document.getElementsByClassName("cardFrame");
+        //console.log(cards)
+        let card = null;
+        for (let i = 0; i < cards.length; i++) {
+            if (cards[i].getAttribute("ws-row") == row && cards[i].getAttribute("ws-column") == col) {
+                card = cards[i]
+            }
+        }
+        if (card == null) {
+            console.log("can't find the card on the html elements")
+            return;
+        }
+        if (this.choicesIndexes.length >= 2) {
+            return;
+        }
+        else if (this.choicesIndexes.length == 1) {
+            this.ShowCardfromTD(card)
+            this.choicesIndexes.push([row, col]);
+            this.turn.PickCard(this.#board.boardArray[row][col]);
+            //console.log(this.choicesIndexes)
+            await sleep(1000)
+            if (this.IsPair(this.choicesIndexes)) {
+                this.updateFindPair()
+            }
+            //sleep(100)
+           this.choicesIndexes = [];
 
+        }
+        else if (this.choicesIndexes.length == 0) {
+            this.ShowCardfromTD(card)
+            this.choicesIndexes.push([row, col]);
+            this.turn.PickCard(this.#board.boardArray[row][col]);
+        }
     }
     getCard(row, col) {
 
@@ -319,8 +334,36 @@ class GameManager{
     GetTime(){
         return new Date(this.#globalTime.getMinutes(), this.#globalTime.getSeconds(), this.#globalTime.getMilliseconds());
     }
-
-    async ShowCard(jqueryEllement) {
+    IsPair(choicesIndexes) {
+        let board = this.#board;
+        //console.log(this.choicesIndexes)
+    //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
+        if (board.boardArray[this.choicesIndexes[0][0]][this.choicesIndexes[0][1]].name === board.boardArray[this.choicesIndexes[1][0]][this.choicesIndexes[1][1]].name
+            && board.boardArray[this.choicesIndexes[0][0]][this.choicesIndexes[0][1]].index !== board.boardArray[this.choicesIndexes[1][0]][this.choicesIndexes[1][1]].index) {
+            console.log([this.choicesIndexes[0][0], this.choicesIndexes[0][1]] + "," + [this.choicesIndexes[1][0], this.choicesIndexes[1][1]]);
+            var table = $("#memoryTable")[0];
+            var cell = table.rows[this.choicesIndexes[0][0]].cells[this.choicesIndexes[0][1]];
+            
+            $(cell).css({ 'visibility': 'hidden' });
+            cell = table.rows[this.choicesIndexes[1][0]].cells[this.choicesIndexes[1][1]];
+            $(cell).css({ 'visibility': 'hidden' });
+            remainingCards -= 2;
+            totalScore += 1;
+            $("#total_score").text(totalScore);
+        /* if(currentPlayer == 0){
+             scores["agent0"] +=1 ;
+             $(".player").find( ".score_agent" ).text(scores["agent"+currentPlayer]);
+         } else{
+             scores["agent"+currentPlayer] +=1;
+             $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
+         }*/
+            scores["agent" + currentPlayer] += 1;
+            $("#agent" + currentPlayer).find("#score_text").text(scores["agent" + (currentPlayer)]);
+            return true
+    }
+        return false;
+}
+     async ShowCard(jqueryEllement) {
         parent = jqueryEllement.parent();
         var p_row = parent.attr("ws-Row");
         var p_col = parent.attr("ws-Column");
@@ -329,34 +372,78 @@ class GameManager{
         img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
         img[card_num].alt = gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
         img[card_num].width = 70;
-        img[card_num].height = 70;
         jqueryEllement.append(img[card_num]);
         card_num = card_num + 1;
         if (firstChoise) {
             firstChoise = false;
-            choicesIndexes[0] = [p_row, p_col];
-            gameManager.turn.PickCard(gameManager.#board.boardArray[p_row][p_col]);
+            this.choicesIndexes[0] = [p_row, p_col];
+            this.turn.PickCard(this.#board.boardArray[p_row][p_col]);
 
         } else {
             lockClicks = true; // lock the clicks after second card choise
 
             //firstChoise = true;
-            choicesIndexes[1] = [p_row, p_col];
-            await IsPair(choicesIndexes);
+            this.choicesIndexes[1] = [p_row, p_col];
+            await sleep(1000)
+            if (this.IsPair(this.choicesIndexes)) {
+                this.updateFindPair()
+            }
             //save documentation of the turn with 
 
-            gameManager.turn.PickCard(gameManager.#board.boardArray[p_row][p_col]);
+            this.turn.PickCard(this.#board.boardArray[p_row][p_col]);
             //alert(choicesIndexes[0].concat( choicesIndexes[1]));
             if (remainingCards === 0) {
                 document.getElementById("board").innerHTML = "<h1>game over</h1>";
             }
 
             //firstChoise = true;
-            choicesIndexes = {}; // initilize the choices
+            this.choicesIndexes = []; // initilize the choices
+            //sleep(1000);
+            /*for(image of img){
+                $(image).fadeOut();
+            }*/
+        }
+    }
+    async ShowCardfromTD(jqueryEllement) {
+        //parent = jqueryEllement.parent();
+        var p_row = jqueryEllement.getAttribute("ws-Row");
+        var p_col = jqueryEllement.getAttribute("ws-Column");
+        img[card_num] = document.createElement('img');
+        img[card_num].id = "cardId";
+        img[card_num].src = "/MemoryGame/resources/Card_photos/" + this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name + ".jpeg";
+        img[card_num].alt = this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
+        img[card_num].width = 70;
+        img[card_num].height = 70;
+        console.log(img)
+        jqueryEllement.append(img[card_num]);
+        card_num = card_num + 1;
+        if (firstChoise) {
+            firstChoise = false;
+
+        } else {
+            lockClicks = true; // lock the clicks after second card choise
+
+            firstChoise = true;
+           // choicesIndexes[1] = [p_row, p_col];
+            //await IsPair(choicesIndexes);
+            //save documentation of the turn with 
+
+           // this.turn.PickCard(this.#board.boardArray[p_row][p_col]);
+            //alert(choicesIndexes[0].concat( choicesIndexes[1]));
+            if (remainingCards === 0) {
+                document.getElementById("board").innerHTML = "<h1>game over</h1>";
+            }
+
+            //firstChoise = true;
+            //this.choicesIndexes = []; // initilize the choices
             await sleep(1000);
             /*for(image of img){
                 $(image).fadeOut();
             }*/
         }
+    }
+    updateFindPair() {
+        console.log("this is the choices indexes", this.choicesIndexes)
+        this.#board.updateLivedCard(this.choicesIndexes[0], this.choicesIndexes[1])
     }
 }

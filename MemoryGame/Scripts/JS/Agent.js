@@ -18,7 +18,8 @@ class Agent {
         this.score = 0;
     }
     choosePair() {
-        let lived = this.handlerStatus.getLivedCards();
+        let lived = this.handlerStatus.getLiveCards();
+        console.log("this is the lived card", lived)
         this.handlerStatus.pickCard(lived[0][0], lived[0][1]);
         this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
     }
@@ -106,7 +107,7 @@ class Agent1 {
         return [board[i].indexs, board[j].indexs];
     }
     // Method
-    choose_pair() {
+    choosePair() {
         console.log("Agent" + this.index);
         let choose_array = [];
         cards = this.handler.get_last_cards_show(4);
@@ -127,7 +128,7 @@ class Agent1 {
 }
 
 class Player {
-    choose_pair() {
+    choosePair() {
         console.log("Player");
     }
 }

@@ -115,7 +115,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function IsPair(choicesIndexes) {
+/*async function IsPair(choicesIndexes) {
     board = gameManager.GetBoard();
     //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
     if (board[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board[choicesIndexes[1][0]][choicesIndexes[1][1]].name
@@ -136,8 +136,37 @@ async function IsPair(choicesIndexes) {
          } else{
              scores["agent"+currentPlayer] +=1;
              $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
-         }*/
+         }*//*
         gameManager.addScorePerAgent("agent" + currentPlayer);
         $("#agent" + currentPlayer).find("#score_text").text(gameManager.getScorePerAgent("agent" + (currentPlayer)));
     }
+}*/
+
+async function IsPair(choicesIndexes) {
+    let board = gameManager.getBoard();
+    //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
+    if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
+        && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
+        console.log([choicesIndexes[0][0], choicesIndexes[0][1]] + "," + [choicesIndexes[1][0], choicesIndexes[1][1]]);
+        var table = $("#memoryTable")[0];
+        var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
+        await sleep(1000);
+        $(cell).css({ 'visibility': 'hidden' });
+        cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]];
+        $(cell).css({ 'visibility': 'hidden' });
+        remainingCards -= 2;
+        totalScore += 1;
+        $("#total_score").text(totalScore);
+        /* if(currentPlayer == 0){
+             scores["agent0"] +=1 ;
+             $(".player").find( ".score_agent" ).text(scores["agent"+currentPlayer]);
+         } else{
+             scores["agent"+currentPlayer] +=1;
+             $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
+         }*/
+        scores["agent" + currentPlayer] += 1;
+        $("#agent" + currentPlayer).find("#score_text").text(scores["agent" + (currentPlayer)]);
+        return true
+    }
+    return false
 }
