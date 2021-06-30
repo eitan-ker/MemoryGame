@@ -37,16 +37,16 @@ $(function () {
     //assume we've got data object from GET
     data = {
         overallTime: "",// times in milliseconds
-        personalTime: 8000,
+        personalTime: 10000,
         numOfCards: [5, 2],
         numOfAgents: 2
     };
     agentsAmount = data.numOfAgents;
-    gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime);
-    let player = new Agent1(()=>{
+    gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data);
+    /*let player = new Agent1(()=>{
     } ,0)
-    gameManager.AddAgent(player);
-    turn = new Turn(gameManager.getAgents()[0], gameManager);
+    gameManager.AddAgent(player);*/
+    //turn = new Turn(gameManager.getAgents()[0], gameManager);
 
 
 
@@ -141,7 +141,7 @@ function sleep(ms) {
         $("#agent" + currentPlayer).find("#score_text").text(gameManager.getScorePerAgent("agent" + (currentPlayer)));
     }
 }*/
-
+/*
 async function IsPair(choicesIndexes) {
     let board = gameManager.getBoard();
     //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
@@ -163,10 +163,10 @@ async function IsPair(choicesIndexes) {
          } else{
              scores["agent"+currentPlayer] +=1;
              $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
-         }*/
+         }*//*
         scores["agent" + currentPlayer] += 1;
         $("#agent" + currentPlayer).find("#score_text").text(scores["agent" + (currentPlayer)]);
         return true
     }
     return false
-}
+}*/

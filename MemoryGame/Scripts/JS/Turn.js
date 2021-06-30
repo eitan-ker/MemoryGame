@@ -1,8 +1,8 @@
 ﻿class Turn {
-    constructor(agent, gameManager) {
+    constructor(agent, getTime, numOfTurn) {
         this.clicks = 0;
-        this.numOfTurn = gameManager.currentTurn;
-        this.time = gameManager.GetTime();
+        this.numOfTurn = numOfTurn;
+        this.getTime = getTime;
         this.agent = agent;
         this.choosenCards = [];
         this.success = false;
@@ -26,11 +26,12 @@
                 this.success = true;
                 card.found = true;
                 this.firstCard.found = true;
+                this.scoreReward = 10;
             }
         }
 
         this.clicks += 1;
-        this.choosenCards.push({"card":card, "time": new Date(this.time.getMinutes(), this.time.getSeconds(), this.time.getMilliseconds())});
+        this.choosenCards.push({ "card": card, "time": new Date(this.getTime().getMinutes(), this.getTime().getSeconds(), this.getTime().getMilliseconds())});
         
     }
 }

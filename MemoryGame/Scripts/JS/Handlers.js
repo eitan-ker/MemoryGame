@@ -16,7 +16,7 @@
     }
     getLastPlayer(){
         let turn = this.#gameManager.getAllTurns()[0];
-        return turn.whoPlayed;
+        return turn.agent;
     }
     getNumOfTurn(){
         return this.#gameManager.getAllTurns().length;
@@ -25,8 +25,8 @@
         let answer = []
         let turns = this.#gameManager.getAllTurns();
         for (let i = 0; i < turns.length; i++) {
-            if (turns[i].whoPlayed === nameOfAgent) {
-                answer.push(turn[i]);
+            if (turns[i].agent === nameOfAgent) {
+                answer.push(turns[i]);
             }
         }
         return answer;
@@ -35,7 +35,7 @@
         return this.#gameManager.getAllTimeTurnsPerAgent(nameOfAgent);
     }
     getScorePerAgent(string){
-        return this.#gameManager.getScorePerAgent();
+        return this.#gameManager.getScorePerAgent(string);
     }
 
 }
