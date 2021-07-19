@@ -53,6 +53,7 @@ class GameManager{
         this.CreateAgents(numOfAgent);
         this.turn = new Turn(this.#agents[0].name, this.GetTime, this.#turnsArray.length + 1);
         this.personalInterval = setInterval(this.TimerForTurn, 1000);
+        this.globalInterval = null;
         gm = this;
         this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
     }
@@ -86,7 +87,7 @@ class GameManager{
     
     Intervals(numOfAgents, personalTime,globalTime, agents, turnsArray, turn, board){
         //sets the global time of the game.
-        setInterval(function () {
+        this.globalInterval= setInterval(function () {
             globalTime.setSeconds(globalTime.getSeconds() + 1);
             document.getElementById("total_time_text").innerHTML = globalTime.toLocaleTimeString();
         }, 1000);
@@ -131,6 +132,9 @@ class GameManager{
     }
     async TurnTimeout() {
         //console.log("we in TurnTimeout function")
+        if (firstRound !== true) {
+            this.#agents[currentPlayer].addTurn(this.turn)
+        }
         this.choicesIndexes = [];
         // turn = new Turn(currentPlayer % numOfAgents, gameManager);
         if (img.length > 0) {
@@ -165,7 +169,7 @@ class GameManager{
             currentPlayer += 1;
             lockClicks = true;
             this.turn = new Turn(this.#agents[currentPlayer % this.#agents.length].name, this.GetTime, this.#turnsArray.length + 1);
-            //firstChoise = true;
+            firstChoise = true;
             this.choicesIndexes = [];
             $($("#agent_area").children()[currentPlayer % this.#agents.length - 1]).css("background-color", "darkgrey");
             $($("#agent_area").children()[currentPlayer % this.#agents.length]).css("background-color", "yellow");
@@ -252,9 +256,9 @@ class GameManager{
         for (let i = 1; i <= numOfAgents ; i++) {
             let player = document.getElementsByClassName("player")[0].cloneNode(true);
             player.setAttribute("id", "agent" + i);
-            $(player).find( "h4" ).text("agent " + (i + 1));
+            $(player).find( "h4" ).text("agent " + (i));
             document.getElementById("agent_area").appendChild(player);
-            this.#scores["agent" + (i + 1)] = 0;
+            this.#scores["agent" + i] = 0;
         }
     }
 
@@ -362,9 +366,14 @@ class GameManager{
             this.choicesIndexes[1]=[row, col];
             this.turn.PickCard(this.#board.boardArray[row][col]);
             //console.log(this.choicesIndexes)
-            if (await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes)))) {
+            await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes))).then(bool => {
+                if (bool){
+                    this.updateFindPair()
+                }
+            })
+           /* if (await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes)))) {
                 this.updateFindPair()
-            }
+            }*/
             this.#agents[current].addTurn(this.turn)
             if (this.#board.getLiveCards().length == 0) {
                 console.log("game is over")
@@ -374,8 +383,8 @@ class GameManager{
             //sleep(100)
             //this.choicesIndexes = [];
             clearTimeout(this.turnTimeout)
-            await sleep(3000)
-            this.TurnTimeout();
+            await sleep(1000)
+            await this.TurnTimeout();
             //this.turnTimeout = setTimeout(this.TurnTimeout, this.#personalTime)
 
         }
@@ -446,12 +455,29 @@ class GameManager{
             this.turn.PickCard(this.#board.boardArray[p_row][p_col]);
 
         } else {
+            clearTimeout(this.turnTimeout)
             lockClicks = true; // lock the clicks after second card choise
             this.turn.PickCard(this.#board.boardArray[p_row][p_col]);
             //firstChoise = true;
             this.choicesIndexes[1] = [p_row, p_col];
             await sleep(1000)
-            if (this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes)))) {
+            await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes))).then(async (bool) => {
+                if (bool) {
+                    this.updateFindPair()
+                    if (this.#board.getLiveCards().length == 0) {
+                        console.log("game is over")
+                        this.endOfGame()
+                        return;
+                    }
+                    //clearTimeout(this.turnTimeout)
+                    //await sleep(1000)
+                    //await this.TurnTimeout();
+                }
+                this.#agents[currentPlayer].addTurn(this.turn)
+                this.choicesIndexes = [];
+                await this.TurnTimeout();
+            })
+           /* if (this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes)))) {
                 this.updateFindPair()
 
                 if (this.#board.getLiveCards().length == 0) {
@@ -462,16 +488,16 @@ class GameManager{
                 clearTimeout(this.turnTimeout)
                 await sleep(1000)
                 this.TurnTimeout();
-            }
+            }*/
             //save documentation of the turn with 
-            this.#agents[0].addTurn(this.turn)
+            //this.#agents[0].addTurn(this.turn)
             //alert(choicesIndexes[0].concat( choicesIndexes[1]));
            /* if (remainingCards === 0) {
                 document.getElementById("board").innerHTML = "<h1>game over</h1>";
             }*/
 
-            //firstChoise = true;
-            this.choicesIndexes = []; // initilize the choices
+            firstChoise = true;
+            //this.choicesIndexes = []; // initilize the choices
             //sleep(1000);
             /*for(image of img){
                 $(image).fadeOut();
@@ -523,6 +549,9 @@ class GameManager{
     endOfGame() {
         document.getElementById("board").innerHTML = "<h1>game over</h1>";
         this.#agents[0].choosePairTest()
+        if (this.globalInterval != null) {
+            clearInterval(this.globalInterval);
+        }
         if (this.personalInterval != null) {
             clearInterval(this.personalInterval);
         }

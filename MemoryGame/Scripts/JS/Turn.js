@@ -1,8 +1,9 @@
 ﻿class Turn {
+    #getTime
     constructor(agent, getTime, numOfTurn) {
         this.clicks = 0;
         this.numOfTurn = numOfTurn;
-        this.getTime = getTime;
+        this.#getTime = getTime;
         this.agent = agent;
         this.choosenCards = [];
         this.success = false;
@@ -31,7 +32,7 @@
         }
 
         this.clicks += 1;
-        this.choosenCards.push({ "card": card, "time": new Date(this.getTime().getMinutes(), this.getTime().getSeconds(), this.getTime().getMilliseconds())});
+        this.choosenCards.push({ "card": card, "time": new Date(this.#getTime().getMinutes(), this.#getTime().getSeconds(), this.#getTime().getMilliseconds())});
         
     }
 }

@@ -20,8 +20,9 @@ class Agent {
     async choosePair() {
         let lived = this.handlerStatus.getLiveCards();
         console.log("this is the lived card", lived)
+        await sleep(3000)
         this.handlerStatus.pickCard(lived[0][0], lived[0][1]);
-        await sleep(1000)
+        await sleep(3000)
         this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
     }
     async choosePairTest() {
@@ -75,7 +76,12 @@ class Agent {
     getScore(){
         return this.score;
     }
-    addTurn(turn){
+    addTurn(turn) {
+        if (this.turnInfo.length != 0) {
+            if (this.turnInfo[this.turnInfo.length - 1].numOfTurn === turn.numOfTurn) {
+                return;
+            }
+        }
         this.turnInfo.push(turn);
         if (turn.success) {
             this.score += turn.scoreReward;
@@ -193,6 +199,11 @@ class Player {
         return this.score;
     }
     addTurn(turn) {
+        if (this.turnInfo.length != 0) {
+            if (this.turnInfo[this.turnInfo.length - 1].numOfTurn === turn.numOfTurn) {
+                return;
+            }
+        }
         this.turnInfo.push(turn);
         if (turn.success) {
             this.score += turn.scoreReward;
