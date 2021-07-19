@@ -1,4 +1,5 @@
 ﻿
+
 class Card{
     #secondHalf
     constructor(index, name) {
@@ -40,14 +41,19 @@ class Board{
         }
         this.size = size;
         this.boardArray = [];
+        this.livedCards = [];
         for(let i = 0; i < size[0]; i++){
             this.boardArray.push([]);
             for (let j = 0; j < size[1]; j++) {
-                this.boardArray[i].push(new Card([i,j],cards[i][j]));
+                this.boardArray[i].push(new Card([i, j], cards[i][j]));
+                this.livedCards.push([i,j])
             } 
         }
         
-        this.livedCards = this.boardArray;
+       // this.livedCards = [];
+        //for (let i = 0; i < this.boardArray.length; i++) {
+        //    this.livedCards= this.livedCards.concat(this.boardArray[i])
+        //}
         this.exposedCards = [];
         this.turnsArray = [];
 
@@ -87,6 +93,25 @@ class Board{
             }
         }
         return answer;
+    }
+    updateLivedCard(card1, card2) {
+        console.log("before update")
+        console.log(card1, card2)
+        let index = [];
+        for (let i = 0; i < this.livedCards.length; i++) {
+            if (card1[0] == this.livedCards[i][0] && card1[1] == this.livedCards[i][1]) {
+                index.push(i);
+            } else if (card2[0] == this.livedCards[i][0] && card2[1] == this.livedCards[i][1]) {
+                index.push(i);
+            }
+        }
+        console.log("indexes is", index)
+        for (let i = index.length - 1; i >= 0; i--) {
+            this.livedCards.splice(index[i], 1)
+        }
+        console.log("after update")
+        console.log(this.livedCards)
+
     }
 
     
