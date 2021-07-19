@@ -587,12 +587,15 @@ class GameManager{
         dataForServer["configuration"] = this.configuration;
         let scores = [];
         for (let i = 0; i < this.#agents.length; i++) {
-            scores.push([this.#agents[i].name, this.#agents[i].getScore()])
+            scores.push({ name: this.#agents[i].name, score: this.#agents[i].getScore() })
         }
         dataForServer["scores"] = scores;
         dataForServer["hintArr"] = this.hintArr
         dataForServer["startTime"] = this.startTime;
         dataForServer["endTime"] = Date.now()
         console.log(dataForServer);
+        sessionStorage.setItem("scores", JSON.stringify(scores));
+        //this.done = true;
+        window.location.replace("/MemoryGame/Home/EndGame"); //to prevent page back
     }
 }

@@ -253,12 +253,13 @@ function nextPage(e) {
             data: stringTosend,
             contentType: "application/json",
             success: function (data) {
-                sendTime(0);
+                //sendTime(0);
             },
             error: function (errMsg) {
                 alert(errMsg);
             }
-        }); 
+        });
+        sendTime(0)
     } else {
         markAnswersRedGreen();
         disableAllButtons()
@@ -379,6 +380,7 @@ function sendTime(flag) {
             alert(errMsg);
         }
     });
+
 }
 
 function moveToErrorTriesPage() {

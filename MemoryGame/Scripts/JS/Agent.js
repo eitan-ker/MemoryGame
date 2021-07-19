@@ -190,7 +190,7 @@ class Player {
     }
     getAllTimeTurnsPerAgent() {
         let answer = [];
-        for (let i; i = 0; i < this.turnInfo.length) {
+        for (let i = 0; i < this.turnInfo.length; i++) {
             answer.push(this.turnInfo[i].time);
         }
         return answer;

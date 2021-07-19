@@ -104,27 +104,33 @@ function SubmitAnswers() {
                 }
             });
         }
+
         return;
     }
     if (numOfTries < 4) {
         var bla = { questions: Questions, ArrayOfAnswers: allAnswers, tries: numOfTries, success: true }
         var stringTosend = JSON.stringify( bla);
         console.log(stringTosend);
-        $.ajax({
+        /*$.ajax({
             type: "POST",
             url: "/MemoryGame/Data/PersonalDetailsInfo",
             data: stringTosend,
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function () {
+                // need to change this function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                /*
                 done = true;
                 nextPage("/MemoryGame/Home/Game");
+                
             },
             error: function (jqXHR, exception) {
                 //alert("Something went wrong. Please contact the HIT requester.");
                 nextPage("/MemoryGame/Home/ErrorPage");
             }
-        });  
+        });  */
+        done = true;
+        nextPage("/MemoryGame/Home/Game1");
     }
 
 }
