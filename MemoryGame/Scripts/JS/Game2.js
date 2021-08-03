@@ -1,8 +1,8 @@
 ﻿var query;
 var cow = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 var dog = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
-var cards; //= [[cow, dog], [cow, dog]];
-var cardsNames;// = [["cow", "dog"], ["cow", "dog"]];
+var cards; 
+var cardsNames;
 var firstChoise = true;
 var choicesIndexes = {};
 var turnsDocumentation = [];
@@ -26,6 +26,7 @@ var data = {};
 var turn;
 var img = [];
 var card_num = 0;
+var hint_lock = false;
 $(function () {
     $("#board_info").append("<p>Loading</p>");
     $("#board_info").find("p").css({
@@ -38,7 +39,7 @@ $(function () {
     data = {
         overallTime: "",// times in milliseconds
         personalTime: 10000,
-        numOfCards: [5, 2],
+        numOfCards: [4, 3],
         numOfAgents: 2
     };
     agentsAmount = data.numOfAgents;
@@ -47,11 +48,13 @@ $(function () {
     } ,0)
     gameManager.AddAgent(player);*/
     //turn = new Turn(gameManager.getAgents()[0], gameManager);
-
-
-
+    
     $("button").click(async function () {
-        
+        if(this.id == "hint") {
+            
+            gameManager.GetHint();
+            return
+        }
         console.log(currentPlayer);
         if (currentPlayer % agentsAmount !== 0 || lockClicks || card_num > 1) {
             if(currentPlayer % agentsAmount === 0)
@@ -110,6 +113,17 @@ $(function () {
     });
 });
 
+/*$("#hint").click(function (){
+    let p_row = Math.floor(Math.random() * gameManager.size[0]);
+    let p_col = Math.floor(Math.random() * gameManager.size[1]);
+
+    img[card_num] = document.createElement('img');
+    img[card_num].id = "cardId";
+    img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.GetBoard()[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
+    img[card_num].alt = gameManager.GetBoard()[parseInt(p_row)][parseInt(p_col)].name;
+    img[card_num].width = 70;
+    $("#board").find("#memoryTable tr:eq(1) td:eq(1)").append(img[card_num]);
+});*/
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

@@ -1,8 +1,10 @@
 ﻿var firstChoise = true;
 var firstRound = true;
 var lockClicks;
+var hint_lock;
 var currentPlayer = -1;
 var img = [];
+
 var card_num = 0;
 var gm;
 class GameManager{
@@ -148,6 +150,7 @@ class GameManager{
             $($("#board_info").find("p")).fadeOut();
             $($("#agent_area").children()[0]).css("background-color", "red");
             lockClicks = false;
+            hint_lock = false;
             firstRound = false;
             firstChoise = true;
             //this.#agents[0].choosePairTest();
@@ -161,6 +164,7 @@ class GameManager{
             this.turn = new Turn(this.#agents[0].name, this.GetTime, this.#turnsArray.length + 1);
             currentPlayer = 0;
             lockClicks = false;
+            hint_lock = false;
             firstChoise = true;
             card_num = 0;
             $($("#agent_area").children()[this.#agents.length - 1]).css("background-color", "darkgrey");
@@ -168,6 +172,7 @@ class GameManager{
         } else {
             currentPlayer += 1;
             lockClicks = true;
+            hint_lock = true;
             this.turn = new Turn(this.#agents[currentPlayer % this.#agents.length].name, this.GetTime, this.#turnsArray.length + 1);
             firstChoise = true;
             this.choicesIndexes = [];
@@ -405,6 +410,47 @@ class GameManager{
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
     }
+    async GetHint(){
+        if(hint_lock){
+            return ;
+        }
+
+        let cards = document.getElementsByClassName("cardFrame");
+        //console.log(cards)
+        var p_row = this.getLiveCards()[0][1];//card.getAttribute("ws-Row");
+        var p_col = this.getLiveCards()[0][1];//card.getAttribute("ws-Column");
+        let card = null;
+        for (let i = 0; i < cards.length; i++) {
+            if (cards[i].getAttribute("ws-row") == p_row && cards[i].getAttribute("ws-column") == p_col) {
+                card = cards[i]
+            }
+        }
+        if (card == null) {
+            console.log("can't find the card on the html elements")
+            return;
+        }
+        if (this.choicesIndexes.length >= 2) {
+            return;
+        }
+        else  {
+            let row = this.getLiveCards()[0][0];
+            let col = this.getLiveCards()[0][1];
+            //gameManager.pickCard(row, col);
+            let img1 = document.createElement('img');
+            img1.id = "hint_img";
+            img1.src = "/MemoryGame/resources/Card_photos/" + this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name + ".jpeg";
+            img1.alt = this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
+            img1.width = 70;
+            img1.height = 70;
+            card = $(card).find("#card");
+            card.append(img1);
+            hint_lock = true;
+            await sleep(1000);
+            $(img1).fadeOut();
+            //$(this).find('hint_img').fadeOut();
+            
+        }
+    }
     async IsPair(choicesIndexes) {
         let board = this.#board;
         //console.log(this.choicesIndexes)
@@ -456,7 +502,10 @@ class GameManager{
 
         } else {
             clearTimeout(this.turnTimeout)
-            lockClicks = true; // lock the clicks after second card choise
+            if(hint_lock == false){
+                lockClicks = true; // lock the clicks after second card choise
+            }
+            
             this.turn.PickCard(this.#board.boardArray[p_row][p_col]);
             //firstChoise = true;
             this.choicesIndexes[1] = [p_row, p_col];
@@ -505,6 +554,7 @@ class GameManager{
         }
     }
     async ShowCardfromTD(jqueryEllement) {
+        
         //parent = jqueryEllement.parent();
         var p_row = jqueryEllement.getAttribute("ws-Row");
         var p_col = jqueryEllement.getAttribute("ws-Column");
@@ -515,6 +565,7 @@ class GameManager{
         img[card_num].width = 70;
         img[card_num].height = 70;
        // console.log(img)
+        jqueryEllement = $(jqueryEllement).find("#card");
         jqueryEllement.append(img[card_num]);
         card_num = card_num + 1;
         if (firstChoise) {
