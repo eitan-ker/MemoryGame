@@ -32,7 +32,7 @@
         }
 
         this.clicks += 1;
-        this.choosenCards.push({ "card": card, "time": new Date(this.#getTime().getMinutes(), this.#getTime().getSeconds(), this.#getTime().getMilliseconds())});
+        this.choosenCards.push({ "card": card, "time": new Date(this.#getTime.getFullYear(),this.#getTime.getMonth(),this.#getTime.getDay(),this.#getTime.getMinutes(), this.#getTime.getSeconds(), this.#getTime.getMilliseconds())});
         
     }
 }

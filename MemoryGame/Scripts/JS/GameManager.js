@@ -27,7 +27,7 @@ class GameManager{
         this.#scores = {
             "agent0":0
         };
-        this.GetTime = this.GetTime.bind(this);
+        //this.GetTime = this.GetTime.bind(this);
         this.startTime = Date.now();
         this.configuration = configuration
         this.hintArr = [];
@@ -53,7 +53,7 @@ class GameManager{
         this.MakePairs();
         this.turnTimeout = null;
         this.CreateAgents(numOfAgent);
-        this.turn = new Turn(this.#agents[0].name, this.GetTime, this.#turnsArray.length + 1);
+        this.turn = new Turn(this.#agents[0].name, this.globalTime, this.#turnsArray.length + 1);
         this.personalInterval = setInterval(this.TimerForTurn, 1000);
         this.globalInterval = null;
         gm = this;
@@ -155,13 +155,13 @@ class GameManager{
             firstChoise = true;
             //this.#agents[0].choosePairTest();
             // turnsArray.push(turn);
-            this.turn = new Turn(this.#agents[0].name, this.GetTime, this.#turnsArray.length + 1);
+            this.turn = new Turn(this.#agents[0].name, this.globalTime, this.#turnsArray.length + 1);
             this.AddTurn(this.turn);
             currentPlayer += 1;
             return;
         }
         if (currentPlayer === this.#agents.length - 1) {
-            this.turn = new Turn(this.#agents[0].name, this.GetTime, this.#turnsArray.length + 1);
+            this.turn = new Turn(this.#agents[0].name, this.globalTime, this.#turnsArray.length + 1);
             currentPlayer = 0;
             lockClicks = false;
             hint_lock = false;
@@ -173,7 +173,7 @@ class GameManager{
             currentPlayer += 1;
             lockClicks = true;
             hint_lock = true;
-            this.turn = new Turn(this.#agents[currentPlayer % this.#agents.length].name, this.GetTime, this.#turnsArray.length + 1);
+            this.turn = new Turn(this.#agents[currentPlayer % this.#agents.length].name, this.globalTime, this.#turnsArray.length + 1);
             firstChoise = true;
             this.choicesIndexes = [];
             $($("#agent_area").children()[currentPlayer % this.#agents.length - 1]).css("background-color", "darkgrey");
