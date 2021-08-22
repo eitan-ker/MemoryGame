@@ -2,12 +2,16 @@
 
 class Card{
     #secondHalf
+    #index
     constructor(index, name) {
-        this.index = index;
+        this.#index = index;
         this.name = name;
         this.exposed = false;
         this.found = false;
         this.turns = [];
+    }
+    GetIndex() {
+        return this.#index;
     }
     SetSecondHalf(secondHalf) {
         this.#secondHalf = secondHalf;

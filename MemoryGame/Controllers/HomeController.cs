@@ -209,6 +209,11 @@ namespace MemoryGame.Controllers
             return View();
         }
 
+        public ActionResult Replay()
+        {
+            return View();
+        }
+        
         
     }
 

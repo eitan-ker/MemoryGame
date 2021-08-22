@@ -22,7 +22,7 @@ class GameManager{
     #personalTime
     #cardNames;
     #board;
-
+    
     constructor(size, numOfAgent, personalTime,configuration) {
         this.#scores = {
             "agent0":0
@@ -45,7 +45,7 @@ class GameManager{
         this.#personalTime = personalTime;
         this.choicesIndexes = [];
         this.globalTime = new Date(0);
-        this.globalTime.setHours(0)
+        this.globalTime.setHours(0);
         this.#cardNames = this.getCards(size[0] * size[1], size[1]);
         document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
         
@@ -58,6 +58,9 @@ class GameManager{
         this.globalInterval = null;
         gm = this;
         this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
+        /*setTimeout(function (){
+            alert("time's over");
+        }, totalTime);*/
     }
     
     
@@ -84,6 +87,7 @@ class GameManager{
                 }
             }
         } 
+        
     }
     
     
@@ -195,6 +199,7 @@ class GameManager{
     GetBoard(){
         return this.#board.boardArray;
     }
+    
     AddTurn(turn) {
         this.#turnsArray = this.#turnsArray.concat(turn);
     }
@@ -456,7 +461,7 @@ class GameManager{
         //console.log(this.choicesIndexes)
     //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
         if (board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].name === board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].name
-            && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].index !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].index) {
+            && board.boardArray[choicesIndexes[0][0]][choicesIndexes[0][1]].GetIndex() !== board.boardArray[choicesIndexes[1][0]][choicesIndexes[1][1]].GetIndex()) {
             //console.log([choicesIndexes[0][0], choicesIndexes[0][1]] + "," + [choicesIndexes[1][0], choicesIndexes[1][1]]);
             var table = $("#memoryTable")[0];
             var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]];
@@ -553,6 +558,10 @@ class GameManager{
             }*/
         }
     }
+    
+    GetTurnsInfo() {
+        return this.#turnsArray;
+    }
     async ShowCardfromTD(jqueryEllement) {
         
         //parent = jqueryEllement.parent();
@@ -597,7 +606,7 @@ class GameManager{
         //console.log("this is the choices indexes", this.choicesIndexes)
         this.#board.updateLivedCard(this.choicesIndexes[0], this.choicesIndexes[1])
     }
-    endOfGame() {
+    async endOfGame() {
         document.getElementById("board").innerHTML = "<h1>game over</h1>";
         this.#agents[0].choosePairTest()
         if (this.globalInterval != null) {
@@ -617,7 +626,7 @@ class GameManager{
             for (let j = 0; j < board[0].length; j++) {
                 initBoard[i].push({
                     name: board[i][j].name,
-                    indices: board[i][j].index
+                    indices: board[i][j].GetIndex()
                 });
             }
         }
@@ -647,6 +656,29 @@ class GameManager{
         console.log(dataForServer);
         sessionStorage.setItem("scores", JSON.stringify(scores));
         //this.done = true;
+        await this.Replay();
+        //sleep(this.GetTime().getMinutes() * 60000, this.GetTime().getSeconds() * 1000);
         window.location.replace("/MemoryGame/Home/EndGame"); //to prevent page back
+    }
+    async Replay(){
+        window.location.replace("/MemoryGame/Home/Replay");
+        document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
+        let lastTurnTime = 0;
+        for (let turn1 in this.#turnsArray) {
+            if(turn1.GetFirstTurnTime() != null){
+                let time = turn1.GetFirstTurnTime().getSeconds();
+                sleep((time - lastTurnTime) % 60);
+                let firstCard = turn1.GetFirstCard();
+                this.pickCard(firstCard[0], firstCard[1]);
+                lastTurnTime = time;
+            }
+            if(turn.GetSecondTurnTime() != null){
+                let time = turn1.GetSecondTurnTime().getSeconds();
+                sleep((time - lastTurnTime) % 60);
+                let firstCard = turn1.GetFirstCard();
+                this.pickCard(firstCard[0], firstCard[1]);
+                lastTurnTime = time;
+            }
+        }
     }
 }

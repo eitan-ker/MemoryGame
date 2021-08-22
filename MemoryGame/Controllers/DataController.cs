@@ -14,7 +14,7 @@ namespace MemoryGame.Controllers
     public class 
         DataController : Controller
     {
-
+        
         public AmazonInfoModel CreateAmazonInfoModel()
         {
             
@@ -50,7 +50,13 @@ namespace MemoryGame.Controllers
                 numOfAgents: 4
             };*/
             return initData.ToJson();
-        } 
+        }
+
+        [HttpPost]
+        public void ReciveTurnsInfo()
+        {
+            
+        }
         
     }
 }

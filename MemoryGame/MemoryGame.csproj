@@ -210,6 +210,8 @@
     <Compile Include="Models\AmazonInfoModel.cs" />
     <Compile Include="Models\InitData.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
+    <Compile Include="Models\Turn.cs" />
+    <Compile Include="Models\TurnsInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -402,6 +404,7 @@
     <Content Include="Scripts\JS\InterfaceExample.js" />
     <Content Include="Scripts\JS\MobileError.js" />
     <Content Include="Scripts\JS\PersonalDetails.js" />
+    <Content Include="Scripts\JS\Replay.js" />
     <Content Include="Scripts\JS\SecondTimeError.js" />
     <Content Include="Scripts\JS\TooManyTries.js" />
     <Content Include="Scripts\JS\Turn.js" />

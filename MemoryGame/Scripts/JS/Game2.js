@@ -22,11 +22,12 @@ var lockClicks;
 var works;
 var crads_dict = {};
 var data = {};
-//var board = new Board([2,2], [new Card([0,0], "cow"),new Card([0,1], "dog"),new Card([1,0], "cow"),new Card([1,1], "dog")]);
+
 var turn;
 var img = [];
 var card_num = 0;
 var hint_lock = false;
+var timeOver = false;
 $(function () {
     $("#board_info").append("<p>Loading</p>");
     $("#board_info").find("p").css({
@@ -37,22 +38,19 @@ $(function () {
 
     //assume we've got data object from GET
     data = {
-        overallTime: "",// times in milliseconds
+        overallTime: 30000,// times in milliseconds
         personalTime: 10000,
         numOfCards: [4, 3],
         numOfAgents: 2
     };
     agentsAmount = data.numOfAgents;
     gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data);
-    /*let player = new Agent1(()=>{
-    } ,0)
-    gameManager.AddAgent(player);*/
-    //turn = new Turn(gameManager.getAgents()[0], gameManager);
+    
     
     $("button").click(async function () {
         if(this.id == "hint") {
             
-            gameManager.GetHint();
+            await gameManager.GetHint();
             return
         }
         console.log(currentPlayer);
@@ -61,69 +59,23 @@ $(function () {
                 console.log("too much clicks");
             return;
         }
-        gameManager.ShowCard($(this));
-        /*
-            parent = $(this).parent();
-            var p_row = parent.attr("ws-Row");
-            var p_col = parent.attr("ws-Column");
-            img[card_num] = document.createElement('img');
-            img[card_num].id = "cardId";
-            img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
-            img[card_num].alt = "cow";
-            img[card_num].width = 70;
-            img[card_num].height = 70;
-            $(this).append(img[card_num]);
-            card_num = card_num + 1;
-        */
+        await gameManager.ShowCard($(this));
         
-        /*if (firstChoise) {
-            firstChoise = false;
-            choicesIndexes[0] = [p_row, p_col];
-            
-            turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
-
-        } else {
-            lockClicks = true; // lock the clicks after second card choise
-
-            //firstChoise = true;
-            choicesIndexes[1] = [p_row, p_col];
-            IsPair(choicesIndexes);
-            //save documentation of the turn with 
-
-            turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
-            //alert(choicesIndexes[0].concat( choicesIndexes[1]));
-            if (remainingCards === 0) {
-                document.getElementById("board").innerHTML = "<h1>game over</h1>";
-            }
-
-            //firstChoise = true;
-            choicesIndexes = {}; // initilize the choices
-            await sleep(1000);
-            for(image of img){
-
-                $(image).fadeOut();
-            }
-        }*/
-        //alert(turn);
-        
-        
-        //gameManager.turnsArray = gameManager.turnsArray.concat(turn);
-        //turn = new Turn(gameManager.currentTurn % data.numOfAgents, gameManager);
         
     });
+    postInfo = gameManager.GetTurnsInfo()
+    setTimeout(function (){
+        $("#board_zone").fadeOut();
+        $.post('MemoryGame/Controllers/Data',   // url
+            {  }, // data to be submit
+            function(data, status, jqXHR) {// success callback
+               alert("information has been sent");
+            })
+        gameManager.endOfGame();
+        
+    }, data.overallTime);
+    
 });
-
-/*$("#hint").click(function (){
-    let p_row = Math.floor(Math.random() * gameManager.size[0]);
-    let p_col = Math.floor(Math.random() * gameManager.size[1]);
-
-    img[card_num] = document.createElement('img');
-    img[card_num].id = "cardId";
-    img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.GetBoard()[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
-    img[card_num].alt = gameManager.GetBoard()[parseInt(p_row)][parseInt(p_col)].name;
-    img[card_num].width = 70;
-    $("#board").find("#memoryTable tr:eq(1) td:eq(1)").append(img[card_num]);
-});*/
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
