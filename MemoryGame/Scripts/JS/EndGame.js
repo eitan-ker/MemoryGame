@@ -5,8 +5,7 @@ var data;
 var PageInfo = { player_time: "", bob_time: "", mistakes: 0, MistakesInfo: [] };
 var done = false
 $(function () {
-    w
-    indow.onbeforeunload = function () {
+    window.onbeforeunload = function () {
         if (this.done == false) {
             $.ajax({
                 type: "GET",

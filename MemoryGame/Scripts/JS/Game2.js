@@ -38,13 +38,13 @@ $(function () {
 
     //assume we've got data object from GET
     data = {
-        overallTime: 30000,// times in milliseconds
+        overallTime: 20000,// times in milliseconds
         personalTime: 10000,
-        numOfCards: [4, 3],
+        numOfCards: [2, 3],
         numOfAgents: 2
     };
     agentsAmount = data.numOfAgents;
-    gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data);
+    gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data, null);
     
     
     $("button").click(async function () {

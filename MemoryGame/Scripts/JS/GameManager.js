@@ -4,9 +4,10 @@ var lockClicks;
 var hint_lock;
 var currentPlayer = -1;
 var img = [];
-
+var remainingCards = 0;//////////
 var card_num = 0;
 var gm;
+var totalScore = 0;
 class GameManager{
     #scores;
     #choosen_card;
@@ -22,12 +23,20 @@ class GameManager{
     #personalTime
     #cardNames;
     #board;
-    
-    constructor(size, numOfAgent, personalTime,configuration) {
+    #boardImages
+    #gameOrReplay//for game 1 and for replay 0
+    constructor(size, numOfAgent, personalTime,configuration, replayBoard) {
+        if(replayBoard === null) {
+            this.#gameOrReplay = true;
+        } else {
+            this.#gameOrReplay = false;            
+        }
         this.#scores = {
             "agent0":0
         };
         //this.GetTime = this.GetTime.bind(this);
+        this.size = size;
+        remainingCards = size[0] * size[1];///////////
         this.startTime = Date.now();
         this.configuration = configuration
         this.hintArr = [];
@@ -46,18 +55,49 @@ class GameManager{
         this.choicesIndexes = [];
         this.globalTime = new Date(0);
         this.globalTime.setHours(0);
-        this.#cardNames = this.getCards(size[0] * size[1], size[1]);
-        document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
+        if(replayBoard === null){
+            this.#cardNames = this.getCards(size[0] * size[1], size[1]);
+        }        
         
-        this.#board = new Board([size[0], size[1]], this.#cardNames);
+        document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
+        if(replayBoard === null){
+            this.#board = new Board([size[0], size[1]], this.#cardNames);
+        } else {
+            let cards ;
+            for(let i = 0; i < replayBoard.length ; i++) {
+                let row = [];
+                for(let j = 0; j < replayBoard[0].length; j++) {
+                    if(i === 0 && j === 0) {
+                        row = [replayBoard[i][j].name];
+                    } else {
+                        row = row.concat(replayBoard[i][j].name);
+                    }
+                }
+                if(i === 0){
+                    cards = [row];
+                } else {
+                    cards = cards.concat([row]);
+                }
+            }
+            this.#board = new Board([replayBoard.length ,replayBoard[0].length],cards);
+        }
+        
         this.MakePairs();
         this.turnTimeout = null;
         this.CreateAgents(numOfAgent);
         this.turn = new Turn(this.#agents[0].name, this.globalTime, this.#turnsArray.length + 1);
-        this.personalInterval = setInterval(this.TimerForTurn, 1000);
-        this.globalInterval = null;
-        gm = this;
-        this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
+        if(replayBoard == null) {
+            this.personalInterval = setInterval(this.TimerForTurn, 1000);
+            this.globalInterval = null;
+            
+            gm = this;
+            this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
+            this.#boardImages = this.#board.boardArray;
+        } 
+        /*else {
+            this.#board.boardArray = this.#boardImages;
+        }*/
+        
         /*setTimeout(function (){
             alert("time's over");
         }, totalTime);*/
@@ -65,7 +105,19 @@ class GameManager{
     
     
     MakePairs(){
-        let board = this.#board.boardArray;
+        let board;
+        if(this.#board.boardArray === undefined){
+            for(let i = 0; i < this.#board.length; i++) {
+                if( i === 0){
+                    board = this.#board[i];
+                } else {
+                    board.concat(this.#board[i]);
+                }
+            }
+        } else {
+            board = this.#board.boardArray;
+        }
+        
         var indexses = {};
         for(let i = 0; i < board.length; i++){
             for(let j = 0; j < board[0].length; j++){
@@ -89,7 +141,6 @@ class GameManager{
         } 
         
     }
-    
     
     Intervals(numOfAgents, personalTime,globalTime, agents, turnsArray, turn, board){
         //sets the global time of the game.
@@ -137,6 +188,15 @@ class GameManager{
         $(player).find("#score_text").text(text.toString());
     }
     async TurnTimeout() {
+        if(!this.#gameOrReplay) {
+            if (img.length > 0) {
+                for (let i = 0; i < img.length; i++) {
+                    $(img[i]).fadeOut();
+                }
+                img = [];
+            }
+            return;
+        }
         //console.log("we in TurnTimeout function")
         if (firstRound !== true) {
             this.#agents[currentPlayer].addTurn(this.turn)
@@ -368,9 +428,15 @@ class GameManager{
             console.log("can't find the card on the html elements")
             return;
         }
-        if (this.choicesIndexes.length >= 2) {
+        if (this.choicesIndexes.length > 2) {
             return;
         }
+        /*if(!this.#gameOrReplay) {
+            this.ShowCardfromTD(card)
+            this.choicesIndexes[0]=[row, col];
+            this.turn.PickCard(this.#board.boardArray[row][col]);
+            return ;
+        }*/
         else if (this.choicesIndexes.length == 1) {
             this.ShowCardfromTD(card)
             this.choicesIndexes[1]=[row, col];
@@ -384,14 +450,16 @@ class GameManager{
            /* if (await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes)))) {
                 this.updateFindPair()
             }*/
-            this.#agents[current].addTurn(this.turn)
+            if(this.#gameOrReplay){
+                this.#agents[current].addTurn(this.turn);
+            } 
             if (this.#board.getLiveCards().length == 0) {
                 console.log("game is over")
                 this.endOfGame()
                 return;
             }
             //sleep(100)
-            //this.choicesIndexes = [];
+            this.choicesIndexes = [];
             clearTimeout(this.turnTimeout)
             await sleep(1000)
             await this.TurnTimeout();
@@ -480,7 +548,7 @@ class GameManager{
              scores["agent"+currentPlayer] +=1;
              $("#agent"+currentPlayer).find( ".score_agent" ).text(scores["agent"+(currentPlayer + 1)]);
          }*/
-            scores["agent" + currentPlayer] += 10;
+            this.#scores["agent" + currentPlayer] += 10;
             //$("#agent" + currentPlayer).find("#score_text").text(scores["agent" + (currentPlayer)]);
             //clearTimeout(this.turnTimeout)
             //setTimeout(this.TurnTimeout,1000)
@@ -655,6 +723,13 @@ class GameManager{
         dataForServer["endTime"] = Date.now()
         console.log(dataForServer);
         sessionStorage.setItem("scores", JSON.stringify(scores));
+        sessionStorage.setItem("size", JSON.stringify(this.size));
+
+        sessionStorage.setItem("config", JSON.stringify(this.configuration));
+        
+        sessionStorage.setItem("turnsArray", JSON.stringify(this.#turnsArray));
+        sessionStorage.setItem("boardImages", JSON.stringify(this.#boardImages));
+        
         //this.done = true;
         await this.Replay();
         //sleep(this.GetTime().getMinutes() * 60000, this.GetTime().getSeconds() * 1000);
