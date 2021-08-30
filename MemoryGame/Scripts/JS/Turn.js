@@ -8,12 +8,22 @@
         this.success = false;
         this.scoreReward = 0;
         this.usedHint = false;
-        this.Hint = null;
+        this.hint = null;
     }
-    CreateDebugTurn(clicks, choosenCards, success ) {
+    CreateDebugTurn(clicks, choosenCards, success) {
         this.clicks = clicks;
         this.choosenCards = choosenCards;
         this.success = success;
+    }
+    DebugHint(hint) {
+        this.usedHint = true;
+        this.hint = hint;
+    }
+    TookHint(card){
+        this.usedHint = true;
+        this.hint = { "card": card, "time": new Date(this.getTime.getFullYear(),this.getTime.getMonth(),
+            this.getTime.getDay(),this.getTime.getHours() ,this.getTime.getMinutes(), this.getTime.getSeconds(),
+            this.getTime.getMilliseconds())};
     }
     PickCard(card) {
         /*if(this.clicks >= 2){
@@ -41,7 +51,19 @@
                 this.getTime.getMilliseconds())});
         
     }
-    
+    GetHintTime() {
+        if(!this.usedHint) {
+            alert("no hint was taken");
+            return null
+        }
+
+        return new Date(this.hint["time"]);
+        /*this.choosenCards[0].getFullYear(),this.choosenCards[0].getMonth(),this.choosenCards[0].getDay(),
+        this.choosenCards[0].getHours() ,this.choosenCards[0].getMinutes(), this.choosenCards[0].getSeconds(), 
+        this.choosenCards[0].getMilliseconds());*/
+    }
+
+
     GetFirstTurnTime() {
         if(this.choosenCards.length < 1) {
             return null
@@ -52,7 +74,7 @@
             this.choosenCards[0].getHours() ,this.choosenCards[0].getMinutes(), this.choosenCards[0].getSeconds(), 
             this.choosenCards[0].getMilliseconds());*/
     }
-
+    
     GetSecondTurnTime() {
         if(this.choosenCards.length < 2) {
             return null

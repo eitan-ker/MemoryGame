@@ -30,6 +30,13 @@
     for (let i = 0; i < turnsArray.length; i++) {
         turn1 = new Turn(turnsArray[i].agent,turnsArray[i].getTime,turnsArray[i].numOfTurn);
         turn1.CreateDebugTurn(turnsArray[i].clicks, turnsArray[i].choosenCards, turnsArray[i].success);
+        if(turnsArray[i].usedHint) {
+            turn1.DebugHint(turnsArray[i].hint);
+        }
+        if(turn1.usedHint) {
+            let sleepTime = turn1.GetHintTime().getSeconds();
+            ReplayHint(gm,turn1,sleepTime);
+        }
         if(turn1.GetFirstTurnTime() != null){
             let sleepTime = turn1.GetFirstTurnTime().getSeconds();
             //let sleepTime = ((time - lastTurnTime) % 60) * 1000;
@@ -53,13 +60,18 @@
             //lastTurnTime += time;
         }
     }
-    EndReplay(totalTime);
+    // EndReplay(totalTime);
 });
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+function ReplayHint(gm, turn1, sleepTime){
+    setTimeout(function(){
+        console.log("turn:" + turn1.numOfTurn + "card 1" + "sleep:" + sleepTime);
+        gm.GetHint();//(turn1.hint.card.index[0], turn1.hint.card.index[1]);
+    }, sleepTime * 1000);
+}
 function myFunction1(gm, turn1, sleepTime) {
     setTimeout(function(){
         console.log("turn:" + turn1.numOfTurn + "card 1" + "sleep:" + sleepTime);

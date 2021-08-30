@@ -477,9 +477,7 @@ class GameManager{
     getCard(row, col) {
         return this.#board.GetCard(row,col)
     }
-    getHint() {
-        //let hint = new Hint
-    }
+    
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
     }
@@ -487,7 +485,7 @@ class GameManager{
         if(hint_lock){
             return ;
         }
-
+        
         let cards = document.getElementsByClassName("cardFrame");
         //console.log(cards)
         var p_row = this.getLiveCards()[0][1];//card.getAttribute("ws-Row");
@@ -502,9 +500,15 @@ class GameManager{
             console.log("can't find the card on the html elements")
             return;
         }
+        if(this.#gameOrReplay){// if its game
+            this.turn.TookHint(this.#board.boardArray[p_row][p_col]);
+        }
+        
+        
         if (this.choicesIndexes.length >= 2) {
             return;
         }
+        
         else  {
             let row = this.getLiveCards()[0][0];
             let col = this.getLiveCards()[0][1];
