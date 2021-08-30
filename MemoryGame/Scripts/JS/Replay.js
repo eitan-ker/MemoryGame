@@ -1,4 +1,15 @@
 ﻿$(function () {
+    /*
+    Repalce the 4 vars from the sessionStorage to be initilized from Get Http request when the server
+    will be ready to soppurt that.
+    the arguments should be as follow:
+    1.
+    size - [row_dim, col_dim]
+    turnsArray - the turns documantion array of the desired run.
+    boardImages - a sringtinfy of the board of the desired run.
+    config - the config object
+     
+    * */
     let size = JSON.parse(sessionStorage.getItem("size"));
     let turnsArray = JSON.parse(sessionStorage.getItem("turnsArray"));
     let boardImages = JSON.parse(sessionStorage.getItem("boardImages"));
@@ -6,7 +17,14 @@
     let gm = new GameManager(size, config.numOfAgents, config.personalTime,config, boardImages); 
     //let size = config.size;
     document.getElementById("board").innerHTML = gm.CreateBoard(size[0], size[1]);
-    let totalTime = new Date(turnsArray[turnsArray.length - 1].choosenCards[1].time).getSeconds() * 1000 + 5000;
+    let totalTime = 0;
+    if(turnsArray[turnsArray.length - 1].choosenCards.length == 2) {
+        totalTime = new Date(turnsArray[turnsArray.length - 1].choosenCards[1].time).getSeconds() * 1000 + 5000;
+    } else if(turnsArray[turnsArray.length - 1].choosenCards.length == 1) {
+        totalTime = new Date(turnsArray[turnsArray.length - 1].choosenCards[0].time).getSeconds() * 1000 + 5000;
+    } else {
+        totalTime = new Date(turnsArray[turnsArray.length - 1].getTime).getSeconds() * 1000 + 5000;        
+    }
     
     let lastTurnTime = 0;
     for (let i = 0; i < turnsArray.length; i++) {
