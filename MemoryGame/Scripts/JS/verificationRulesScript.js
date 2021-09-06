@@ -159,6 +159,7 @@ function startQuiz() {
 
             button.setAttribute("id", String(answerCounter));
             button.setAttribute("style", "color: rgb(255 255 255); background-color: rgb(33 55 128 / 90%); font-weight: 600;");
+            //
 
             if (answer.correct) {
                 button.dataset.correct = answer.correct
@@ -181,6 +182,7 @@ function checkSelected(divIndex) {
     for (i = 0; i < kbButtons.length; i++) {
         btn_id = kbButtons[i].getAttribute('id');
         document.getElementById(btn_id).style.border = "none";
+        document.getElementById(btn_id).style.background = "rgba(33,55,128,0.9)";
     }
 
 }
@@ -200,6 +202,9 @@ function selectAnswer(e, index) { // works only on choices that was clicked, -1 
 
     elem_id = selectedButton.getAttribute('id')
     document.getElementById(elem_id).style.border = "solid black"; // mark selected option
+    document.getElementById(elem_id).style.background = "rgb(128,128,128)";
+                //color: rgb(255 255 255); background-color: rgb(33 55 128 / 90%);
+
     answerId[index] = elem_id;
 
     const correct = selectedButton.dataset.correct
@@ -267,7 +272,7 @@ function nextPage(e) {
         show_and_hide('continue-btn');
         //error page
         if (iter == 3) {
-            let dataOfVer = {Questions: questions, AttempsInfo: attempsInfo, NumOfTries: iter };
+            let dataOfVer = { Questions: questions, AttempsInfo: attempsInfo, NumOfTries: iter };
 
             let stringTosend = JSON.stringify(dataOfVer);
             console.log(stringTosend);
@@ -282,10 +287,11 @@ function nextPage(e) {
                 error: function (errMsg) {
                     alert(errMsg);
                 }
-            }); 
-        
-        // window.location.replace("/Home/PersonalDetails"); //change to relevant page.
+            });
+
+            // window.location.replace("/Home/PersonalDetails"); //change to relevant page.
         }
+
     }
 }
 
@@ -335,10 +341,12 @@ function clearAllMarks() {
     for (i = 0; i < answerId.length; i++) {
         document.getElementById(correctAnswersId[i]).style.backgroundColor = "rgb(33 55 128 / 90%)";
         document.getElementById(correctAnswersId[i]).style.fontWeight = "normal";
+        document.getElementById(correctAnswersId[i]).style.border = "none";
 
         if (indexOfAnswer[i] != -1 && answerId[i] != correctAnswersId[i]) {
             document.getElementById(answerId[i]).style.backgroundColor = "rgb(33 55 128 / 90%)";
             document.getElementById(answerId[i]).style.fontWeight = "normal";
+            document.getElementById(answerId[i]).style.border = "none";
         }
     }
 }
