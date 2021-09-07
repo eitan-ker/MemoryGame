@@ -163,18 +163,21 @@ function scaleBuilder(questionType, counter) {
     var i = 0;
     let html = '<div class= "QA"><div class="question"><h5>' + questionType.question + '</h5></div>';
     html += '<div class="likert" style="display: flex; justify-content: space-around; align-items: center; ">';
+    html += '<div class="like_dislike" style="width: min-content;"><img class="like" id="dislike" src="/MemoryGame/resources/Images/dislike2.png"></div>'
     for (i = 0; i < scaleSize; i++) {
         var scaleId = String(counter) + 'rd' + String(i);
         html += '<div  class="likert_opt" onclick="scaleClicker(\'' + String(scaleId) + '\', ' + String(counter) + ')">';
         html += '<div class="single_likert"><input  id="' + String(scaleId) + '" name="grp' + counter + '" type="radio" value="' + String(i) + '"></div>';
         html += '<div class="likert_num"><h5>' + String(i) + '</h5></div>';
         if (i == 0) {
-            html += '<div class="dislike"><li> Not at all </li></div>';
+            html += '<div class="dislike"><h5> Not at all </h5></div>';
         } else if (i == scaleSize - 1) {
-            html += '<div class="like"><li> Very much </li></div>';
+            html += '<div class="like"><h5> Very much </h5></div>';
         }
         html += '</div>';
     }
+    html += '<div class="like_dislike" style="width: min-content;"><img class="like" id="like" src="/MemoryGame/resources/Images/like2.jpg"></div>'
+
     html += '</div></div>';
     return html;
 

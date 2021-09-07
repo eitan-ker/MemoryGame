@@ -202,7 +202,7 @@ function selectAnswer(e, index) { // works only on choices that was clicked, -1 
 
     elem_id = selectedButton.getAttribute('id')
     document.getElementById(elem_id).style.border = "solid black"; // mark selected option
-    document.getElementById(elem_id).style.background = "rgb(128,128,128)";
+    document.getElementById(elem_id).style.background = "rgb(66,66, 66)";
                 //color: rgb(255 255 255); background-color: rgb(33 55 128 / 90%);
 
     answerId[index] = elem_id;
