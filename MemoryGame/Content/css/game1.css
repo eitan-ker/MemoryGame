@@ -24,6 +24,7 @@ h2 {
 
 .text {
     font-weight: bold;
+    font-size:22px;
 }
 
 
@@ -50,8 +51,30 @@ h2 {
     justify-content: space-evenly;
     padding:4px;
 }
+
+#hint {
+    background-color: rgb(255 255 250 / 0.9);
+    /* 1 pixel black shadow to left, top, right and bottom */
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+    font-family: sans;
+    color: yellow;
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+    border-radius: 60px;
+    box-shadow: black 5px 5px 5px 1px;
+    font-weight: bold;
+    font-size: 39px;
+}
+
+.hint_img {
+    margin:4px;
+    display:flex;
+    max-block-size:50px;
+}
+
 .player_name_img {
-    padding:10px;
+    padding: 10px;
 }
 
 .player_img {
@@ -64,8 +87,6 @@ h2 {
     display: grid;
     margin-top: 15%;
     padding:5px;
-    border: 2px ridge black;
-    border-radius: 8px;
 }
 #board_info {
     background-color: rgb(164 179 241 / 55%);
@@ -80,11 +101,16 @@ h2 {
     margin-left: auto;
     margin-right: auto;
     border-style: dotted;
-    background-color: rgb(33 55 128 / 90%);
-    width: 70px;
-    height: 70px;
-    margin: 2px;
+    background-image: url("../../resources/Images/card_back.jpg");
+    background-size: 125px 80px;
+    background-position: center;
+    width: 130px;
+    height: 80px;
+    margin: 10px;
+    box-shadow: black 5px 5px 10px 1px;
+    border: 2px ridge black;
 }
+
 #board {
     margin-left: auto;
     margin-right: auto;
@@ -101,8 +127,8 @@ h2 {
     border-radius: 8px;
 }
 #agent_area {
-    padding:10px;
-    background-color: rgb(164 179 241 / 55%);
+    padding: 10px;
+    background-color: rgb(89 109 183 / 0.7);
     box-shadow: inset 0 0 0 10px darkgrey;
 }
 
@@ -111,8 +137,9 @@ h2 {
 }
 
 #head_board {
-    background-color: rgb(89 109 183 / 0.5);
+    background-color: rgb(89 109 183 / 0.7);
     padding: 15px;
     border: 2px solid black;
     box-shadow: black 10px 10px 10px;
+    
 }
