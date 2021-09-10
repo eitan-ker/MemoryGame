@@ -232,7 +232,7 @@ class GameManager{
             firstChoise = true;
             card_num = 0;
             $($("#agent_area").children()[this.#agents.length - 1]).css("background-color", "darkgrey");
-            $($("#agent_area").children()[currentPlayer % this.#agents.length]).css("background-color", "red");
+            $($("#agent_area").children()[currentPlayer % this.#agents.length]).css("background-color", "yellow");
         } else {
             currentPlayer += 1;
             lockClicks = true;
@@ -481,7 +481,7 @@ class GameManager{
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
     }
-    async GetHint(){
+    async GetHint(){ // called by click Hint
         if(hint_lock){
             return ;
         }

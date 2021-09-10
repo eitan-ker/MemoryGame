@@ -36,11 +36,12 @@ $(function () {
     });
     //data = sessionStorage.getItem('configurationData')
 
+    // Data is the configuration object
     //assume we've got data object from GET
     data = {
         overallTime: 20000,// times in milliseconds
         personalTime: 10000,
-        numOfCards: [2, 3],
+        numOfCards: [4, 6],
         numOfAgents: 2
     };
     agentsAmount = data.numOfAgents;
