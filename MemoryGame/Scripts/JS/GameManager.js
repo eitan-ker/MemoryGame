@@ -483,15 +483,18 @@ class GameManager{
         return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
     }
 
-    async GetHint(){ // called by click Hint
+    async GetHint1(){ // called by click Hint
         if(hint_lock){
             return ;
         }
-        
-        let cards = document.getElementsByClassName("cardFrame");
         //console.log(cards)
         var p_row = this.getLiveCards()[0][1];//card.getAttribute("ws-Row");
         var p_col = this.getLiveCards()[0][1];//card.getAttribute("ws-Column");
+        this.hintImplement(p_row, p_col);
+    }
+
+    async hintImplement(p_row, p_col) {
+        let cards = document.getElementsByClassName("cardFrame");
         let card = null;
         for (let i = 0; i < cards.length; i++) {
             if (cards[i].getAttribute("ws-row") == p_row && cards[i].getAttribute("ws-column") == p_col) {
@@ -502,16 +505,16 @@ class GameManager{
             console.log("can't find the card on the html elements")
             return;
         }
-        if(this.#gameOrReplay){// if its game
+        if (this.#gameOrReplay) {// if its game
             this.turn.TookHint(this.#board.boardArray[p_row][p_col]);
         }
-        
-        
+
+
         if (this.choicesIndexes.length >= 2) {
             return;
         }
-        
-        else  {
+
+        else {
             let row = this.getLiveCards()[0][0];
             let col = this.getLiveCards()[0][1];
             //gameManager.pickCard(row, col);
@@ -527,9 +530,10 @@ class GameManager{
             await sleep(1000);
             $(img1).fadeOut();
             //$(this).find('hint_img').fadeOut();
-            
+
         }
     }
+
     async IsPair(choicesIndexes) {
         let board = this.#board;
         //console.log(this.choicesIndexes)

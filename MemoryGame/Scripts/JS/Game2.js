@@ -51,7 +51,7 @@ $(function () {
     $("button").click(async function () {
         if(this.id == "hint") {
             
-            await gameManager.GetHint();
+            await gameManager.GetHint1();
             return
         }
         console.log(currentPlayer);
