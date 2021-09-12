@@ -42,16 +42,24 @@ $(function () {
         overallTime: 200000,// times in milliseconds
         personalTime: 100000,
         numOfCards: [4, 6],
-        numOfAgents: 2
+        numOfAgents: 2,
+        hintConfig:2
     };
     agentsAmount = data.numOfAgents;
     gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data, null);
     
     
     $("button").click(async function () {
-        if(this.id == "hint") {
-            
-            await gameManager.GetHint1();
+        if (this.id == "hint") {
+
+            switch (data.hintConfig) {
+                case 1:
+                    await gameManager.GetHint1();
+                    break;
+                case 2:
+                    await gameManager.GetHint2();
+                    break;
+            }
             return
         }
         console.log(currentPlayer);

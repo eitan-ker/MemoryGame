@@ -488,10 +488,25 @@ class GameManager{
             return ;
         }
         //console.log(cards)
-        var p_row = this.getLiveCards()[0][1];//card.getAttribute("ws-Row");
+        var p_row = this.getLiveCards()[0][0];//card.getAttribute("ws-Row");
         var p_col = this.getLiveCards()[0][1];//card.getAttribute("ws-Column");
         this.hintImplement(p_row, p_col);
     }
+
+    async GetHint2() { // called by click Hint
+        if (hint_lock) {
+            return;
+        }
+        var liveCardsSize = this.getLiveCards().length;
+        var randIndex = Math.floor(Math.random() * liveCardsSize);
+
+        //console.log(cards)
+        var p_row = this.getLiveCards()[randIndex][0];//card.getAttribute("ws-Row");
+        var p_col = this.getLiveCards()[randIndex][1];//card.getAttribute("ws-Column");
+        this.hintImplement(p_row, p_col);
+    }
+
+
 
     async hintImplement(p_row, p_col) {
         let cards = document.getElementsByClassName("cardFrame");
