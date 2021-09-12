@@ -47,7 +47,13 @@ $(function () {
     };
     agentsAmount = data.numOfAgents;
     gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data, null);
-    
+
+
+    /*
+     * getHint1() - showing first live card on board.
+     * getHint2() - showing random live card on board.
+     * getHint3() - showing last seen card partner.
+     */
     
     $("button").click(async function () {
         if (this.id == "hint") {
