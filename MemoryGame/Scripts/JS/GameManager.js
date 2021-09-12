@@ -506,6 +506,16 @@ class GameManager{
         this.hintImplement(p_row, p_col);
     }
 
+    //
+    // missing implementation
+    //
+    async GetHint3() {
+        if (hint_lock) {
+            return;
+        }
+        console.log(this.#turnsArray);
+    }
+
 
 
     async hintImplement(p_row, p_col) {

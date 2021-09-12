@@ -43,7 +43,8 @@ $(function () {
         personalTime: 100000,
         numOfCards: [4, 6],
         numOfAgents: 2,
-        hintConfig:2
+        // 1 - showing first live card on board, 2 - showing random live card on board, 3 - showing last seen card partner.
+        hintConfig: 3 
     };
     agentsAmount = data.numOfAgents;
     gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data, null);
@@ -54,7 +55,6 @@ $(function () {
      * getHint2() - showing random live card on board.
      * getHint3() - showing last seen card partner.
      */
-    
     $("button").click(async function () {
         if (this.id == "hint") {
 
@@ -64,6 +64,9 @@ $(function () {
                     break;
                 case 2:
                     await gameManager.GetHint2();
+                    break;
+                case 3:
+                    await gameManager.GetHint3();
                     break;
             }
             return
