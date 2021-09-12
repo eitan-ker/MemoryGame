@@ -39,8 +39,8 @@ $(function () {
     // Data is the configuration object
     //assume we've got data object from GET
     data = {
-        overallTime: 20000,// times in milliseconds
-        personalTime: 10000,
+        overallTime: 200000,// times in milliseconds
+        personalTime: 100000,
         numOfCards: [4, 6],
         numOfAgents: 2
     };

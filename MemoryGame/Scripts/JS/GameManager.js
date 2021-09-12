@@ -212,7 +212,7 @@ class GameManager{
 
         if (firstRound === true) {
             $($("#board_info").find("p")).fadeOut();
-            $($("#agent_area").children()[0]).css("background-color", "red");
+            $($("#agent_area").children()[0]).css("background-color", "yellow");
             lockClicks = false;
             hint_lock = false;
             firstRound = false;
@@ -474,6 +474,7 @@ class GameManager{
         //console.log("this is choices array", this.choicesIndexes)
         return this.#board.GetCard(row, col);
     }
+
     getCard(row, col) {
         return this.#board.GetCard(row,col)
     }
@@ -481,6 +482,7 @@ class GameManager{
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
     }
+
     async GetHint(){ // called by click Hint
         if(hint_lock){
             return ;
@@ -569,8 +571,10 @@ class GameManager{
         img[card_num].id = "cardId";
         img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
         img[card_num].alt = gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
-        img[card_num].width = 70;
+        img[card_num].width = 60;
+        img[card_num].height = 60;
         jqueryEllement.append(img[card_num]);
+
         card_num = card_num + 1;
         if (firstChoise) {
             firstChoise = false;
@@ -643,10 +647,12 @@ class GameManager{
         img[card_num].id = "cardId";
         img[card_num].src = "/MemoryGame/resources/Card_photos/" + this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name + ".jpeg";
         img[card_num].alt = this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
-        img[card_num].width = 70;
-        img[card_num].height = 70;
+        img[card_num].width = 60;
+        img[card_num].height = 60;
        // console.log(img)
         jqueryEllement = $(jqueryEllement).find("#card");
+
+
         jqueryEllement.append(img[card_num]);
         card_num = card_num + 1;
         if (firstChoise) {
