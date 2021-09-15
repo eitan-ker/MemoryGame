@@ -506,6 +506,24 @@ class GameManager{
         this.hintImplement(p_row, p_col);
     }
 
+    //
+    // missing implementation
+    //
+    async GetHint3() {
+        if (hint_lock) {
+            return;
+        }
+        turn_size = this.#turnsArray.length;
+        // need to start 2 back, because this turn is the last turn, and iterator starts from one back
+        for (let i = turn_size - 2; i > 0; i--) {
+            if (this.#turnsArray[i].success == false) {
+                // implement last card show
+            }
+            // continue
+        }
+        var z=2
+    }
+
 
 
     async hintImplement(p_row, p_col) {
@@ -750,7 +768,11 @@ class GameManager{
         dataForServer["hintArr"] = this.hintArr
         dataForServer["startTime"] = this.startTime;
         dataForServer["endTime"] = Date.now()
+
+        // data to be sent to server
         console.log(dataForServer);
+
+        // data for replay
         sessionStorage.setItem("scores", JSON.stringify(scores));
         sessionStorage.setItem("size", JSON.stringify(this.size));
 

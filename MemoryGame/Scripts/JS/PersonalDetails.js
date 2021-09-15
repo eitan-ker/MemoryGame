@@ -108,9 +108,26 @@ function SubmitAnswers() {
         return;
     }
     if (numOfTries < 4) {
+
+        var stringTosend = JSON.stringify({ questions: Questions, ArrayOfAnswers: allAnswers, tries: numOfTries, success: true });
+        // write data.
+        $.ajax({
+            type: "POST",
+            url: "/MemoryGame/Data/PersonalDetailsInfo",
+            data: stringTosend,
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function () {
+                nextPage("/MemoryGame/Home/Game1");
+            },
+            error: function (jqXHR, exception) {
+                nextPage("/MemoryGame/Home/ErrorPage")
+            }
+        });
+/*
         var bla = { questions: Questions, ArrayOfAnswers: allAnswers, tries: numOfTries, success: true }
         var stringTosend = JSON.stringify( bla);
-        console.log(stringTosend);
+        console.log(stringTosend);*/
         /*$.ajax({
             type: "POST",
             url: "/MemoryGame/Data/PersonalDetailsInfo",
