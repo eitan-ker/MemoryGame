@@ -10,10 +10,10 @@ namespace MemoryGame.Models
         [BsonElement("personal_time")]
         public string personalTime { get; set; }
 
-        [BsonElement("num_of_cards")]
+        [BsonElement("numOfCards")]
         public string numOfCards { get; set; }
         
-        [BsonElement("num_of_agents")]
+        [BsonElement("numOfAgents")]
         public string numOfAgents { get; set; }
     }
 }

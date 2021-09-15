@@ -90,9 +90,9 @@ namespace MemoryGame.Controllers
             var uri = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             MongoClient dbClient = new MongoClient(uri);
 
-            var userCollection6 = await dbClient.GetDatabase("MemoryGame").GetCollection<AllUserDataModel>("Users").Find(new BsonDocument()).ToListAsync();
+            var userCollection = await dbClient.GetDatabase("MemoryGame").GetCollection<AllUserDataModel>("Users").Find(new BsonDocument()).ToListAsync();
 
-            foreach (var c in userCollection6)
+            foreach (var c in userCollection)
             {
                 if (c._amazonInfoModel.WorkerId.Equals(amazonInfoModel.WorkerId))
                 {
@@ -113,8 +113,8 @@ namespace MemoryGame.Controllers
         {
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
             
-            await ClientsHandlerModel.UploadUserToMongoAsync(amazonInfoModel);
-
+            bool res = await ClientsHandlerModel.UploadUserToMongoAsync(amazonInfoModel);
+            Console.WriteLine($"{res.ToString()}");
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
         

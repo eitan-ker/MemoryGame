@@ -13,7 +13,8 @@ namespace MemoryGame.Models
         public PersonalDetails _personalDetails;
         public FeedBackModel _feedBackModels;
         public EndGameModel _endGameModel;
-        
+        public InitData _initData;
+
 
     }
 }

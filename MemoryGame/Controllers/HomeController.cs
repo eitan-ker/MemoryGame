@@ -12,6 +12,7 @@ namespace MemoryGame.Controllers
 {
     public class HomeController : Controller
     {
+        public static int num_users = 0;
 
         public ActionResult DisagreePage()
         {
@@ -41,7 +42,7 @@ namespace MemoryGame.Controllers
             if (assignmentId == null || workerId == null || hitId == null)
             {
                 Session["assignmentId"] = "1";
-                Session["workerId"] = "12";
+                Session["workerId"] = num_users.ToString();
                 Session["hitId"] = "123";
 
             }
@@ -69,7 +70,7 @@ namespace MemoryGame.Controllers
 
         public ActionResult InstructionsOne()
         {
-
+            Console.WriteLine($"Hello {Session["assignmentId"].ToString()}");
             if (!Session["last_page"].Equals("ConsentIndex"))
             {
                 return RedirectToAction("ErrorPage");

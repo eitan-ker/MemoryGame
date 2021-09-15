@@ -213,6 +213,12 @@
     <Compile Include="Models\EndGameModels\EndGameModel.cs" />
     <Compile Include="Models\EndGameModels\RealAnsOfTimeModel.cs" />
     <Compile Include="Models\FeedBackModels\FeedBackModel.cs" />
+    <Compile Include="Models\Game\GameModel.cs" />
+    <Compile Include="Models\Game\Objects\Agent.cs" />
+    <Compile Include="Models\Game\Objects\Card.cs" />
+    <Compile Include="Models\Game\Objects\CardAndTime.cs" />
+    <Compile Include="Models\Game\Objects\HintInfo.cs" />
+    <Compile Include="Models\Game\Objects\Turn.cs" />
     <Compile Include="Models\InitData.cs" />
     <Compile Include="Models\PersonalDetails.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
@@ -528,7 +534,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Game" />
     <Folder Include="Views\Data\" />
   </ItemGroup>
   <ItemGroup>
