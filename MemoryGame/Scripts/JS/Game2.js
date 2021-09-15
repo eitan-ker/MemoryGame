@@ -74,7 +74,7 @@ $(function () {
         console.log(currentPlayer);
         if (currentPlayer % agentsAmount !== 0 || lockClicks || card_num > 1) {
             if(currentPlayer % agentsAmount === 0)
-                console.log("too much clicks");
+                console.log("too many clicks");
             return;
         }
         await gameManager.ShowCard($(this));
