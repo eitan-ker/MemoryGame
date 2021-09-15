@@ -221,7 +221,7 @@ function CreateBoard(row, column) {
     for (let i = 0; i < row; i++) {
         tableTag += "<tr id=\"row " + i + "\">"; // <tr id="row i">
         for (let j = 0; j < column; j++) {
-            tableTag += "<td class=\"cardFrame\" ws-column=\"" + j + "\" ws-row=\"" + i + "\">\n<button id=\"card\"/>\n</td>";
+            tableTag += "<td class=\"cardFrame\" ws-column=\"" + j + "\" ws-row=\"" + i + "\">\n<button  id=\"card\"/>\n</td>";
         }
         tableTag += "</tr>";
     }

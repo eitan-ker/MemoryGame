@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Game1";
+    ViewBag.Title = "Replay";
 }
 <script src="~/Scripts/jquery-3.6.0.min.js"></script>
 <script src="~/Scripts/JS/Board.js"></script>
@@ -8,9 +8,8 @@
 <script src="~/Scripts/JS/Agent.js"></script>
 <script src="~/Scripts/JS/Turn.js"></script>
 <script src="~/Scripts/JS/GameManager.js"></script>
-<script src="~/Scripts/JS/Game2.js"></script>
+<script src="~/Scripts/JS/Replay.js"></script>
 <link rel="stylesheet" href="~/Content/css/game1.css" />
-
 <body>
     <div class="headline">
         <h2>Memory Game</h2>
@@ -18,14 +17,15 @@
     <div id="board_zone" class="board_area">
         <div id="board_info">
             <div id="head_board" class="board_area">
-                <div class="text" id="total_time"> Time: <span id="total_time_text">00:00</span>
+                <div class="text" id="total_time">
+                    Time: <span id="total_time_text">00:00</span>
                 </div>
                 <div class="text" id="total_score">
                     Score: <span id="total_score_text">0</span>
                 </div>
                 <div id="hint_button">
                     <button class="text" id="hint">Hint!</button>
-                </div>   
+                </div>
             </div>
             <div id="board">
 
@@ -35,7 +35,7 @@
             <div class="player">
                 <div class="player_name_img">
                     <h4 id="name_of_player">Player</h4>
-                    <img class="player_img"src="~/resources/player1.jpg"/>
+                    <img class="player_img" src="~/resources/player1.jpg" />
                 </div>
                 <div class="info_agent">
                     <div class="time_agent">
@@ -47,5 +47,6 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </body>
+

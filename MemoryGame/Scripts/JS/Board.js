@@ -2,12 +2,16 @@
 
 class Card{
     #secondHalf
+    //#index
     constructor(index, name) {
         this.index = index;
         this.name = name;
         this.exposed = false;
         this.found = false;
         this.turns = [];
+    }
+    GetIndex() {
+        return this.index;
     }
     SetSecondHalf(secondHalf) {
         this.#secondHalf = secondHalf;
@@ -36,7 +40,7 @@ class Card{
 * */
 class Board{
     constructor(size, cards) {
-        if (cards.length !== size[0] * size[1]){
+        if (cards.length !== size[0] * size[1] && cards.length * cards[0].length !== size[0] * size[1]){
             throw "assigment is illegal, the size is wrong!";
         }
         this.size = size;

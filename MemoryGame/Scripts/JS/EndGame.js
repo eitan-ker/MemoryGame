@@ -1,6 +1,7 @@
 ﻿var startTime;
 var PlayerTime;
 var BotTime;
+var data;
 var PageInfo = { player_time: "", bob_time: "", mistakes: 0, MistakesInfo: [] };
 var done = false
 $(function () {
@@ -22,26 +23,77 @@ $(function () {
     }
     sessionStorage.setItem('currentPage', "EndGame");
     startTime = MyGetTime()
-    PlayerTime = sessionStorage.getItem('PlayerTime');
+    //let data = JSON.parse(sessionStorage.getItem("scores"));
+    data = [{ name: "player", score: 20, time: "00:15" }, { name: "agent 1", score: 20, time: "00:15" }, { name: "agent 2", score: 20, time: "00:15" }];
+    createUI(data);
+   /* PlayerTime = sessionStorage.getItem('PlayerTime');
     BotTime = sessionStorage.getItem('BotTime');
     PageInfo.bob_time = BotTime;
     PageInfo.player_time = PlayerTime;
     document.getElementById('globalTimerPlayer').innerHTML = "so far: " + PlayerTime;
     document.getElementById('globalTimerBot').innerHTML = "so far: " + BotTime;
     console.log(PlayerTime);
-    console.log(BotTime);
+    console.log(BotTime);*/
 });
+
+function createUI(data) {
+    let number_of_agent = data.length;
+    let player = document.getElementsByClassName("player")[0];
+    $(player).find("#time_text").text(data[0].time);
+    $(player).find("#score_text").text(data[0].score);
+    player.setAttribute("id", "agent" + 0);
+    for (let i = 1; i < number_of_agent; i++) {
+        let player = document.getElementsByClassName("player")[0].cloneNode(true);
+        player.setAttribute("id", "agent" + i);
+        $(player).find("h4").text(data[i].name);
+        $(player).find("#time_text").text(data[i].time);
+        $(player).find("#score_text").text(data[i].score);
+        //this.#scores["agent" + i] = data[i].score;
+        document.getElementById("agent_area").appendChild(player);
+
+    }
+    let question = document.getElementsByClassName("agent")[0]
+    $(question).find("#name").text(data[0].name);
+    let input_list = question.getElementsByTagName("input")
+    input_list[0].setAttribute("id", "time_" + String(data[0].name))
+    input_list[1].setAttribute("id", "score_" + String(data[0].name))
+    //$(question).find("#time").id ="time_" + String(data[0].name);
+    //$(question).find("#score").id = "score_" + String(data[0].name);
+    for (let i = 1; i < number_of_agent; i++) {
+        question = document.getElementsByClassName("agent")[0].cloneNode(true);
+        $(question).find("#name").text(data[i].name);
+        input_list =question.getElementsByTagName("input")
+        input_list[0].setAttribute("id", "time_" + String(data[i].name))
+        input_list[1].setAttribute("id", "score_" + String(data[i].name))
+        document.getElementById("question_area").appendChild(question);
+
+    }
+}
+
 function checkAns() {
-    var answerOfPlayerTime = document.getElementById('PlayerMinutes').value;
-    var answerOfBotTime = document.getElementById('BobMinutes').value;
-    if ((answerOfBotTime == BotTime) && (answerOfPlayerTime == PlayerTime)) {
+
+    let mistake = 0;
+    let turn = []
+    for (let i = 0; i < data.length; i++) {
+        let time = document.getElementById("time_" + String(data[i].name)).value
+        let score = document.getElementById("score_" + String(data[i].name)).value
+        turn.push({ agent_name: data[i].name, time: time, score: score })
+        if (time != data[i].time || score != data[i].score) {
+            console.log(time, score)
+            mistake = 1;
+        }
+    }
+
+    if (!mistake) {
+        console.log("not find any mistake");
         NextPage();
     }
     else {
+        console.log("find mistake")
         disableAllButtons()
         show_and_hide();
         PageInfo.mistakes++;
-        PageInfo.MistakesInfo.push({ answerPlayer: answerOfPlayerTime, answerBob: answerOfBotTime });
+        PageInfo.MistakesInfo.push(turn);
     }
 }
 
@@ -76,14 +128,17 @@ function sendInfo() {
         url: "/MemoryGame/Data/EndGameInfo",
         data: stringTosend,
         contentType: "application/json",
-        success: function (data) {
+        success: function (data) {/*
             this.done = true;
             window.location.replace("/MemoryGame/Home/Feedback"); //to prevent page back
+            */
         },
         error: function (errMsg) {
             alert(errMsg);
         }
     });
+    this.done = true;
+    window.location.replace("/MemoryGame/Home/Feedback"); //to prevent page back
     
 
 }

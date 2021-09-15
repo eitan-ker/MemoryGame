@@ -164,10 +164,10 @@ namespace MemoryGame.Controllers
 
         public ActionResult EndGame()
         {
-            if (!Session["last_page"].Equals("Game"))
+            /*if (!Session["last_page"].Equals("Game"))
             {
                 return RedirectToAction("ErrorPage");
-            }
+            }*/
 
             Session["last_page"] = "EndGame";
             return View();
@@ -211,6 +211,11 @@ namespace MemoryGame.Controllers
             return View();
         }
 
+        public ActionResult Replay()
+        {
+            return View();
+        }
+        
         
         
     }

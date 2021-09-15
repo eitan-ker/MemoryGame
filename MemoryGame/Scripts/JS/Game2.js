@@ -1,8 +1,8 @@
 ﻿var query;
 var cow = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg';
 var dog = 'https://i.guim.co.uk/img/media/20098ae982d6b3ba4d70ede3ef9b8f79ab1205ce/0_0_969_581/master/969.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=a368f449b1cc1f37412c07a1bd901fb5';
-var cards; //= [[cow, dog], [cow, dog]];
-var cardsNames;// = [["cow", "dog"], ["cow", "dog"]];
+var cards; 
+var cardsNames;
 var firstChoise = true;
 var choicesIndexes = {};
 var turnsDocumentation = [];
@@ -22,10 +22,12 @@ var lockClicks;
 var works;
 var crads_dict = {};
 var data = {};
-//var board = new Board([2,2], [new Card([0,0], "cow"),new Card([0,1], "dog"),new Card([1,0], "cow"),new Card([1,1], "dog")]);
+
 var turn;
 var img = [];
 var card_num = 0;
+var hint_lock = false;
+var timeOver = false;
 $(function () {
     $("#board_info").append("<p>Loading</p>");
     $("#board_info").find("p").css({
@@ -34,82 +36,61 @@ $(function () {
     });
     //data = sessionStorage.getItem('configurationData')
 
+    // Data is the configuration object
     //assume we've got data object from GET
     data = {
-        overallTime: "",// times in milliseconds
-        personalTime: 10000,
-        numOfCards: [5, 2],
-        numOfAgents: 2
+        overallTime: 200000,// times in milliseconds
+        personalTime: 100000,
+        numOfCards: [4, 6],
+        numOfAgents: 2,
+        hintConfig:2
     };
     agentsAmount = data.numOfAgents;
-    gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data);
-    /*let player = new Agent1(()=>{
-    } ,0)
-    gameManager.AddAgent(player);*/
-    //turn = new Turn(gameManager.getAgents()[0], gameManager);
+    gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data, null);
 
 
-
+    /*
+     * getHint1() - showing first live card on board.
+     * getHint2() - showing random live card on board.
+     * getHint3() - showing last seen card partner.
+     */
+    
     $("button").click(async function () {
-        
+        if (this.id == "hint") {
+
+            switch (data.hintConfig) {
+                case 1:
+                    await gameManager.GetHint1();
+                    break;
+                case 2:
+                    await gameManager.GetHint2();
+                    break;
+            }
+            return
+        }
         console.log(currentPlayer);
         if (currentPlayer % agentsAmount !== 0 || lockClicks || card_num > 1) {
             if(currentPlayer % agentsAmount === 0)
                 console.log("too much clicks");
             return;
         }
-        gameManager.ShowCard($(this));
-        /*
-            parent = $(this).parent();
-            var p_row = parent.attr("ws-Row");
-            var p_col = parent.attr("ws-Column");
-            img[card_num] = document.createElement('img');
-            img[card_num].id = "cardId";
-            img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
-            img[card_num].alt = "cow";
-            img[card_num].width = 70;
-            img[card_num].height = 70;
-            $(this).append(img[card_num]);
-            card_num = card_num + 1;
-        */
+        await gameManager.ShowCard($(this));
         
-        /*if (firstChoise) {
-            firstChoise = false;
-            choicesIndexes[0] = [p_row, p_col];
-            
-            turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
-
-        } else {
-            lockClicks = true; // lock the clicks after second card choise
-
-            //firstChoise = true;
-            choicesIndexes[1] = [p_row, p_col];
-            IsPair(choicesIndexes);
-            //save documentation of the turn with 
-
-            turn.PickCard(gameManager.board.boardArray[p_row][p_col]);
-            //alert(choicesIndexes[0].concat( choicesIndexes[1]));
-            if (remainingCards === 0) {
-                document.getElementById("board").innerHTML = "<h1>game over</h1>";
-            }
-
-            //firstChoise = true;
-            choicesIndexes = {}; // initilize the choices
-            await sleep(1000);
-            for(image of img){
-
-                $(image).fadeOut();
-            }
-        }*/
-        //alert(turn);
-        
-        
-        //gameManager.turnsArray = gameManager.turnsArray.concat(turn);
-        //turn = new Turn(gameManager.currentTurn % data.numOfAgents, gameManager);
         
     });
+    postInfo = gameManager.GetTurnsInfo()
+    setTimeout(function (){
+        $("#board_zone").fadeOut();
+        $.post('MemoryGame/Controllers/Data',   // url
+            {  }, // data to be submit
+            function(data, status, jqXHR) {// success callback
+               alert("information has been sent");
+            })
+        gameManager.endOfGame();
+        
+    }, data.overallTime);
+    
 });
-
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
