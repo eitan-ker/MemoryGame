@@ -10,7 +10,7 @@ namespace MemoryGame.Models.VerificationRulesModels
         public int NumOfTries { get; set; }
         
         [JsonProperty(PropertyName = "AttempsInfo")]
-        public List<List<int>> Answers { get; set; }
+        public List<List<int>> AttempsInfo { get; set; }
 
         [JsonProperty(PropertyName = "Questions")]
         public List<QuestionModel> Questions { get; set; }

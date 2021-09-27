@@ -27,6 +27,11 @@ namespace MemoryGame.ClientHandler
             mtx.WaitOne();
             dictOfUsers[amazonInfoModel.WorkerId] = userModel;
             mtx.ReleaseMutex();
+            //var uri = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            //var uri2 = System.Configuration.ConfigurationManager.AppSettings["avi"].ToString();
+            //Console.WriteLine($"{uri2}");
+
+
             return 1;
         }
         

@@ -5,16 +5,16 @@ namespace MemoryGame.Models.EndGameModels
 {
     public class EndGameModel
     {
-        [JsonPropertyName("NumOfTries")]
-        public int NumOfTries { get; set; }
+        [JsonPropertyName("mistakes")]
+        public int Mistakes { get; set; }
 
-        [JsonPropertyName("PlayerTime")]
-        public string PlayerTime { get; set; }
+        [JsonPropertyName("player_time")]
+        public string player_time { get; set; }
 
-        [JsonPropertyName("BobTime")]
-        public string BobTime { get; set; }
+        [JsonPropertyName("bob_time")]
+        public string bob_time { get; set; }
 
-        [JsonPropertyName("ArrAns")]
-        public List<RealAnsOfTimeModel> ArrAns { get; set; }
+        [JsonPropertyName("MistakesInfo")]
+        public List<RealAnsOfTimeModel> MistakesInfo { get; set; }
     }
 }

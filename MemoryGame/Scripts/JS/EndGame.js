@@ -121,14 +121,15 @@ function NextPage() {
 function sendInfo() {
     var stringTosend = JSON.stringify(PageInfo);
 
-    console.log(PageInfo);
+    console.log(stringTosend);
    // window.location.replace("/Home/EndPage"); //to prevent page back
     $.ajax({
         type: "POST",
         url: "/MemoryGame/Data/EndGameInfo",
         data: stringTosend,
         contentType: "application/json",
-        success: function (data) {/*
+        success: function (data) {
+            /*
             this.done = true;
             window.location.replace("/MemoryGame/Home/Feedback"); //to prevent page back
             */

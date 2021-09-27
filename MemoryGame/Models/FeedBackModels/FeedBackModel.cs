@@ -6,10 +6,10 @@ namespace MemoryGame.Models.FeedBackModels
 {
     public class FeedBackModel
     {
-        [JsonProperty("questions")]
+        [JsonProperty("Questions")]
         public List<string> Questions { get; set; }
 
-        [JsonProperty("answers")]
+        [JsonProperty("Answers")]
         public List<List<string>> Answers { get; set; }
     }
 }

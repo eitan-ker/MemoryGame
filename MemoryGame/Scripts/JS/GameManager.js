@@ -771,6 +771,7 @@ class GameManager{
 
         // data to be sent to server
         console.log(dataForServer);
+        console.log(JSON.stringify(dataForServer));
 
         // data for replay
         sessionStorage.setItem("scores", JSON.stringify(scores));
@@ -782,7 +783,7 @@ class GameManager{
         sessionStorage.setItem("boardImages", JSON.stringify(this.#boardImages));
         
         //this.done = true;
-        await this.Replay();
+        //await this.Replay();
         //sleep(this.GetTime().getMinutes() * 60000, this.GetTime().getSeconds() * 1000);
         window.location.replace("/MemoryGame/Home/EndGame"); //to prevent page back
     }

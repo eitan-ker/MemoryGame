@@ -249,8 +249,10 @@ function nextPage(e) {
     iter = iter + 1;
     if (counter == numOfquestions) {
         let dataOfVer = { Questions: questions, AttempsInfo: attempsInfo, NumOfTries: iter };
+        //let dataOfVer = { Questions: questions,  NumOfTries: iter };
 
         let stringTosend = JSON.stringify(dataOfVer);
+        console.log(stringTosend);
 
         $.ajax({
             type: "POST",
@@ -273,6 +275,7 @@ function nextPage(e) {
         //error page
         if (iter == 3) {
             let dataOfVer = { Questions: questions, AttempsInfo: attempsInfo, NumOfTries: iter };
+            //let dataOfVer = { Questions: questions,  NumOfTries: iter };
 
             let stringTosend = JSON.stringify(dataOfVer);
             console.log(stringTosend);
@@ -300,7 +303,7 @@ function markAnswersRedGreen() {
         
 
         if (indexOfAnswer[i] != -1 && correctAnswersId[i] != answerId[i]) { // wrong answer color 
-            document.getElementById(answerId[i]).style.background = "rgba(255, 0, 0, 0.8)";
+            document.getElementById(answerId[i]).style.background = "rgba(255,0,0,0.8)";
             document.getElementById(answerId[i]).style.fontWeight = "bold";
         } else if (indexOfAnswer[i] != -1 && correctAnswersId[i] == answerId[i]) {        // color green
             document.getElementById(correctAnswersId[i]).style.background = "rgba(0, 128, 0, 0.8)";

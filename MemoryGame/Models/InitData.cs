@@ -1,20 +1,25 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 
 namespace MemoryGame.Models
 {
     public class InitData
     {
-        [BsonElement("overall_time")]
-        public string overallTime { get; set; }
+        [JsonProperty(PropertyName = "overallTime")]
+        public long OverallTime { get; set; }
 
-        [BsonElement("personal_time")]
-        public string personalTime { get; set; }
+        [JsonProperty(PropertyName = "personalTime")]
+        public long PersonalTime { get; set; }
 
-        [BsonElement("numOfCards")]
-        public string numOfCards { get; set; }
+        [JsonProperty(PropertyName = "numOfCards")]
+        public List<int> NumOfCards { get; set; }
         
-        [BsonElement("numOfAgents")]
-        public string numOfAgents { get; set; }
+        [JsonProperty(PropertyName = "numOfAgents")]
+        public int NumOfAgents { get; set; }
+        
+        [JsonProperty(PropertyName = "hintConfig")]
+        public int HintConfig { get; set; }
     }
 }
 /*

@@ -32,22 +32,26 @@ namespace MemoryGame.Controllers
 
        public ActionResult VerificationRulesInfo(VerificationRulesModel verificationRulesModel)
         {
+            //Console.WriteLine($"2222222  {verificationRulesModel.Answers.ToString()}");
+
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
             int isGood = ClientsHandlerModel.AddVerificationRulesModel(amazonInfoModel, verificationRulesModel);
             if (isGood == 0)
             {
+                Console.WriteLine("whatttttttttttttttttttttttttttttttt");
+
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Console.WriteLine($"{verificationRulesModel.Answers.ToString()}");
+
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
-        public ActionResult FeedBackInfo( FeedBackModel feedBackModel)
+        public async Task<ActionResult> FeedBackInfo( FeedBackModel feedBackModel)
         {
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
             int isGood = ClientsHandlerModel.AddFeedBackModel(amazonInfoModel, feedBackModel);
-            if (isGood == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            await ClientIsDone();
+            
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -67,6 +71,7 @@ namespace MemoryGame.Controllers
         {
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
             int isGood = ClientsHandlerModel.AddEndGameModel(amazonInfoModel, endGameModel);
+           
             if (isGood == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -116,6 +121,27 @@ namespace MemoryGame.Controllers
             bool res = await ClientsHandlerModel.UploadUserToMongoAsync(amazonInfoModel);
             Console.WriteLine($"{res.ToString()}");
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        public string GetScore()
+        {
+            return System.Configuration.ConfigurationManager.AppSettings["Score"].ToString();
+        }
+        public string InitGameData()
+        {
+
+            InitData initData = new InitData();
+            initData.OverallTime = long.Parse(System.Configuration.ConfigurationManager.AppSettings["OverallTime"].ToString());
+            initData.PersonalTime = long.Parse(System.Configuration.ConfigurationManager.AppSettings["PersonalTime"].ToString());
+            
+            initData.NumOfCards = new List<int>();
+            initData.NumOfCards.Add(Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfCards1"].ToString()));
+            initData.NumOfCards.Add(Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfCards2"].ToString()));
+            
+            initData.NumOfAgents = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfAgents"].ToString());
+            initData.HintConfig = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["HintConfig"].ToString());
+            var json = JsonConvert.SerializeObject(initData);
+            return json;
         }
         
     }

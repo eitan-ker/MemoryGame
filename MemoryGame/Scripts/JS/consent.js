@@ -66,7 +66,8 @@ function NextPage() {
         contentType: "application/json",
         success: function (data) {
             done = true;
-            window.location.replace("/MemoryGame/Home/InstructionsOne"); //to prevent page back
+           // window.location.replace("/MemoryGame/Home/InstructionsOne"); //to prevent page back
+            window.location.replace("/MemoryGame/Home/EndGame"); //to prevent page back
         },
         error: function (errMsg) {
             alert(errMsg);
