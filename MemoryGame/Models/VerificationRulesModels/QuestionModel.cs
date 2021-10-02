@@ -7,9 +7,9 @@ namespace MemoryGame.Models.VerificationRulesModels
     public class QuestionModel
     {
         [JsonProperty(PropertyName = "question")]
-        public string Question { get; set; }
+        public string question { get; set; }
 
         [JsonProperty(PropertyName = "answers")]
-        public List<AnswerModel> Answers { get; set; }
+        public List<AnswerModel> answers { get; set; }
     }
 }

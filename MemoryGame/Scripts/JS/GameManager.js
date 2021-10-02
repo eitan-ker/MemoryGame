@@ -772,6 +772,19 @@ class GameManager{
         // data to be sent to server
         console.log(dataForServer);
         console.log(JSON.stringify(dataForServer));
+        //GameManegerInfo
+        $.ajax({
+            type: "POST",
+            url: "/MemoryGame/Data/GameManegerInfo",
+            data: JSON.stringify(dataForServer),
+            contentType: "application/json",
+            success: function (data) {
+            },
+            error: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+      
 
         // data for replay
         sessionStorage.setItem("scores", JSON.stringify(scores));

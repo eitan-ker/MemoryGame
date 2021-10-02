@@ -198,6 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminHandler\AdminHandlerModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -208,17 +209,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\AllUserDataModel.cs" />
     <Compile Include="Models\AmazonInfoModel.cs" />
     <Compile Include="Models\EndGameModels\EndGameModel.cs" />
     <Compile Include="Models\EndGameModels\RealAnsOfTimeModel.cs" />
     <Compile Include="Models\FeedBackModels\FeedBackModel.cs" />
     <Compile Include="Models\Game\GameModel.cs" />
-    <Compile Include="Models\Game\Objects\Agent.cs" />
-    <Compile Include="Models\Game\Objects\Card.cs" />
-    <Compile Include="Models\Game\Objects\CardAndTime.cs" />
-    <Compile Include="Models\Game\Objects\HintInfo.cs" />
-    <Compile Include="Models\Game\Objects\Turn.cs" />
     <Compile Include="Models\InitData.cs" />
     <Compile Include="Models\PersonalDetails.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />

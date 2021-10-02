@@ -42,7 +42,10 @@ namespace MemoryGame.Controllers
             if (assignmentId == null || workerId == null || hitId == null)
             {
                 Session["assignmentId"] = "1";
-                Session["workerId"] = num_users.ToString();
+                Random r = new Random();
+                int rInt = r.Next(5, 1000); //for ints
+                Session["workerId"] = rInt.ToString();
+                //Session["workerId"] = num_users.ToString();
                 Session["hitId"] = "123";
 
             }
