@@ -411,7 +411,7 @@ class GameManager{
         return this.#board.getAllPairExposed();
     }
     getSecondHalf(row, col) {
-        this.#board.boardArray[row][col].GetSecondHalf();
+        return this.#board.boardArray[row][col].GetSecondHalf();
     }
     async pickCard(row, col) {
         let current = currentPlayer
@@ -513,14 +513,32 @@ class GameManager{
         if (hint_lock) {
             return;
         }
-        turn_size = this.#turnsArray.length;
-        // need to start 2 back, because this turn is the last turn, and iterator starts from one back
-        for (let i = turn_size - 2; i > 0; i--) {
-            if (this.#turnsArray[i].success == false) {
-                // implement last card show
+        try {
+            var turn_size = this.#turnsArray.length;
+            // need to start 2 back, because this turn is the last turn, and iterator starts from one back
+            for (let i = turn_size - 2; i >= 0; i--) {
+                if (this.#turnsArray[i].success == false) {
+                    var numOfPickedCards = this.#turnsArray[i].choosenCards.length;
+                    for (let j = numOfPickedCards - 1; j >= 0; j--) {
+                        if (this.#turnsArray[i].choosenCards[j].card.found == false) {
+                            var index_x = this.#turnsArray[i].choosenCards[j].card.index[0];
+                            var index_y = this.#turnsArray[i].choosenCards[j].card.index[1];
+                            var secondHalfCard = this.getSecondHalf(index_x, index_y); 
+                            var p_row = secondHalfCard[0];
+                            var p_col = secondHalfCard[1];
+                            this.hintImplement(p_row, p_col);
+                        }
+                    }
+                    var z = 2
+                    // implement last card show
+                }
+                // continue
             }
-            // continue
         }
+        catch (err) { // in case of a first turn just choose random
+            await this.GetHint2();
+        }
+        
         var z=2
     }
 
