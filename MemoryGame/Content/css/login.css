@@ -1,0 +1,56 @@
+﻿h2 {
+    margin-top:10px;
+    font-size:40px;
+    font-weight:600;
+}
+
+body {
+    border:5px solid black;
+    border-radius: 8px;
+    text-align: center;
+    background-color:rgb(60 103 150);
+    margin:8%;
+    font-size:25px;
+    font-weight:400;
+
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.uname {
+    margin: 10%;
+}
+
+.psw {
+    margin: 10%;
+}
+
+label {
+    margin-right:10%;
+}
+
+
+.login_btn {
+    margin-bottom:2%;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #73bf72;
+    margin-right: 20px;
+    color: white;
+    box-shadow: grey 2px 2px 2px;
+}
+
+    .login_btn:focus {
+        outline: none;
+    }
+
+    .login_btn:hover {
+        background-color: dodgerblue;
+    }
+

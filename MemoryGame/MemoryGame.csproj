@@ -240,6 +240,7 @@
     <Content Include="Content\css\instruction1.css" />
     <Content Include="Content\css\instruction2.css" />
     <Content Include="Content\css\interfaceExample.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\personalDetails.css" />
     <Content Include="Content\css\verificationRules.css" />
     <Content Include="Content\DataTable.css" />
@@ -414,6 +415,7 @@
     <Content Include="Scripts\JS\InstructionsOne.js" />
     <Content Include="Scripts\JS\InstructionsTwo.js" />
     <Content Include="Scripts\JS\InterfaceExample.js" />
+    <Content Include="Scripts\JS\login.js" />
     <Content Include="Scripts\JS\MobileError.js" />
     <Content Include="Scripts\JS\PersonalDetails.js" />
     <Content Include="Scripts\JS\Replay.js" />
@@ -535,6 +537,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\DataTable.cshtml" />
     <Content Include="Views\Home\Game1.cshtml" />
+    <Content Include="Views\Admin\login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

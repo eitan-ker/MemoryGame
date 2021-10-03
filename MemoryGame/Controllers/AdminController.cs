@@ -15,7 +15,13 @@ namespace MemoryGame.Controllers
         {
             return View();
         }
-        
+
+        // GET: Admin
+        public ActionResult login()
+        {
+            return View();
+        }
+
         public ActionResult CheckPassword(AdminModel adminModel)
         {
             string realPass = System.Configuration.ConfigurationManager.AppSettings["Password"].ToString();
