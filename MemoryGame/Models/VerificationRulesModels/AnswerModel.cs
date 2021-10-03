@@ -5,12 +5,12 @@ namespace MemoryGame.Models.VerificationRulesModels
     public class AnswerModel
     {
         [JsonProperty(PropertyName = "index")]
-        public int Index { get; set; }
+        public int index { get; set; }
 
         [JsonProperty(PropertyName = "text")]
-        public string Text { get; set; }
+        public string text { get; set; }
         
         [JsonProperty(PropertyName = "correct")]
-        public bool Correct { get; set; }
+        public bool correct { get; set; }
     }
 }

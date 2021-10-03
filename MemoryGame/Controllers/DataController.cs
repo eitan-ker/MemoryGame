@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MemoryGame.ClientHandler;
 using MemoryGame.Models.EndGameModels;
 using MemoryGame.Models.FeedBackModels;
+using MemoryGame.Models.Game;
 using MemoryGame.Models.VerificationRulesModels;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -38,7 +39,7 @@ namespace MemoryGame.Controllers
             int isGood = ClientsHandlerModel.AddVerificationRulesModel(amazonInfoModel, verificationRulesModel);
             if (isGood == 0)
             {
-                Console.WriteLine("whatttttttttttttttttttttttttttttttt");
+                //Console.WriteLine("whatttttttttttttttttttttttttttttttt");
 
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -46,11 +47,16 @@ namespace MemoryGame.Controllers
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
-        public async Task<ActionResult> FeedBackInfo( FeedBackModel feedBackModel)
+        public  ActionResult FeedBackInfo( FeedBackModel feedBackModel)
         {
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
             int isGood = ClientsHandlerModel.AddFeedBackModel(amazonInfoModel, feedBackModel);
-            await ClientIsDone();
+            if (isGood == 0)
+            {
+                //Console.WriteLine("whatttttttttttttttttttttttttttttttt");
+
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -65,8 +71,18 @@ namespace MemoryGame.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
-       
-
+//AddGameModel
+        public ActionResult GameManegerInfo(GameModel gameModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddGameModel(amazonInfoModel, gameModel);
+           
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
         public ActionResult EndGameInfo( EndGameModel endGameModel)
         {
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
@@ -140,9 +156,15 @@ namespace MemoryGame.Controllers
             
             initData.NumOfAgents = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfAgents"].ToString());
             initData.HintConfig = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["HintConfig"].ToString());
+            
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddInitDataModel(amazonInfoModel, initData);
+            
             var json = JsonConvert.SerializeObject(initData);
             return json;
         }
+
+       
         
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using MemoryGame.Models;
 using MemoryGame.Models.EndGameModels;
 using MemoryGame.Models.FeedBackModels;
+using MemoryGame.Models.Game;
 using MemoryGame.Models.VerificationRulesModels;
 
 namespace MemoryGame.ClientHandler
@@ -111,6 +112,34 @@ namespace MemoryGame.ClientHandler
             string workerId = amazonInfoModel.WorkerId;
             mtx.WaitOne();
             dictOfUsers[workerId]._endGameModel = endGameModel;
+            mtx.ReleaseMutex();
+            return 1;
+        }
+        
+        public static int AddGameModel(AmazonInfoModel amazonInfoModel, GameModel gameModel)
+        {
+            if (!CheckIfUserExist(amazonInfoModel))
+            {
+                return 0;
+            }
+
+            string workerId = amazonInfoModel.WorkerId;
+            mtx.WaitOne();
+            dictOfUsers[workerId]._gameModel = gameModel;
+            mtx.ReleaseMutex();
+            return 1;
+        }
+        
+        public static int AddInitDataModel(AmazonInfoModel amazonInfoModel, InitData initData)
+        {
+            if (!CheckIfUserExist(amazonInfoModel))
+            {
+                return 0;
+            }
+
+            string workerId = amazonInfoModel.WorkerId;
+            mtx.WaitOne();
+            dictOfUsers[workerId]._initData = initData;
             mtx.ReleaseMutex();
             return 1;
         }
