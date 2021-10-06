@@ -1,20 +1,19 @@
 ﻿h2 {
+    color: whitesmoke;
     margin-top:10px;
     font-size:40px;
     font-weight:600;
 }
 
 body {
-    border:5px solid black;
+    border: 5px solid black;
     border-radius: 8px;
     text-align: center;
-    background-color:rgb(60 103 150);
+    background-color: rgb(33 55 128 / 90%);
     margin:8%;
-    font-size:25px;
-    font-weight:400;
-
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
+    font-size: 25px;
+    font-weight: 400;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .uname {

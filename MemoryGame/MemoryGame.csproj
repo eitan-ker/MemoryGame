@@ -399,6 +399,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JS\Agent.js" />
     <Content Include="Scripts\JS\Board.js" />
+    <Content Include="Scripts\JS\chooseReplay.js" />
     <Content Include="Scripts\JS\Consent.js" />
     <Content Include="Scripts\JS\DataTable.js" />
     <Content Include="Scripts\JS\DisagreePage.js" />
@@ -538,6 +539,7 @@
     <Content Include="Views\Admin\DataTable.cshtml" />
     <Content Include="Views\Home\Game1.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Admin\ChooseReplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

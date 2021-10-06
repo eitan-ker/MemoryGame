@@ -21,6 +21,13 @@ namespace MemoryGame.Controllers
             return View();
         }
 
+
+        public ActionResult ChooseReplay()
+        {
+            return View();
+        }
+
+
         ///MemoryGame/Admin/CheckPassword
         ///  Password :rider
         /// Name :admin
@@ -41,7 +48,7 @@ namespace MemoryGame.Controllers
         }
         
         
-        ///MemoryGame/Admin/GetAllUsers
+        // /MemoryGame/Admin/GetAllUsers
         public string GetAllUsers()
         {
             var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUsersFromDB());
@@ -56,7 +63,7 @@ namespace MemoryGame.Controllers
             return "BadRequest";
         }
         
-        ///MemoryGame/Admin/GetReplyOfUser
+        // /MemoryGame/Admin/GetReplyOfUser
         public string GetReplyOfUser(AmazonInfoModel amazonInfoModel)
         {
             var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUserDataFromDB(amazonInfoModel));
