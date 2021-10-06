@@ -16,8 +16,8 @@ namespace MemoryGame.Controllers
             return View();
         }
 
-        // GET: Admin
-        public ActionResult login()
+        
+        public ActionResult Login()
         {
             return View();
         }
