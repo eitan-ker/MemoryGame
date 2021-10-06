@@ -23,3 +23,37 @@ function login() {
     console.log(pass);
 
 }
+
+//REPLY OF SPECIFIC USER
+workerid = "436"
+assid = "1"
+hitid = "123"
+var data = {WorkerId: workerid, AssId: assid, HitId: hitid}
+var stringTosend = JSON.stringify(data);
+console.log(stringTosend);
+$.ajax({
+    type: "POST",
+    url: "/MemoryGame/Admin/GetAllUserDataFromDB",
+    data: stringTosend,
+    contentType: "application/json",
+    success: function (data) {
+        alert("good");
+    },
+    error: function (errMsg) {
+        alert("errMsg");
+    }
+});
+
+
+// A LIST OF ALL USERS
+$.ajax({
+    type: "GET",
+    url: "/MemoryGame/Admin/GetAllUsersFromDB",
+    contentType: "application/json",
+    success: function (data) {
+        alert("good");
+    },
+    error: function (errMsg) {
+        alert("errMsg");
+    }
+});

@@ -44,13 +44,14 @@ namespace MemoryGame.Controllers
         ///MemoryGame/Admin/GetAllUsers
         public string GetAllUsers()
         {
-           
-            if (!string.Equals(Session["auth"], "yes"))
+            var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUsersFromDB());
+            return json;
+            /*if (!string.Equals(Session["auth"], "yes"))
             {
                 var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUsersFromDB());
                 return json;
 
-            }
+            }*/
 
             return "BadRequest";
         }
@@ -58,13 +59,14 @@ namespace MemoryGame.Controllers
         ///MemoryGame/Admin/GetReplyOfUser
         public string GetReplyOfUser(AmazonInfoModel amazonInfoModel)
         {
-
-            if (!string.Equals(Session["auth"], "yes"))
+            var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUserDataFromDB(amazonInfoModel));
+            return json;
+            /*if (!string.Equals(Session["auth"], "yes"))
             {
                 var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUserDataFromDB(amazonInfoModel));
                 return json;
 
-            }
+            }*/
            
 
             return "BadRequest";
