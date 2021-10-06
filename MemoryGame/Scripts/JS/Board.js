@@ -117,6 +117,18 @@ class Board{
         console.log(this.livedCards)
 
     }
+    exposeCard(card){
+        for (let i=0; i< this.exposedCards.length; i++){
+            // if we already expose the card, we don't insert it to exposedCards array
+            if (this.exposedCards[i] == card){
+                return ;
+            }
+        }
+        this.exposedCards.push(card);
+    }
+    getExposedCards(){
+        return this.exposedCards
+    }
 
     
     GetBoard(){

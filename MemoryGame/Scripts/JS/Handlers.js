@@ -60,6 +60,9 @@ class HandlerStatus {
     getAllPairExposed(){
         return this.#gameManager.getAllPairExposed();
     }
+    getExposedCards(){
+        return this.#gameManager.getExposedCards()
+    }
     pickCard(row,col){
         return this.#gameManager.pickCard(row, col);
     }

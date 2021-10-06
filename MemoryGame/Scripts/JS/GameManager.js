@@ -317,9 +317,10 @@ class GameManager{
 
     CreateAgents(numOfAgents) {
         this.#agents.push(new Player())
-        for (let i = 1; i <= numOfAgents; i++){
+        for (let i = 1; i <= numOfAgents-1; i++){
             this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + i));
         }
+        this.#agents.push(new OptimalAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + numOfAgents));
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
         player.setAttribute("id", "agent" + 0);
@@ -410,6 +411,9 @@ class GameManager{
     getAllPairExposed() {
         return this.#board.getAllPairExposed();
     }
+    getExposedCards(){
+        return this.#board.getExposedCards()
+    }
     getSecondHalf(row, col) {
         this.#board.boardArray[row][col].GetSecondHalf();
     }
@@ -440,6 +444,7 @@ class GameManager{
         else if (this.choicesIndexes.length == 1) {
             this.ShowCardfromTD(card)
             this.choicesIndexes[1]=[row, col];
+            this.#board.exposeCard(this.#board.boardArray[row][col])
             this.turn.PickCard(this.#board.boardArray[row][col]);
             //console.log(this.choicesIndexes)
             await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes))).then(bool => {
@@ -469,6 +474,7 @@ class GameManager{
         else if (this.choicesIndexes.length == 0) {
             this.ShowCardfromTD(card)
             this.choicesIndexes[0]=[row, col];
+            this.#board.exposeCard(this.#board.boardArray[row][col])
             this.turn.PickCard(this.#board.boardArray[row][col]);
         }
         //console.log("this is choices array", this.choicesIndexes)
@@ -513,7 +519,7 @@ class GameManager{
         if (hint_lock) {
             return;
         }
-        turn_size = this.#turnsArray.length;
+        let turn_size = this.#turnsArray.length;
         // need to start 2 back, because this turn is the last turn, and iterator starts from one back
         for (let i = turn_size - 2; i > 0; i--) {
             if (this.#turnsArray[i].success == false) {

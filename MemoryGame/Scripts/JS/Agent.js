@@ -128,7 +128,86 @@ function choosePairTest() {
 
 }
 
-
+class OptimalAgent {
+    constructor(handlerHistory, handlerStatus, name) {
+        this.handlerHistory = handlerHistory;
+        this.handlerStatus = handlerStatus;
+        this.name = name;
+        this.turnInfo = [];
+        this.successNumber = 0;
+        this.score = 0;
+    }
+    async choosePair() {
+        let pairs = this.handlerStatus.getAllPairExposed();
+        // check if we have a pair that already exposed
+        if (pairs.length!== 0){
+            console.log("OptimalAgent: find pair exposed" + pairs[0])
+            let pair = pairs[0];
+            await sleep(3000)
+            this.handlerStatus.pickCard(pair[0].index[0], pair[0].index[1]);
+            await sleep(3000)
+            this.handlerStatus.pickCard(pair[1].index[0], pair[1].index[1]);
+            await sleep(1000)
+            return
+        }
+        let lived = this.handlerStatus.getLiveCards();
+        console.log("this is the lived card", lived)
+        // choose a random card
+        let firstCardIndex = Math.floor(Math.random() * lived.length)
+        await sleep(3000)
+        let firstCard = this.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
+        await sleep(3000)
+        let exposedCards = this.handlerStatus.getExposedCards()
+        // try to find the pair of the first card
+        for (let i =0; i<exposedCards.length; i++){
+            // if the name is not the same continue to next card
+            if (firstCard.name !== exposedCards[i].name){
+                continue;
+            }
+            // if the indexes is not the same we find the card pair and we will choose him.
+            if (firstCard.index[0] !== exposedCards[i].index[0] && firstCard.index[1] !== exposedCards[i].index[1] ){
+                this.handlerStatus.pickCard(exposedCards[i].index[0], exposedCards[i].index[1]);
+                await sleep(1000)
+                return
+            }
+        }
+        // if we don't find the pair of the first card, we will choose a random card
+        let secondCardIndex;
+        while (true){
+            secondCardIndex = Math.floor(Math.random() * lived.length)
+            if (secondCardIndex !== firstCardIndex){
+                break;
+            }
+        }
+        this.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+        await sleep(1000)
+    }
+    getAllTurnPerAgent(){
+        return this.turnInfo;
+    }
+    getAllTimeTurnsPerAgent(){
+        let answer = [];
+        for (let i; i = 0; i < this.turnInfo.length) {
+            answer.push(this.turnInfo[i].time);
+        }
+        return answer;
+    }
+    getScore(){
+        return this.score;
+    }
+    addTurn(turn) {
+        if (this.turnInfo.length != 0) {
+            if (this.turnInfo[this.turnInfo.length - 1].numOfTurn === turn.numOfTurn) {
+                return;
+            }
+        }
+        this.turnInfo.push(turn);
+        if (turn.success) {
+            this.score += turn.scoreReward;
+            this.successNumber += 1;
+        }
+    }
+}
 
 class Agent1 {
     constructor(handler, index, gameManager) {
@@ -212,14 +291,3 @@ class Player {
     }
 }
 
-/*
-handler={
-    get_all_card // return all the card that in the board now - only the indexs of the card
-    get_exposed_cards(number_of_card) // return the indexs and the value of the open cards, and it will be sorted by the time that the card was opened
-    get_all_score // get all the score of the players until now
-    get_score(agent_index) // get score for specific player until now
-    get_all_history // return all the turns that have been played - the indexs that was choose, success or fail, the time that take to the player to make the turn
-    get_history(number_of_turn_to_show) // return the last x turn that  have been played - the indexs that was choose, success or fail, the time that take to the player to make the turn
-    get_time_for_turn // return the time for each turn
-    get_all_time_for_players // return the time that each agent play until now
-}*/
