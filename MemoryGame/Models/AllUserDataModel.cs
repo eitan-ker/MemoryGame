@@ -3,11 +3,15 @@ using MemoryGame.Models.EndGameModels;
 using MemoryGame.Models.VerificationRulesModels;
 using MemoryGame.Models.FeedBackModels;
 using MemoryGame.Models.Game;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MemoryGame.Models
 {
     public class AllUserDataModel
     {
+        [BsonId]
+        public ObjectId Id { get; set; }
         public AmazonInfoModel _amazonInfoModel;
         public GameModel _gameModel;
         public List<TimeInPageModel> _timeInPageModels;
