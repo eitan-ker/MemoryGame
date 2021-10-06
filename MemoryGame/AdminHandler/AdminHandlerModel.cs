@@ -52,7 +52,10 @@ namespace MemoryGame.AdminHandler
         {
             var uri = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             MongoClient dbClient = new MongoClient(uri);
-            
+            /*amazonInfoModel = new AmazonInfoModel();
+            amazonInfoModel.AssId = "1";
+            amazonInfoModel.WorkerId = "436";
+            amazonInfoModel.HitId = "123";*/
             var userCollection = dbClient.GetDatabase("MemoryGame").GetCollection<AllUserDataModel>("Users").Find(new BsonDocument()).ToList();
 
             foreach (var item in userCollection)
