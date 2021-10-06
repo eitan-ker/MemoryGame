@@ -2,11 +2,11 @@
 console.log("all users");
 $.ajax({
     type: "GET",
-    url: "/MemoryGame/Admin//GetAllUsers",
+    url: "/MemoryGame/Admin/GetAllUsers",
     contentType: "application/json",
     success: function (data) {
         alert("good");
-        DataTable(data);
+        dataTable(data);
     },
     error: function (errMsg) {
         alert("errMsg");
@@ -14,12 +14,13 @@ $.ajax({
 });
 
 function dataTable(data) {
+    var parsedData = JSON.parse(data);
+
     console.log("hii table");
 }
 
 
 /*
-
 //REPLY OF SPECIFIC USER
 console.log("spcific user");
 workerid = "436"
@@ -40,5 +41,4 @@ $.ajax({
         alert("errMsg");
     }
 });
-
- * /
+*/
