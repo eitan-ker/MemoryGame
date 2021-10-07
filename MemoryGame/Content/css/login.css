@@ -30,7 +30,7 @@ label {
 
 
 .login_btn {
-    margin-bottom:2%;
+    margin-bottom: 2%;
     display: inline-block;
     text-align: center;
     vertical-align: middle;
@@ -39,7 +39,7 @@ label {
     height: 50px;
     border-radius: 8px;
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
-    background-color: #73bf72;
+    background-color: dodgerblue;
     margin-right: 20px;
     color: white;
     box-shadow: grey 2px 2px 2px;
@@ -50,6 +50,6 @@ label {
     }
 
     .login_btn:hover {
-        background-color: dodgerblue;
+        background-color: #73bf72;
     }
 
