@@ -25,7 +25,7 @@ class GameManager{
     #board;
     #boardImages
     #gameOrReplay//for game 1 and for replay 0
-    constructor(size, numOfAgent, personalTime,configuration, replayBoard) {
+    constructor(size, numOfAgent,typeOfAgent, personalTime,configuration, replayBoard) {
         if(replayBoard === null) {
             this.#gameOrReplay = true;
         } else {
@@ -84,7 +84,7 @@ class GameManager{
         
         this.MakePairs();
         this.turnTimeout = null;
-        this.CreateAgents(numOfAgent);
+        this.CreateAgents(numOfAgent, typeOfAgent);
         this.turn = new Turn(this.#agents[0].name, this.globalTime, this.#turnsArray.length + 1);
         if(replayBoard == null) {
             this.personalInterval = setInterval(this.TimerForTurn, 1000);
@@ -315,12 +315,34 @@ class GameManager{
         return tableTag;
     }
 
-    CreateAgents(numOfAgents) {
+    CreateAgents(numOfAgents, typeOfAgent) {
         this.#agents.push(new Player())
-        for (let i = 1; i <= numOfAgents-1; i++){
-            this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + i));
+        for (let i = 0; i < numOfAgents; i++){
+            switch (typeOfAgent[i]) {
+                case "random":
+                    let type = Math.floor(Math.random() * 2)
+                    if (type ===0){
+                        this.#agents.push(new OptimalAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    }else {
+                        this.#agents.push(new BadAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    }
+                    
+                    break;
+                case "agent":
+                    this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    break;
+                case "OptimalAgent":
+                    this.#agents.push(new OptimalAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    break;
+                case "BadAgent":
+                    this.#agents.push(new BadAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    break
+                default:
+                    break;
+            }
+           
         }
-        this.#agents.push(new OptimalAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + numOfAgents));
+        
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
         player.setAttribute("id", "agent" + 0);

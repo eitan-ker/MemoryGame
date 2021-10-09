@@ -209,47 +209,78 @@ class OptimalAgent {
     }
 }
 
-class Agent1 {
-    constructor(handler, index, gameManager) {
-        this.handler = handler;
-        this.index = index;
-        this.gameManager = gameManager;
+class BadAgent {
+    constructor(handlerHistory, handlerStatus, name) {
+        this.handlerHistory = handlerHistory;
+        this.handlerStatus = handlerStatus;
+        this.name = name;
+        this.turnInfo = [];
+        this.successNumber = 0;
+        this.score = 0;
     }
-    PlayTurn() {
-    }
-    
-    SetHandler(newHandler){
-        this.handler = newHandler;
-    }
-    choose_random() {
-        let board = this.handler.get_all_card();
-        let i = Math.floor(Math.random() * board.length);
-        let j = Math.floor(Math.random() * board.length);
-        while (i == j) {
-            j = Math.floor(Math.random() * board.length);
-        }
-        return [board[i].indexs, board[j].indexs];
-    }
-    // Method
-    choosePair() {
-        console.log("Agent" + this.index);
-        let choose_array = [];
-        cards = this.handler.get_last_cards_show(4);
-        for (let i = 0; i < cards.length; i++) {
-            for (let j = i + 1; j < cards.length; j++) {
-                if (cards[i].val == cards[j].val) {
-                    choose_array.push(cards[i].indexs);
-                    choose_array.push(cards[j].indexs);
+    async choosePair() {
+        let exposedCards = this.handlerStatus.getExposedCards()
+        let lived = this.handlerStatus.getLiveCards();
+        if (exposedCards.length !== 0){
+            let firstCardIndex = Math.floor(Math.random() * exposedCards.length)
+            await sleep(3000)
+            let card =this.handlerStatus.pickCard(exposedCards[firstCardIndex].index[0], exposedCards[firstCardIndex].index[1]);
+            await sleep(3000)
+            let secondCardIndex;
+            while (true){
+                secondCardIndex = Math.floor(Math.random() * lived.length)
+                if (secondCardIndex !== firstCardIndex){
                     break;
                 }
             }
+            this.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+            await sleep(1000)
+        }else{
+            let firstCardIndex = Math.floor(Math.random() * lived.length)
+            await sleep(3000)
+            this.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
+            await sleep(3000)
+            let secondCardIndex;
+            while (true){
+                secondCardIndex = Math.floor(Math.random() * lived.length)
+                if (secondCardIndex !== firstCardIndex){
+                    break;
+                }
+            }
+            this.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+            await sleep(1000)
         }
-        if (choose_array.length == 0) {
-            choose_array = this.choose_random();
+        
+      
+      
+    }
+    getAllTurnPerAgent(){
+        return this.turnInfo;
+    }
+    getAllTimeTurnsPerAgent(){
+        let answer = [];
+        for (let i; i = 0; i < this.turnInfo.length) {
+            answer.push(this.turnInfo[i].time);
         }
-        return { index: choose_array, time: 20 };
+        return answer;
+    }
+    getScore(){
+        return this.score;
+    }
+    addTurn(turn) {
+        if (this.turnInfo.length != 0) {
+            if (this.turnInfo[this.turnInfo.length - 1].numOfTurn === turn.numOfTurn) {
+                return;
+            }
+        }
+        this.turnInfo.push(turn);
+        if (turn.success) {
+            this.score += turn.scoreReward;
+            this.successNumber += 1;
+        }
     }
 }
+
 
 class Player {
     constructor() {

@@ -115,7 +115,22 @@ class Board{
         }
         console.log("after update")
         console.log(this.livedCards)
+        this.updateExposedCard(card1,card2)
 
+    }
+    updateExposedCard(card1,card2){
+        let index = [];
+        for (let i = 0; i < this.exposedCards.length; i++) {
+            if (card1[0] == this.exposedCards[i].index[0] && card1[1] == this.exposedCards[i].index[1]) {
+                index.push(i);
+            } else if (card2[0] == this.exposedCards[i].index[0] && card2[1] == this.exposedCards[i].index[1]) {
+                index.push(i);
+            }
+        }
+        console.log("indexes is", index)
+        for (let i = index.length - 1; i >= 0; i--) {
+            this.exposedCards.splice(index[i], 1)
+        }
     }
     exposeCard(card){
         for (let i=0; i< this.exposedCards.length; i++){
