@@ -63,6 +63,18 @@ class Agent {
         this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
 
     }
+    getType(){
+        return "OptimalAgent";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.successNumber
+    }
+    getTurnInfo(){
+        return this.turnInfo
+    }
     getAllTurnPerAgent(){
         return this.turnInfo;
     }
@@ -90,74 +102,33 @@ class Agent {
     }
 }
 
-function choosePairTest() {
-    let lived = this.handlerStatus.getLivedCards();
-    console.log("test for handler status:")
-    console.log("the live card are: ");
-    console.log(lived);
-    console.log("get board dimensins")
-    console.log(this.handlerStatus.getBoardDimensins())
-    console.log("get Num Of Card On Board")
-    console.log(this.handlerStatus.getNumOfCardOnBoard())
-    console.log("get All Pair Exposed")
-    console.log(this.handlerStatus.getAllPairExposed())
-    console.log("get card")
-    console.log(this.handlerStatus.getCard(lived[0][0], lived[0][1]))
-    console.log("getHint")
-    console.log(this.handlerStatus.getHint())
-    console.log("test for handler history:")
-    console.log("getAgents")
-    let agents = this.handlerHistory.getAgents()
-    console.log(agents)
-    console.log("getAllTurns")
-    console.log(this.handlerHistory.getAllTurns())
-    console.log("getLastTurn")
-    console.log(this.handlerHistory.getLastTurn())
-    console.log("getLastPlayer")
-    console.log(this.handlerHistory.getLastPlayer())
-    console.log("getNumOfTurn")
-    console.log(this.handlerHistory.getNumOfTurn())
-    console.log("getAllTurnPerAgent")
-    console.log(this.handlerHistory.getAllTurnPerAgent(agents[0]))
-    console.log("getAllTimeTurnsPerAgent")
-    console.log(this.handlerHistory.getAllTimeTurnsPerAgent(agents[0]))
-    console.log("getScorePerAgent")
-    console.log(this.handlerHistory.getScorePerAgent(agents[0]))
-    this.handlerStatus.pickCard(lived[0][0], lived[0][1]);
-    this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
-
-}
 
 class OptimalAgent {
-    constructor(handlerHistory, handlerStatus, name) {
-        this.handlerHistory = handlerHistory;
-        this.handlerStatus = handlerStatus;
+    constructor(baseAgent, name) {
         this.name = name;
-        this.turnInfo = [];
-        this.successNumber = 0;
-        this.score = 0;
+        this.baseAgent = baseAgent
     }
     async choosePair() {
-        let pairs = this.handlerStatus.getAllPairExposed();
+        let pairs = this.baseAgent.handlerStatus.getAllPairExposed();
         // check if we have a pair that already exposed
         if (pairs.length!== 0){
             console.log("OptimalAgent: find pair exposed" + pairs[0])
             let pair = pairs[0];
             await sleep(3000)
-            this.handlerStatus.pickCard(pair[0].index[0], pair[0].index[1]);
+            this.baseAgent.handlerStatus.pickCard(pair[0].index[0], pair[0].index[1]);
             await sleep(3000)
-            this.handlerStatus.pickCard(pair[1].index[0], pair[1].index[1]);
+            this.baseAgent.handlerStatus.pickCard(pair[1].index[0], pair[1].index[1]);
             await sleep(1000)
             return
         }
-        let lived = this.handlerStatus.getLiveCards();
+        let lived = this.baseAgent.handlerStatus.getLiveCards();
         console.log("this is the lived card", lived)
         // choose a random card
         let firstCardIndex = Math.floor(Math.random() * lived.length)
         await sleep(3000)
-        let firstCard = this.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
+        let firstCard = this.baseAgent.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
         await sleep(3000)
-        let exposedCards = this.handlerStatus.getExposedCards()
+        let exposedCards = this.baseAgent.handlerStatus.getExposedCards()
         // try to find the pair of the first card
         for (let i =0; i<exposedCards.length; i++){
             // if the name is not the same continue to next card
@@ -166,7 +137,7 @@ class OptimalAgent {
             }
             // if the indexes is not the same we find the card pair and we will choose him.
             if (firstCard.index[0] !== exposedCards[i].index[0] && firstCard.index[1] !== exposedCards[i].index[1] ){
-                this.handlerStatus.pickCard(exposedCards[i].index[0], exposedCards[i].index[1]);
+                this.baseAgent.handlerStatus.pickCard(exposedCards[i].index[0], exposedCards[i].index[1]);
                 await sleep(1000)
                 return
             }
@@ -179,52 +150,47 @@ class OptimalAgent {
                 break;
             }
         }
-        this.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+        this.baseAgent.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
         await sleep(1000)
     }
+    getType(){
+        return "OptimalAgent";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.baseAgent.successNumber
+    }
+    getTurnInfo(){
+        return this.baseAgent.turnInfo
+    }
     getAllTurnPerAgent(){
-        return this.turnInfo;
+        return this.baseAgent.getAllTurnPerAgent();
     }
     getAllTimeTurnsPerAgent(){
-        let answer = [];
-        for (let i; i = 0; i < this.turnInfo.length) {
-            answer.push(this.turnInfo[i].time);
-        }
-        return answer;
+        return this.baseAgent.getAllTimeTurnsPerAgent();
     }
     getScore(){
-        return this.score;
+        return this.baseAgent.getScore();
     }
     addTurn(turn) {
-        if (this.turnInfo.length != 0) {
-            if (this.turnInfo[this.turnInfo.length - 1].numOfTurn === turn.numOfTurn) {
-                return;
-            }
-        }
-        this.turnInfo.push(turn);
-        if (turn.success) {
-            this.score += turn.scoreReward;
-            this.successNumber += 1;
-        }
+        return this.baseAgent.addTurn(turn);
     }
 }
 
 class BadAgent {
-    constructor(handlerHistory, handlerStatus, name) {
-        this.handlerHistory = handlerHistory;
-        this.handlerStatus = handlerStatus;
+    constructor(baseAgent, name) {
         this.name = name;
-        this.turnInfo = [];
-        this.successNumber = 0;
-        this.score = 0;
+        this.baseAgent = baseAgent
     }
     async choosePair() {
-        let exposedCards = this.handlerStatus.getExposedCards()
-        let lived = this.handlerStatus.getLiveCards();
+        let exposedCards = this.baseAgent.handlerStatus.getExposedCards()
+        let lived = this.baseAgent.handlerStatus.getLiveCards();
         if (exposedCards.length !== 0){
             let firstCardIndex = Math.floor(Math.random() * exposedCards.length)
             await sleep(3000)
-            let card =this.handlerStatus.pickCard(exposedCards[firstCardIndex].index[0], exposedCards[firstCardIndex].index[1]);
+            let card =this.baseAgent.handlerStatus.pickCard(exposedCards[firstCardIndex].index[0], exposedCards[firstCardIndex].index[1]);
             await sleep(3000)
             let secondCardIndex;
             while (true){
@@ -233,12 +199,12 @@ class BadAgent {
                     break;
                 }
             }
-            this.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+            this.baseAgent.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
             await sleep(1000)
         }else{
             let firstCardIndex = Math.floor(Math.random() * lived.length)
             await sleep(3000)
-            this.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
+            this.baseAgent.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
             await sleep(3000)
             let secondCardIndex;
             while (true){
@@ -247,40 +213,38 @@ class BadAgent {
                     break;
                 }
             }
-            this.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+            this.baseAgent.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
             await sleep(1000)
         }
         
       
       
     }
+    getType(){
+        return "BadAgent";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.baseAgent.successNumber
+    }
+    getTurnInfo(){
+        return this.baseAgent.turnInfo
+    }
     getAllTurnPerAgent(){
-        return this.turnInfo;
+        return this.baseAgent.getAllTurnPerAgent();
     }
     getAllTimeTurnsPerAgent(){
-        let answer = [];
-        for (let i; i = 0; i < this.turnInfo.length) {
-            answer.push(this.turnInfo[i].time);
-        }
-        return answer;
+        return this.baseAgent.getAllTimeTurnsPerAgent();
     }
     getScore(){
-        return this.score;
+        return this.baseAgent.getScore();
     }
     addTurn(turn) {
-        if (this.turnInfo.length != 0) {
-            if (this.turnInfo[this.turnInfo.length - 1].numOfTurn === turn.numOfTurn) {
-                return;
-            }
-        }
-        this.turnInfo.push(turn);
-        if (turn.success) {
-            this.score += turn.scoreReward;
-            this.successNumber += 1;
-        }
+        return this.baseAgent.addTurn(turn);
     }
 }
-
 
 class Player {
     constructor() {
@@ -294,6 +258,18 @@ class Player {
     }
     async choosePairTest() {
         console.log("Player");
+    }
+    getType(){
+        return "Player";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.successNumber
+    }
+    getTurnInfo(){
+        return this.turnInfo
     }
     getAllTurnPerAgent() {
         return this.turnInfo;

@@ -322,9 +322,9 @@ class GameManager{
                 case "random":
                     let type = Math.floor(Math.random() * 2)
                     if (type ===0){
-                        this.#agents.push(new OptimalAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                        this.#agents.push(new OptimalAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
                     }else {
-                        this.#agents.push(new BadAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                        this.#agents.push(new BadAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
                     }
                     
                     break;
@@ -332,10 +332,10 @@ class GameManager{
                     this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
                     break;
                 case "OptimalAgent":
-                    this.#agents.push(new OptimalAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    this.#agents.push(new OptimalAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
                     break;
                 case "BadAgent":
-                    this.#agents.push(new BadAgent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    this.#agents.push(new BadAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
                     break
                 default:
                     break;
@@ -751,7 +751,6 @@ class GameManager{
     }
     async endOfGame() {
         document.getElementById("board").innerHTML = "<h1>game over</h1>";
-        this.#agents[0].choosePairTest()
         if (this.globalInterval != null) {
             clearInterval(this.globalInterval);
         }
@@ -779,10 +778,11 @@ class GameManager{
         let temp = [];
         for (let i = 0; i < this.#agents.length; i++) {
             let agent = {}
-            agent["name"] = this.#agents[i].name
-            agent["turnInfo"] = this.#agents[i].turnInfo
-            agent["score"] = this.#agents[i].score
-            agent["successNumber"] = this.#agents[i].successNumber
+            agent["type"] = this.#agents[i].getType()
+            agent["name"] = this.#agents[i].getName()
+            agent["turnInfo"] = this.#agents[i].getTurnInfo()
+            agent["score"] = this.#agents[i].getScore()
+            agent["successNumber"] = this.#agents[i].getSuccessNumber()
             temp.push(agent);
         }
         dataForServer["agents"] = temp;
