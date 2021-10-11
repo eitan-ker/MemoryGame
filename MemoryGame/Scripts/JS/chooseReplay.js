@@ -53,7 +53,7 @@ function dataTable(data) {
                         if (j == 0) {
                             cell.textContent = i;
                         } else {
-                            //cell.textContent = "replay BTN";
+                            // "0000" is a unique char to differ between the ids
                             cell.innerHTML = '<button class="btn btn-primary btn-xs my-xs-btn" type="button"'
                                 + 'onClick = "runReplay(' + parsedData[i - 1][parsedKeys[0]] + "0000" + parsedData[i - 1][parsedKeys[1]] + "0000" + parsedData[i - 1][parsedKeys[2]] +')" > '
                             + '<span class="glyphicon glyphicon-pencil"></span>Run Replay</button>';
@@ -77,7 +77,7 @@ function dataTable(data) {
 
 function runReplay(replayData) {
     let str = replayData.toString();
-
+    // "0000" is a unique char to differ between the ids
     const ids = str.split("0000");
     console.log(ids);
 
@@ -97,6 +97,7 @@ function runReplay(replayData) {
         contentType: "application/json",
         success: function (data) {
             alert("good");
+            // send data to replay and run
         },
         error: function (errMsg) {
             alert("errMsg");
