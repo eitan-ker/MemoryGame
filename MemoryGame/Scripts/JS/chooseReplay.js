@@ -53,7 +53,11 @@ function dataTable(data) {
                         if (j == 0) {
                             cell.textContent = i;
                         } else {
-                            cell.textContent = "replay BTN";
+                            //cell.textContent = "replay BTN";
+                            cell.innerHTML = '<button class="btn btn-primary btn-xs my-xs-btn" type="button"'
+                                + 'onClick = "runReplay(' + parsedData[i - 1][parsedKeys[0]] + "0000" + parsedData[i - 1][parsedKeys[1]] + "0000" + parsedData[i - 1][parsedKeys[2]] +')" > '
+                            + '<span class="glyphicon glyphicon-pencil"></span>Run Replay</button>';
+
                         }
                     } else {
                         cell.textContent = parsedData[i - 1][parsedKeys[j - 1]];
@@ -64,34 +68,39 @@ function dataTable(data) {
         }
         document.body.appendChild(table);
 
-        
-
-        console.log(table);
     }
 
     
 }
 
 
-/*
-//REPLY OF SPECIFIC USER
-console.log("spcific user");
-workerid = "436"
-assid = "1"
-hitid = "123"
-var data = {WorkerId: workerid, AssId: assid, HitId: hitid}
-var stringTosend = JSON.stringify(data);
-console.log(stringTosend);
-$.ajax({
-    type: "POST",
-    url: "/MemoryGame/Admin/GetReplyOfUser",
-    data: stringTosend,
-    contentType: "application/json",
-    success: function (data) {
-        alert("good");
-    },
-    error: function (errMsg) {
-        alert("errMsg");
-    }
-});
-*/
+
+function runReplay(replayData) {
+    let str = replayData.toString();
+
+    const ids = str.split("0000");
+    console.log(ids);
+
+
+    //REPLY OF SPECIFIC USER
+    console.log("spcific user");
+    var workerid = ids[0].toString()
+    var assid = ids[1].toString()
+    var hitid = ids[2].toString()
+    var data = { WorkerId: workerid, AssId: assid, HitId: hitid }
+    var stringTosend = JSON.stringify(data);
+    console.log(stringTosend);
+    $.ajax({
+        type: "POST",
+        url: "/MemoryGame/Admin/GetReplyOfUser",
+        data: stringTosend,
+        contentType: "application/json",
+        success: function (data) {
+            alert("good");
+        },
+        error: function (errMsg) {
+            alert("errMsg");
+        }
+    });
+
+}
