@@ -86,7 +86,7 @@ $(function () {
         $("#board_zone").fadeOut();
         $.post('MemoryGame/Controllers/Data',   // url
             {  }, // data to be submit
-            function(data, status, jqXHR) {// success callback
+            function(data, status, jqXHR) {// successfull callback
                alert("information has been sent");
             })
         gameManager.endOfGame();

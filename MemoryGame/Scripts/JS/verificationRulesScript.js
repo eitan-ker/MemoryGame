@@ -313,7 +313,6 @@ function markAnswersRedGreen() {
 }
 
 function show_and_hide(str) {
-    console.log(str)
     var click = document.getElementById(str);
     if (click.style.display === "none") {
         click.style.display = "inline-block";

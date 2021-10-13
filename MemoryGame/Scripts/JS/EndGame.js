@@ -85,13 +85,12 @@ function checkAns() {
     }
 
     if (!mistake) {
-        console.log("not find any mistake");
         NextPage();
     }
     else {
-        console.log("find mistake")
         disableAllButtons()
-        show_and_hide();
+        show_and_hide('failed');
+        show_and_hide('agree_button_id');
         PageInfo.mistakes++;
         PageInfo.MistakesInfo.push(turn);
     }
@@ -159,10 +158,10 @@ function MyGetTime() {
 }
 
 
-function show_and_hide() {
-    var click = document.getElementById("failed");
+function show_and_hide(str) {
+    var click = document.getElementById(str);
     if (click.style.display === "none") {
-        click.style.display = "block";
+        click.style.display = "inline-block";
     } else {
         click.style.display = "none";
     }
@@ -186,7 +185,8 @@ function anableAllButton() {
     }
 }
 function anotherTry() {
-    show_and_hide();
+    show_and_hide('failed');
+    show_and_hide('agree_button_id');
     anableAllButton();
-   
+      
 }

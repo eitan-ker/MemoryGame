@@ -20,7 +20,5 @@ function login() {
             alert("errMsg");
         }
     });
-    console.log(uname);
-    console.log(pass);
 
 }

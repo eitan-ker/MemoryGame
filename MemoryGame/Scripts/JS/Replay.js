@@ -14,6 +14,8 @@
     let turnsArray = JSON.parse(sessionStorage.getItem("turnsArray"));
     let boardImages = JSON.parse(sessionStorage.getItem("boardImages"));
     let config = JSON.parse(sessionStorage.getItem("config"));
+
+
     let gm = new GameManager(size, config.numOfAgents, config.personalTime,config, boardImages); 
     //let size = config.size;
     document.getElementById("board").innerHTML = gm.CreateBoard(size[0], size[1]);

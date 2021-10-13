@@ -1,0 +1,54 @@
+﻿body {
+    font-size: 20px;
+}
+.dataArea {
+    margin-left: 50px;
+}
+
+.agent {
+    margin: 50px;
+    height: 100px;
+}
+
+.data_text {
+    float: right;
+}
+
+p {
+    text-align:left;
+}
+
+.name_text {
+    color: #002966;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.css-input {
+    margin-right: 20px;
+}
+
+
+.green, .failed {
+    padding-left: 60%;
+}
+.failed {
+    padding-top: 40%;
+}
+
+
+
+.content {
+    background-color: beige;
+    margin-right: 20px;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding-right: 5px;
+    padding-left: 5px;
+    height: 120px;
+    text-align: center;
+}
+
+.Red_Button {
+    height: 60px;
+}

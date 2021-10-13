@@ -97,6 +97,25 @@ function runReplay(replayData) {
         contentType: "application/json",
         success: function (data) {
             alert("good");
+
+
+            const obj = JSON.parse(data);
+            console.log(obj);
+            console.log(obj._gameModel.configuration.numOfCards);
+
+            sessionStorage.setItem("size", JSON.stringify(obj._gameModel.configuration.numOfCards));
+            sessionStorage.setItem("turnsArray", JSON.stringify(obj._gameModel.turnInfo));
+            sessionStorage.setItem("boardImages", JSON.stringify(obj._gameModel.initBoard));
+            sessionStorage.setItem("config", JSON.stringify(obj._gameModel.configuration));
+
+
+            window.location.replace("/MemoryGame/Home/Replay");
+
+
+//            await this.Replay();
+
+
+            
             // send data to replay and run
         },
         error: function (errMsg) {
@@ -105,3 +124,28 @@ function runReplay(replayData) {
     });
 
 }
+
+
+/*
+function Replay(){
+        window.location.replace("/MemoryGame/Home/Replay");
+        document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
+        let lastTurnTime = 0;
+        for (let turn1 in this.#turnsArray) {
+            if(turn1.GetFirstTurnTime() != null){
+                let time = turn1.GetFirstTurnTime().getSeconds();
+                sleep((time - lastTurnTime) % 60);
+                let firstCard = turn1.GetFirstCard();
+                this.pickCard(firstCard[0], firstCard[1]);
+                lastTurnTime = time;
+            }
+            if(turn.GetSecondTurnTime() != null){
+                let time = turn1.GetSecondTurnTime().getSeconds();
+                sleep((time - lastTurnTime) % 60);
+                let firstCard = turn1.GetFirstCard();
+                this.pickCard(firstCard[0], firstCard[1]);
+                lastTurnTime = time;
+            }
+        }
+    }
+*/

@@ -818,6 +818,8 @@ class GameManager{
         //sleep(this.GetTime().getMinutes() * 60000, this.GetTime().getSeconds() * 1000);
         window.location.replace("/MemoryGame/Home/EndGame"); //to prevent page back
     }
+
+
     async Replay(){
         window.location.replace("/MemoryGame/Home/Replay");
         document.getElementById("board").innerHTML = this.CreateBoard(size[0], size[1]);
