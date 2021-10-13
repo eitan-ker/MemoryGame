@@ -16,13 +16,12 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.uname {
+.psw,.uname {
     margin: 10%;
+    color:white;
+    font-weight:400;
 }
 
-.psw {
-    margin: 10%;
-}
 
 label {
     margin-right:10%;

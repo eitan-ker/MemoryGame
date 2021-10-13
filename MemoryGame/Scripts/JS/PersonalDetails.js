@@ -203,13 +203,13 @@ function disableAllButtons() {
     document.getElementById('cont_str_info_id').setAttribute("disabled", true);
     
     for (let i = 0; i < buttons.length; i++) {
-        btn_id = buttons[i].getAttribute('id');
+        var btn_id = buttons[i].getAttribute('id');
         if (btn_id != "failed_button") {
             document.getElementById(btn_id).setAttribute("disabled", true);
         }
     }
     for (let i = 0; i < input.length; i++) {
-        btn_id = input[i].getAttribute('id');
+        var btn_id = input[i].getAttribute('id');
         if (btn_id != "failed_button") {
             document.getElementById(btn_id).setAttribute("disabled", true);
         }

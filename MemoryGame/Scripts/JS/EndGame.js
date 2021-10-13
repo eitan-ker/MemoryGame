@@ -170,9 +170,16 @@ function show_and_hide(str) {
 function disableAllButtons() {
     var buttons = document.getElementsByTagName('button');
     for (let i = 0; i < buttons.length; i++) {
-        btn_id = buttons[i].getAttribute('id');
+        var btn_id = buttons[i].getAttribute('id');
         if (btn_id != "failed_button") {
             document.getElementById(btn_id).setAttribute("disabled", false);
+        }
+    }
+    var input = document.getElementsByTagName('input'); 
+    for (let i = 0; i < input.length; i++) {
+        var btn_id = input[i].getAttribute('class');
+        if (btn_id != "failed_button") {
+            document.getElementsByClassName(btn_id)[i].setAttribute("disabled", true);
         }
     }
 }
@@ -182,6 +189,14 @@ function anableAllButton() {
     for (let i = 0; i < buttons.length; i++) {
         btn_id = buttons[i].getAttribute('id');
         document.getElementById(btn_id).removeAttribute("disabled");
+    }
+
+    var input = document.getElementsByTagName('input');
+    for (let i = 0; i < input.length; i++) {
+        var btn_id = input[i].getAttribute('class');
+        if (btn_id != "failed_button") {
+            document.getElementsByClassName(btn_id)[i].removeAttribute("disabled");
+        }
     }
 }
 function anotherTry() {

@@ -30,13 +30,12 @@ p {
 
 
 .green, .failed {
-    padding-left: 60%;
+    padding-left: 50%;
 }
-.failed {
+
+.green {
     padding-top: 40%;
 }
-
-
 
 .content {
     background-color: beige;
@@ -52,3 +51,25 @@ p {
 .Red_Button {
     height: 60px;
 }
+
+.Green_Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #73bf73;
+    color: white;
+    box-shadow: grey 5px 5px 5px;
+}
+
+    .Green_Button:focus {
+        outline: none;
+    }
+
+    .Green_Button:hover {
+        background-color: #79d279;
+    }
