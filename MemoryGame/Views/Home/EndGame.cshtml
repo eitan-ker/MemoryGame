@@ -11,8 +11,8 @@
 
 
 <body>
-    <div id="InfoDiv">
-        <div class="dataArea" style="display:block; float:left">
+    <div id="InfoDiv" class="dataArea">
+        <div class="left_side">
             <img style=" width: 300px;height:250px;align-items: center;margin-top: 10px; margin-bottom: 10px;" src="~/resources/Images/Done.png" />
             <div id="textDiv">
                 <p>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div id="agent_area" style="float:right">
+        <div id="agent_area" class="right_side">
             <div class="player">
                 <div class="player_name_img">
                     <h4 id="name_of_player">Player</h4>
@@ -49,19 +49,20 @@
             </div>
         </div>
     </div>
+        
     <div class="clickers" style="text-align:center">
+        <div class="green">
+            <button id="agree_button_id" type="submit" class="Green_Button" onclick="checkAns(); return false;">Submit</button>
+        </div>
         <div class="failed" id="failed" style="display:none;">
             <div class="content">
                 <h4>Some of your answers were incorrect</h4>
                 <button id="failed_button" onclick="anotherTry();" class="Red_Button">Please try again</button>
             </div>
+        </div>
 
-        </div>
-        <div class="green">
-            <button id="agree_button_id" type="submit" class="Green_Button" onclick="checkAns(); return false;">Submit</button>
-        </div>
 
     </div>
-    
+
 </body>
 

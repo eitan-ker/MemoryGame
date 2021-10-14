@@ -30,11 +30,11 @@ p {
 
 
 .green, .failed {
-    padding-left: 50%;
-}
-
-.green {
-    padding-top: 40%;
+    margin-top: 2%;
+    margin-left: 40%;
+    text-align: center;
+    float: left;
+    margin-bottom:1%;
 }
 
 .content {
@@ -73,3 +73,16 @@ p {
     .Green_Button:hover {
         background-color: #79d279;
     }
+
+.left_side {
+    width: 50%;
+    display: block;
+    float: left;
+}
+.right_side {
+    width: 20%;
+    float: right;
+}
+
+.green, failed {
+}
