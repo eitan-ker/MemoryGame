@@ -22,9 +22,28 @@ $(function () {
         }
     }
     sessionStorage.setItem('currentPage', "EndGame");
-    startTime = MyGetTime()
+    startTime = MyGetTime();
+
+
+    // HARD CODED
+    //data = [{ name: "player", score: 20, time: "00:15" }, { name: "agent 1", score: 20, time: "00:15" }, { name: "agent 2", score: 20, time: "00:15" }];
+
+
+    let scores = JSON.parse(sessionStorage.getItem("scores"));
+    let scoresSize = scores.length
+    var data = [];
+    for (let i = 0; i < scoresSize; i++) {
+        let name2 = scores[i][name];
+        let score2 = scores[i][score];
+        data.push({ name: name2, score: score2, time: "00:15" }); // chnage time in dic
+    }
+
     //let data = JSON.parse(sessionStorage.getItem("scores"));
-    data = [{ name: "player", score: 20, time: "00:15" }, { name: "agent 1", score: 20, time: "00:15" }, { name: "agent 2", score: 20, time: "00:15" }];
+
+
+    
+
+
     createUI(data);
    /* PlayerTime = sessionStorage.getItem('PlayerTime');
     BotTime = sessionStorage.getItem('BotTime');
