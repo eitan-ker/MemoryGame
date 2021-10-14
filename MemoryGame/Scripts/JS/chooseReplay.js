@@ -25,7 +25,6 @@ function dataTable(data) {
         // number of cols must be +2 because 1 for index and one for replay button
         colNum = colNum + 2;
         var parsedKeys = Object.keys(parsedData[0])
-
         let table = document.createElement('table');
         table.setAttribute("class", "table");
         // one extra row for the cols names

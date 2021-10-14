@@ -12,10 +12,13 @@ namespace MemoryGame.Controllers
 {
     public class AdminController : Controller
     {
-        
-      
+        public ActionResult DataTable()
+        {
+            return View();
+        }
 
-        
+
+
         public ActionResult Login()
         {
             return View();
