@@ -1,7 +1,4 @@
-﻿body {
-
-}
-
+﻿
 .tableHeadLine {
     color:whitesmoke;
     font-weight:600;
@@ -10,3 +7,8 @@
 .tableRow {
     color: black;
 }
+
+h2 {
+    color: white;
+}
+

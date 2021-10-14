@@ -5,7 +5,6 @@ $.ajax({
     url: "/MemoryGame/Admin/GetAllUsers",
     contentType: "application/json",
     success: function (data) {
-        alert("good");
         dataTable(data);
     },
     error: function (errMsg) {
@@ -96,8 +95,6 @@ function runReplay(replayData) {
         data: stringTosend,
         contentType: "application/json",
         success: function (data) {
-            alert("good");
-
 
             const obj = JSON.parse(data);
             console.log(obj);
