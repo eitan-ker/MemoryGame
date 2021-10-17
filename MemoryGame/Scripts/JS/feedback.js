@@ -290,7 +290,7 @@ function nextPage() {
     }
     
     done = true;
-    var t = { questions: questionsAarr, answers: typeContent }
+    var t = { Questions: questionsAarr, Answers: typeContent }
     var qa = JSON.stringify(t);
     console.log(qa);
     $.ajax({

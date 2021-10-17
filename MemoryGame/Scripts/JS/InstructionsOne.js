@@ -1,9 +1,10 @@
 ﻿var startTime;
 var done = false;
+
 $(function () {
     startTime = MyGetTime()
     window.onbeforeunload = function () {
-        if (this.done == false) {
+        if (this.done === false) {
             $.ajax({
                 type: "GET",
                 dataType: 'json',

@@ -6,57 +6,165 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MemoryGame.ClientHandler;
+using MemoryGame.Models.EndGameModels;
+using MemoryGame.Models.FeedBackModels;
+using MemoryGame.Models.Game;
+using MemoryGame.Models.VerificationRulesModels;
 using MongoDB.Bson;
-
+using MongoDB.Driver;
+using Newtonsoft.Json;
 
 namespace MemoryGame.Controllers
 {
-    public class 
-        DataController : Controller
+    public class DataController : Controller
     {
-        
+
         public AmazonInfoModel CreateAmazonInfoModel()
         {
             
             AmazonInfoModel amazonInfoModel = new AmazonInfoModel();
-            amazonInfoModel.AssId = Session["assignmentId"].ToString();
-            amazonInfoModel.HitId = Session["hitId"].ToString();
-            amazonInfoModel.WorkerId = Session["workerId"].ToString();
-            return amazonInfoModel;
+                 amazonInfoModel.AssId = Session["assignmentId"].ToString();
+                 amazonInfoModel.HitId = Session["hitId"].ToString();
+                 amazonInfoModel.WorkerId = Session["workerId"].ToString();
+                 return amazonInfoModel;
 
         }
 
-        public ActionResult TimeInPage(TimeInPageModel timeInPageModel)
+       public ActionResult VerificationRulesInfo(VerificationRulesModel verificationRulesModel)
         {
-            Console.WriteLine(timeInPageModel);
-            //AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
-            //ClientsHandlerModel.AddTimeModel(amazonInfoModel, timeInPageModel);
+            //Console.WriteLine($"2222222  {verificationRulesModel.Answers.ToString()}");
+
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddVerificationRulesModel(amazonInfoModel, verificationRulesModel);
+            if (isGood == 0)
+            {
+                //Console.WriteLine("whatttttttttttttttttttttttttttttttt");
+
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Console.WriteLine($"{verificationRulesModel.Answers.ToString()}");
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+        public  ActionResult FeedBackInfo( FeedBackModel feedBackModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddFeedBackModel(amazonInfoModel, feedBackModel);
+            if (isGood == 0)
+            {
+                //Console.WriteLine("whatttttttttttttttttttttttttttttttt");
+
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        
-        [HttpGet]
-        public string GetInitData()
+        public ActionResult PersonalDetailsInfo(PersonalDetails personalDetailsModel)
         {
-            InitData initData = new InitData();
-            initData.overallTime = (3000 * 4 * 10).ToString();
-            initData.personalTime = 3000.ToString();
-            initData.numOfCards = 2.ToString();
-            initData.numOfAgents =4.ToString();
-            /*var data = {
-                overallTime= "",// times in milliseconds
-                personalTime: 3000,
-                numOfCards: 2,
-                numOfAgents: 4
-            };*/
-            return initData.ToJson();
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddPersonalDetailsModel(amazonInfoModel, personalDetailsModel);
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+//AddGameModel
+        public ActionResult GameManegerInfo(GameModel gameModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddGameModel(amazonInfoModel, gameModel);
+           
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+        public ActionResult EndGameInfo( EndGameModel endGameModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddEndGameModel(amazonInfoModel, endGameModel);
+           
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+        public ActionResult TimeInPage( TimeInPageModel timeInPageModel)
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddTimeModel(amazonInfoModel, timeInPageModel);
+            if (isGood == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+        public async Task<ActionResult> IsNewClient()
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+
+            var uri = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            MongoClient dbClient = new MongoClient(uri);
+
+            var userCollection = await dbClient.GetDatabase("MemoryGame").GetCollection<AllUserDataModel>("Users").Find(new BsonDocument()).ToListAsync();
+
+            foreach (var c in userCollection)
+            {
+                if (c._amazonInfoModel.WorkerId.Equals(amazonInfoModel.WorkerId))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                }
+
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+        }
+        
+
+        
+
+
+        public async Task<ActionResult> ClientIsDone()
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            
+            bool res = await ClientsHandlerModel.UploadUserToMongoAsync(amazonInfoModel);
+            Console.WriteLine($"{res.ToString()}");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [HttpPost]
-        public void ReciveTurnsInfo()
+        public string GetScore()
         {
-            
+            return System.Configuration.ConfigurationManager.AppSettings["Score"].ToString();
         }
+        public string InitGameData()
+        {
+
+            InitData initData = new InitData();
+            initData.OverallTime = long.Parse(System.Configuration.ConfigurationManager.AppSettings["OverallTime"].ToString());
+            initData.PersonalTime = long.Parse(System.Configuration.ConfigurationManager.AppSettings["PersonalTime"].ToString());
+            
+            initData.NumOfCards = new List<int>();
+            initData.NumOfCards.Add(Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfCards1"].ToString()));
+            initData.NumOfCards.Add(Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfCards2"].ToString()));
+            
+            initData.NumOfAgents = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfAgents"].ToString());
+            initData.HintConfig = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["HintConfig"].ToString());
+            
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            int isGood = ClientsHandlerModel.AddInitDataModel(amazonInfoModel, initData);
+            
+            var json = JsonConvert.SerializeObject(initData);
+            return json;
+        }
+
+       
         
     }
 }

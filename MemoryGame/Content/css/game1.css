@@ -101,7 +101,7 @@ h2 {
     margin-left: auto;
     margin-right: auto;
     border-style: dotted;
-  /*  background-image: url("../../resources/Images/card_back.jpg");*/
+    background-image: url("../../resources/Images/card_back.jpg");
     background-size: 125px 80px;
     background-position: center;
     width: 130px;

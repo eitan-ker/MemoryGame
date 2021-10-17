@@ -5,12 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MemoryGame.ClientHandler;
 
 
 namespace MemoryGame.Controllers
 {
     public class HomeController : Controller
     {
+        public static int num_users = 0;
 
         public ActionResult DisagreePage()
         {
@@ -40,7 +42,10 @@ namespace MemoryGame.Controllers
             if (assignmentId == null || workerId == null || hitId == null)
             {
                 Session["assignmentId"] = "1";
-                Session["workerId"] = "12";
+                Random r = new Random();
+                int rInt = r.Next(5, 1000); //for ints
+                Session["workerId"] = rInt.ToString();
+                //Session["workerId"] = num_users.ToString();
                 Session["hitId"] = "123";
 
             }
@@ -55,7 +60,7 @@ namespace MemoryGame.Controllers
             amazonInfoModel.AssId = Session["assignmentId"].ToString();
             amazonInfoModel.HitId = Session["hitId"].ToString();
             amazonInfoModel.WorkerId = Session["workerId"].ToString();
-            //ClientsHandlerModel.AddNewUser(amazonInfoModel);
+            ClientsHandlerModel.AddNewUser(amazonInfoModel);
             Session["last_page"] = "ConsentIndex";
 
             return View();
@@ -68,7 +73,7 @@ namespace MemoryGame.Controllers
 
         public ActionResult InstructionsOne()
         {
-
+            Console.WriteLine($"Hello {Session["assignmentId"].ToString()}");
             if (!Session["last_page"].Equals("ConsentIndex"))
             {
                 return RedirectToAction("ErrorPage");
@@ -213,6 +218,7 @@ namespace MemoryGame.Controllers
         {
             return View();
         }
+        
         
         
     }

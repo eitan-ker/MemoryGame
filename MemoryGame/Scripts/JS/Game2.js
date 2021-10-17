@@ -41,10 +41,12 @@ $(function () {
     data = {
         overallTime: 5000000,// times in milliseconds
         personalTime: 100000,
-        numOfCards: [2, 2],
+        numOfCards: [2, 3],
         numOfAgents: 2,
         typeOfAgent:["OptimalAgent","BadAgent"],
-        // 1 - showing first live card on board, 2 - showing random live card on board, 3 - showing last seen card partner.
+        // 1 - showing first live card on board.
+        // 2 - showing random live card on board.
+        // 3 - showing last seen card pair.
         hintConfig: 3 
     };
     agentsAmount = data.numOfAgents;
@@ -87,7 +89,7 @@ $(function () {
         $("#board_zone").fadeOut();
         $.post('MemoryGame/Controllers/Data',   // url
             {  }, // data to be submit
-            function(data, status, jqXHR) {// success callback
+            function(data, status, jqXHR) {// successfull callback
                alert("information has been sent");
             })
         gameManager.endOfGame();

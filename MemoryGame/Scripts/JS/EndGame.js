@@ -1,7 +1,7 @@
 ﻿var startTime;
 var PlayerTime;
 var BotTime;
-var data;
+var data = [];
 var PageInfo = { player_time: "", bob_time: "", mistakes: 0, MistakesInfo: [] };
 var done = false
 $(function () {
@@ -22,9 +22,32 @@ $(function () {
         }
     }
     sessionStorage.setItem('currentPage', "EndGame");
-    startTime = MyGetTime()
+    startTime = MyGetTime();
+
+
+    // HARD CODED
+    //data = [{ name: "player", score: 20, time: "00:15" }, { name: "agent 1", score: 20, time: "00:15" }, { name: "agent 2", score: 20, time: "00:15" }];
+
+
+    let scores = JSON.parse(sessionStorage.getItem("scores"));
+    let scoresSize = scores.length
+    for (let i = 0; i < scoresSize; i++) {
+        let name2 = scores[i]['name'];
+        let score2 = scores[i]['score'];
+        let time2 = scores[i]['time'];
+
+        data.push({ name: name2, score: score2, time: time2 }); // chnage time in dic
+        console.log(name2)
+        console.log(score2)
+
+    }
+
     //let data = JSON.parse(sessionStorage.getItem("scores"));
-    data = [{ name: "player", score: 20, time: "00:15" }, { name: "agent 1", score: 20, time: "00:15" }, { name: "agent 2", score: 20, time: "00:15" }];
+
+
+    
+
+
     createUI(data);
    /* PlayerTime = sessionStorage.getItem('PlayerTime');
     BotTime = sessionStorage.getItem('BotTime');
@@ -85,13 +108,12 @@ function checkAns() {
     }
 
     if (!mistake) {
-        console.log("not find any mistake");
         NextPage();
     }
     else {
-        console.log("find mistake")
         disableAllButtons()
-        show_and_hide();
+        show_and_hide('failed');
+        show_and_hide('agree_button_id');
         PageInfo.mistakes++;
         PageInfo.MistakesInfo.push(turn);
     }
@@ -121,14 +143,15 @@ function NextPage() {
 function sendInfo() {
     var stringTosend = JSON.stringify(PageInfo);
 
-    console.log(PageInfo);
+    console.log(stringTosend);
    // window.location.replace("/Home/EndPage"); //to prevent page back
     $.ajax({
         type: "POST",
         url: "/MemoryGame/Data/EndGameInfo",
         data: stringTosend,
         contentType: "application/json",
-        success: function (data) {/*
+        success: function (data) {
+            /*
             this.done = true;
             window.location.replace("/MemoryGame/Home/Feedback"); //to prevent page back
             */
@@ -158,10 +181,10 @@ function MyGetTime() {
 }
 
 
-function show_and_hide() {
-    var click = document.getElementById("failed");
+function show_and_hide(str) {
+    var click = document.getElementById(str);
     if (click.style.display === "none") {
-        click.style.display = "block";
+        click.style.display = "inline-block";
     } else {
         click.style.display = "none";
     }
@@ -170,9 +193,16 @@ function show_and_hide() {
 function disableAllButtons() {
     var buttons = document.getElementsByTagName('button');
     for (let i = 0; i < buttons.length; i++) {
-        btn_id = buttons[i].getAttribute('id');
+        var btn_id = buttons[i].getAttribute('id');
         if (btn_id != "failed_button") {
             document.getElementById(btn_id).setAttribute("disabled", false);
+        }
+    }
+    var input = document.getElementsByTagName('input'); 
+    for (let i = 0; i < input.length; i++) {
+        var btn_id = input[i].getAttribute('class');
+        if (btn_id != "failed_button") {
+            document.getElementsByClassName(btn_id)[i].setAttribute("disabled", true);
         }
     }
 }
@@ -183,9 +213,18 @@ function anableAllButton() {
         btn_id = buttons[i].getAttribute('id');
         document.getElementById(btn_id).removeAttribute("disabled");
     }
+
+    var input = document.getElementsByTagName('input');
+    for (let i = 0; i < input.length; i++) {
+        var btn_id = input[i].getAttribute('class');
+        if (btn_id != "failed_button") {
+            document.getElementsByClassName(btn_id)[i].removeAttribute("disabled");
+        }
+    }
 }
 function anotherTry() {
-    show_and_hide();
+    show_and_hide('failed');
+    show_and_hide('agree_button_id');
     anableAllButton();
-   
+      
 }

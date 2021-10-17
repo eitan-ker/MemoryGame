@@ -10,7 +10,9 @@ function makeTable(data) {
     var array = [];
     var tablearea = document.getElementById('tabledata');
     var table = document.createElement("table");
+    table.setAttribute("class", "table");
     var tr = document.createElement("tr");
+    tr.setAttribute("class", "tableHeadLine");
     // make the header of the table
     for (var i = 0; i < order.length; i++) {
         var th = document.createElement("th");
@@ -22,6 +24,7 @@ function makeTable(data) {
     // make row for each user
     for (var i = 0; i < data.length; i++) {
         array[i] = document.createElement('tr');
+        array[i].setAttribute("class", "tableRow")
         for (var j = 0; j < Object.keys(data[i]).length; j++) {
             var td1 = document.createElement('td');
             td1.setAttribute("headers", Object.keys(data[i])[j]);

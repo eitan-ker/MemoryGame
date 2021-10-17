@@ -1,0 +1,65 @@
+﻿body {
+    font-size: 20px;
+}
+
+.data_area {
+    text-align:center;
+    margin-left:15%;
+    margin-right:15%;
+
+}
+
+.agent {
+    margin: 50px;
+    height: 100px;
+}
+
+
+p {
+    text-align:left;
+}
+
+.name_text {
+    color: #002966;
+    font-size: 25px;
+    font-weight: 600;
+    float:left;
+
+}
+
+.data_text {
+    margin-left:200px;
+}
+
+
+
+.right_side, .left_side {
+    padding-left:50px;
+}
+
+.left_side {
+    width:85%;
+}
+
+.right_side {
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.clickers {
+    margin:50px;
+}
+
+.content {
+    background-color: beige;
+    margin-right: 20px;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding-right: 5px;
+    padding-left: 5px;
+    height: 140px;
+}
+
+.Red_Button {
+    height: 85px;
+}

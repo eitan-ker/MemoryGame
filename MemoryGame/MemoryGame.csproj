@@ -198,18 +198,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminHandler\AdminHandlerModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ClientHandler\ClientsHandlerModel.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminModel.cs" />
+    <Compile Include="Models\AllUserDataModel.cs" />
     <Compile Include="Models\AmazonInfoModel.cs" />
+    <Compile Include="Models\EndGameModels\EndGameModel.cs" />
+    <Compile Include="Models\EndGameModels\RealAnsOfTimeModel.cs" />
+    <Compile Include="Models\FeedBackModels\FeedBackModel.cs" />
+    <Compile Include="Models\Game\GameModel.cs" />
     <Compile Include="Models\InitData.cs" />
+    <Compile Include="Models\PersonalDetails.cs" />
     <Compile Include="Models\TimeInPageModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\AnswerModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\QuestionModel.cs" />
+    <Compile Include="Models\VerificationRulesModels\VerificationRulesModel.cs" />
     <Compile Include="Models\Turn.cs" />
     <Compile Include="Models\TurnsInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,6 +233,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\chooseDataOrReplay.css" />
+    <Content Include="Content\css\chooseReplay.css" />
     <Content Include="Content\css\consentIndex.css" />
     <Content Include="Content\css\endings.css" />
     <Content Include="Content\css\feedback.css" />
@@ -228,9 +242,11 @@
     <Content Include="Content\css\instruction1.css" />
     <Content Include="Content\css\instruction2.css" />
     <Content Include="Content\css\interfaceExample.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\personalDetails.css" />
+    <Content Include="Content\css\endGame.css" />
     <Content Include="Content\css\verificationRules.css" />
-    <Content Include="Content\DataTable.css" />
+    <Content Include="Content\css\DataTable.css" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
@@ -386,6 +402,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JS\Agent.js" />
     <Content Include="Scripts\JS\Board.js" />
+    <Content Include="Scripts\JS\chooseReplay.js" />
     <Content Include="Scripts\JS\Consent.js" />
     <Content Include="Scripts\JS\DataTable.js" />
     <Content Include="Scripts\JS\DisagreePage.js" />
@@ -402,6 +419,8 @@
     <Content Include="Scripts\JS\InstructionsOne.js" />
     <Content Include="Scripts\JS\InstructionsTwo.js" />
     <Content Include="Scripts\JS\InterfaceExample.js" />
+    <Content Include="Scripts\JS\chooseDataOrReplay.js" />
+    <Content Include="Scripts\JS\login.js" />
     <Content Include="Scripts\JS\MobileError.js" />
     <Content Include="Scripts\JS\PersonalDetails.js" />
     <Content Include="Scripts\JS\Replay.js" />
@@ -523,6 +542,9 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\DataTable.cshtml" />
     <Content Include="Views\Home\Game1.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Admin\ChooseReplay.cshtml" />
+    <Content Include="Views\Admin\ChooseDataOrReplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

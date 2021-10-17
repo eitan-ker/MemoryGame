@@ -1,0 +1,63 @@
+﻿h2 {
+    color: rgb(33 55 128 / 90%);
+    margin-top: 10px;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+body {
+    border-radius: 8px;
+    text-align: center;
+    background-color: rgb(33 55 128 / 90%);
+    margin:8%;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.psw, .uname {
+    margin: 10%;
+    color: rgb(33 55 128 / 90%);
+    font-weight: 400;
+}
+
+
+label {
+    margin-right:10%;
+}
+
+
+.login_btn {
+    margin-bottom: 2%;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: dodgerblue;
+    margin-right: 20px;
+    color: white;
+    box-shadow: grey 2px 2px 2px;
+}
+
+    .login_btn:focus {
+        outline: none;
+    }
+
+    .login_btn:hover {
+        background-color: #73bf72;
+    }
+
+.container {
+    background: #fdfdfd;
+    border: 2px solid white;
+    border-radius:20px;
+}
+
+input {
+    text-align:center;
+    border: 2px solid black;
+}
