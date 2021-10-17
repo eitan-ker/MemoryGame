@@ -6,7 +6,6 @@ $(function () {
         url: "/MemoryGame/Data/GetScore",
         contentType: "application/json",
         success: function (data) {
-            console.log(data);
             score = parseInt(data);
             sessionStorage.setItem('score_target', score);
             document.getElementById("textbox").innerHTML = document.getElementById("textbox").innerHTML.replace("20", data);
@@ -22,7 +21,7 @@ $(function () {
 
         },
         error: function (errMsg) {
-            alert(errMsg);
+            alert("1");
         }
     });
     $.ajax({
@@ -33,10 +32,9 @@ $(function () {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             sessionStorage.setItem('configurationData', data);
-            console.log(data)
         },
         error: function (errMsg) {
-            alert(errMsg);
+            alert('2');
         }
     });
     sessionStorage.setItem('currentPage', "InstructionsTwo");
@@ -52,7 +50,7 @@ $(function () {
                 success: function (data) {
                 },
                 error: function (errMsg) {
-                    alert(errMsg);
+                    alert('3');
                 }
             });
         }
@@ -63,7 +61,6 @@ function NextPage() {
 
     var data = { BeginTime: startTime, EndTime: endTime, NameOfPage: "InstructionsTwo" }
     var stringTosend = JSON.stringify(data);
-    console.log(stringTosend);
     //[beginTime, endTime, "ConsentIndex"];
     $.ajax({
         type: "POST",
@@ -75,7 +72,7 @@ function NextPage() {
             window.location.replace("/MemoryGame/Home/interfaceExample"); //to prevent page back
         },
         error: function (errMsg) {
-            alert(errMsg);
+            alert('4');
         }
     });
    

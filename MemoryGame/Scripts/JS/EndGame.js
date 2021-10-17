@@ -1,7 +1,7 @@
 ﻿var startTime;
 var PlayerTime;
 var BotTime;
-var data;
+var data = [];
 var PageInfo = { player_time: "", bob_time: "", mistakes: 0, MistakesInfo: [] };
 var done = false
 $(function () {
@@ -31,11 +31,15 @@ $(function () {
 
     let scores = JSON.parse(sessionStorage.getItem("scores"));
     let scoresSize = scores.length
-    var data = [];
     for (let i = 0; i < scoresSize; i++) {
-        let name2 = scores[i][name];
-        let score2 = scores[i][score];
-        data.push({ name: name2, score: score2, time: "00:15" }); // chnage time in dic
+        let name2 = scores[i]['name'];
+        let score2 = scores[i]['score'];
+        let time2 = scores[i]['time'];
+
+        data.push({ name: name2, score: score2, time: time2 }); // chnage time in dic
+        console.log(name2)
+        console.log(score2)
+
     }
 
     //let data = JSON.parse(sessionStorage.getItem("scores"));

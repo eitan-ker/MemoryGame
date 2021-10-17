@@ -24,10 +24,10 @@ namespace MemoryGame.Controllers
         {
             
             AmazonInfoModel amazonInfoModel = new AmazonInfoModel();
-            amazonInfoModel.AssId = Session["assignmentId"].ToString();
-            amazonInfoModel.HitId = Session["hitId"].ToString();
-            amazonInfoModel.WorkerId = Session["workerId"].ToString();
-            return amazonInfoModel;
+                 amazonInfoModel.AssId = Session["assignmentId"].ToString();
+                 amazonInfoModel.HitId = Session["hitId"].ToString();
+                 amazonInfoModel.WorkerId = Session["workerId"].ToString();
+                 return amazonInfoModel;
 
         }
 

@@ -53,6 +53,8 @@ label {
 
 .container {
     background: #fdfdfd;
+    border: 2px solid white;
+    border-radius:20px;
 }
 
 input {

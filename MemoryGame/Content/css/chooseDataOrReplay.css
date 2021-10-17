@@ -1,0 +1,37 @@
+﻿body {
+    text-align: center;
+}
+
+rplBtn {
+
+}
+
+DataBtn{
+
+}
+
+
+.btn {
+    text-align: center;
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    width: 120px;
+    height: 80px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: #73bf73;
+    margin-right: 20px;
+    color: white;
+    box-shadow: grey 5px 5px 5px;
+}
+
+    .btn:focus {
+        outline: none;
+    }
+
+    .btn:hover {
+        background-color: #79d279;
+    }

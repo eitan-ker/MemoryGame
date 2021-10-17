@@ -8,6 +8,10 @@ var remainingCards = 0;//////////
 var card_num = 0;
 var gm;
 var totalScore = 0;
+
+var card_mutex = false;
+var player_turn = false;
+
 class GameManager{
     #scores;
     #choosen_card;
@@ -193,8 +197,12 @@ class GameManager{
                 for (let i = 0; i < img.length; i++) {
                     $(img[i]).fadeOut();
                 }
+                await sleep(1000);
+
                 img = [];
+                var z = 2;
             }
+            
             return;
         }
         //console.log("we in TurnTimeout function")
@@ -208,6 +216,10 @@ class GameManager{
                 $(img[i]).fadeOut();
             }
             img = [];
+            card_mutex = true;
+            await sleep(500);
+
+
         }
 
         if (firstRound === true) {
@@ -231,7 +243,7 @@ class GameManager{
             hint_lock = false;
             firstChoise = true;
             card_num = 0;
-            $($("#agent_area").children()[this.#agents.length - 1]).css("background-color", "darkgrey");
+            $($("#agent_area").children()[this.#agents.length - 1]).css("background-color", "rgb(164 179 241 / 55%)");
             $($("#agent_area").children()[currentPlayer % this.#agents.length]).css("background-color", "yellow");
         } else {
             currentPlayer += 1;
@@ -240,8 +252,9 @@ class GameManager{
             this.turn = new Turn(this.#agents[currentPlayer % this.#agents.length].name, this.globalTime, this.#turnsArray.length + 1);
             firstChoise = true;
             this.choicesIndexes = [];
-            $($("#agent_area").children()[currentPlayer % this.#agents.length - 1]).css("background-color", "darkgrey");
+            $($("#agent_area").children()[currentPlayer % this.#agents.length - 1]).css("background-color", "rgb(164 179 241 / 55%)");
             $($("#agent_area").children()[currentPlayer % this.#agents.length]).css("background-color", "yellow");
+
         }
         this.choicesIndexes = [];
         this.AddTurn(this.turn);
@@ -255,7 +268,9 @@ class GameManager{
         }
         this.turnTimeout = setTimeout(this.TurnTimeout, this.#personalTime)
         this.#agents[currentPlayer].choosePair();
-            }
+        var z=2
+    }
+
     GetBoard(){
         return this.#board.boardArray;
     }
@@ -320,6 +335,10 @@ class GameManager{
         for (let i = 1; i <= numOfAgents; i++){
             this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + i));
         }
+
+
+
+
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
         player.setAttribute("id", "agent" + 0);
@@ -443,9 +462,9 @@ class GameManager{
             this.turn.PickCard(this.#board.boardArray[row][col]);
             //console.log(this.choicesIndexes)
             await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes))).then(bool => {
-                if (bool){
+                if (bool) {
                     this.updateFindPair()
-                }
+                } 
             })
            /* if (await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes)))) {
                 this.updateFindPair()
@@ -459,10 +478,27 @@ class GameManager{
                 return;
             }
             //sleep(100)
+            var card1_id = "r" + this.choicesIndexes[0][0] + "c" + this.choicesIndexes[0][1];
+            var card2_id = "r" + this.choicesIndexes[1][0] + "c" + this.choicesIndexes[1][1];
+
+
             this.choicesIndexes = [];
             clearTimeout(this.turnTimeout)
-            await sleep(1000)
+            card_mutex = false;
             await this.TurnTimeout();
+
+
+
+            // mutex until cards are flipped back
+            this.checkFlag();
+            console.log("33333333333");
+
+            document.getElementById(card1_id).parentElement.setAttribute("style", 'background-image: url("../../resources/Images/card_back.jpg");');
+            document.getElementById(card2_id).parentElement.setAttribute("style", 'background-image: url("../../resources/Images/card_back.jpg");');
+
+            card_mutex = false;
+
+
             //this.turnTimeout = setTimeout(this.TurnTimeout, this.#personalTime)
 
         }
@@ -472,6 +508,8 @@ class GameManager{
             this.turn.PickCard(this.#board.boardArray[row][col]);
         }
         //console.log("this is choices array", this.choicesIndexes)
+        
+
         return this.#board.GetCard(row, col);
     }
 
@@ -527,6 +565,7 @@ class GameManager{
                             var p_row = secondHalfCard[0];
                             var p_col = secondHalfCard[1];
                             this.hintImplement(p_row, p_col);
+                            return;
                         }
                     }
                     var z = 2
@@ -545,6 +584,7 @@ class GameManager{
 
 
     async hintImplement(p_row, p_col) {
+        lockClicks = true;
         let cards = document.getElementsByClassName("cardFrame");
         let card = null;
         for (let i = 0; i < cards.length; i++) {
@@ -573,19 +613,27 @@ class GameManager{
             img1.id = "hint_img";
             img1.src = "/MemoryGame/resources/Card_photos/" + this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name + ".jpeg";
             img1.alt = this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
-            img1.width = 70;
-            img1.height = 70;
+            img1.width = 60;
+            img1.height = 60;
             card = $(card).find("#card");
+
+            
+            $(card).css({ 'background-image': 'none' });
             card.append(img1);
             hint_lock = true;
-            await sleep(1000);
+            await sleep(2000);
             $(img1).fadeOut();
+            $(card).css({ 'background-image': 'url("../../resources/Images/card_back.jpg")' });
+            lockClicks = false;
+
+
             //$(this).find('hint_img').fadeOut();
 
         }
     }
 
     async IsPair(choicesIndexes) {
+
         let board = this.#board;
         //console.log(this.choicesIndexes)
     //if (cardsNames[choicesIndexes[0][0]][choicesIndexes[0][1]] === cardsNames[choicesIndexes[1][0]][choicesIndexes[1][1]]) {
@@ -615,20 +663,63 @@ class GameManager{
             //setTimeout(this.TurnTimeout,1000)
             return true
 
-    }
+        }
+
+
+        
+        if (player_turn === true) {
+            var table = $("#memoryTable")[0];
+            var cell = table.rows[choicesIndexes[0][0]].cells[choicesIndexes[0][1]].children[0];
+            $(cell).css({ 'background-image': 'url("../../resources/Images/card_back.jpg")' });
+            cell = table.rows[choicesIndexes[1][0]].cells[choicesIndexes[1][1]].children[0];
+            $(cell).css({ 'background-image': 'url("../../resources/Images/card_back.jpg")' });
+            player_turn = false;
+        }
+
+        
+        
         return false;
-}
+    }
+
+    async checkFlag() {
+        if (card_mutex === false) {
+            console.log("5555555");
+
+            window.setTimeout(this.checkFlag(), 100); /* this checks the flag every 100 milliseconds*/
+        } else {
+            console.log("444444");
+
+            return;
+        }
+
+    }
+
+
     async ShowCard(jqueryEllement) {
+
+        player_turn = true;
+
         parent = jqueryEllement.parent();
         var p_row = parent.attr("ws-Row");
         var p_col = parent.attr("ws-Column");
         img[card_num] = document.createElement('img');
-        img[card_num].id = "cardId";
-        img[card_num].src = "/MemoryGame/resources/Card_photos/"+ gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name+".jpeg";
+        img[card_num].id = "r" + p_row + "c" + p_col;
+
+
+
+
+        img[card_num].src = "/MemoryGame/resources/Card_photos/" + gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name + ".jpeg";
         img[card_num].alt = gameManager.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
         img[card_num].width = 60;
         img[card_num].height = 60;
+
         jqueryEllement.append(img[card_num]);
+
+
+
+        document.getElementById(img[card_num].id).parentElement.setAttribute("style", "background-image: none;");
+
+
 
         card_num = card_num + 1;
         if (firstChoise) {
@@ -657,10 +748,15 @@ class GameManager{
                     //clearTimeout(this.turnTimeout)
                     //await sleep(1000)
                     //await this.TurnTimeout();
-                }
+                } 
+
+             
+
+
                 this.#agents[currentPlayer].addTurn(this.turn)
                 this.choicesIndexes = [];
                 await this.TurnTimeout();
+
             })
            /* if (this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes)))) {
                 this.updateFindPair()
@@ -699,16 +795,23 @@ class GameManager{
         var p_row = jqueryEllement.getAttribute("ws-Row");
         var p_col = jqueryEllement.getAttribute("ws-Column");
         img[card_num] = document.createElement('img');
-        img[card_num].id = "cardId";
+        img[card_num].id = "r"+p_row+"c"+p_col;
         img[card_num].src = "/MemoryGame/resources/Card_photos/" + this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name + ".jpeg";
         img[card_num].alt = this.#board.boardArray[parseInt(p_row)][parseInt(p_col)].name;
         img[card_num].width = 60;
         img[card_num].height = 60;
        // console.log(img)
+
         jqueryEllement = $(jqueryEllement).find("#card");
 
 
         jqueryEllement.append(img[card_num]);
+
+        document.getElementById(img[card_num].id).parentElement.setAttribute("style", "background-image: none;");
+
+
+
+
         card_num = card_num + 1;
         if (firstChoise) {
             firstChoise = false;
@@ -729,11 +832,12 @@ class GameManager{
 
             //firstChoise = true;
             //this.choicesIndexes = []; // initilize the choices
-            await sleep(1000);
             /*for(image of img){
                 $(image).fadeOut();
             }*/
         }
+        await sleep(1000);
+
     }
     updateFindPair() {
         //console.log("this is the choices indexes", this.choicesIndexes)
@@ -769,18 +873,26 @@ class GameManager{
         let temp = [];
         for (let i = 0; i < this.#agents.length; i++) {
             let agent = {}
-            agent["name"] = this.#agents[i].name
-            agent["turnInfo"] = this.#agents[i].turnInfo
-            agent["score"] = this.#agents[i].score
-            agent["successNumber"] = this.#agents[i].successNumber
+            agent["name"] = this.#agents[i].name;
+            agent["turnInfo"] = this.#agents[i].turnInfo;
+            agent["score"] = this.#agents[i].score;
+            agent["successNumber"] = this.#agents[i].successNumber;
             temp.push(agent);
         }
         dataForServer["agents"] = temp;
         dataForServer["numberofTurns"] = this.#turnsArray.length;
         dataForServer["configuration"] = this.configuration;
         let scores = [];
+
+
+        let players = document.getElementsByClassName("player");
+
+                //                         Time: <span id="time_text">00:00</span>
+
         for (let i = 0; i < this.#agents.length; i++) {
-            scores.push({ name: this.#agents[i].name, score: this.#agents[i].getScore() })
+            let time_info = $(players[i]).find('#time_text')[0].innerHTML;
+            scores.push({ name: this.#agents[i].name, score: this.#agents[i].getScore(), time: time_info});
+
         }
         dataForServer["scores"] = scores;
         dataForServer["hintArr"] = this.hintArr

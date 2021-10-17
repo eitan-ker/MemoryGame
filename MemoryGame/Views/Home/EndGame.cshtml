@@ -11,44 +11,50 @@
 
 
 <body>
-    <div id="InfoDiv" class="dataArea">
-        <div class="left_side">
-            <img style=" width: 300px;height:250px;align-items: center;margin-top: 10px; margin-bottom: 10px;" src="~/resources/Images/Done.png" />
-            <div id="textDiv">
-                <p>
-                    You and the agents have successfully solved <span id="numOfBoardEach"></span> boards each.
-                </p>
-                <p>
-                    To continue, please copy the time it took for each of you:
-                </p>
-                <div id="question_area">
-                    <div class="agent">
-                        <span class="name_text" id="name">Me:</span>
-                        <div class="data_text">
-                            <p><input type="text" class="css-input" /> minutes</p>
-                            <p><input type="text" class="css-input" /> points</p>
+    <table id="InfoDiv" class="dataArea">
+        <tr>
+            <th>
+                <img style=" width: 300px;height:250px;align-items: center;margin-top: 10px; margin-bottom: 10px;" src="~/resources/Images/Done.png" />
+            </th>
+        </tr>
+        <tr>
+            <td class="left_side">
+                <div id="textDiv">
+                    <p>
+                        You and the agents have successfully solved <span id="numOfBoardEach"></span> boards each.
+                    </p>
+                    <p>
+                        To continue, please copy the time it took for each of you:
+                    </p>
+                    <div id="question_area">
+                        <div class="agent">
+                            <span class="name_text" id="name">Me:</span>
+                            <div class="data_text">
+                                <p><input type="text" class="css-input" /> minutes</p>
+                                <p><input type="text" class="css-input" /> points</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div id="agent_area" class="right_side">
-            <div class="player">
-                <div class="player_name_img">
-                    <h4 id="name_of_player">Player</h4>
-                    <img class="player_img" src="~/resources/player1.jpg" />
-                </div>
-                <div class="info_agent">
-                    <div class="time_agent">
-                        Time: <span id="time_text">00:00</span>
+            </td>
+            <td id="agent_area" class="right_side">
+                <div class="player">
+                    <div class="player_name_img">
+                        <h4 id="name_of_player">Player</h4>
+                        <img class="player_img" src="~/resources/player1.jpg" />
                     </div>
-                    <div class="score_agent">
-                        Score: <span id="score_text">0</span>
+                    <div class="info_agent">
+                        <div class="time_agent">
+                            Time: <span id="time_text">00:00</span>
+                        </div>
+                        <div class="score_agent">
+                            Score: <span id="score_text">0</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </td>
+        </tr>
+    </table>
         
     <div class="clickers" style="text-align:center">
         <div class="green">

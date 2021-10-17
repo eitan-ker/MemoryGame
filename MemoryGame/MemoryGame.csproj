@@ -233,6 +233,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\chooseDataOrReplay.css" />
     <Content Include="Content\css\chooseReplay.css" />
     <Content Include="Content\css\consentIndex.css" />
     <Content Include="Content\css\endings.css" />
@@ -418,6 +419,7 @@
     <Content Include="Scripts\JS\InstructionsOne.js" />
     <Content Include="Scripts\JS\InstructionsTwo.js" />
     <Content Include="Scripts\JS\InterfaceExample.js" />
+    <Content Include="Scripts\JS\chooseDataOrReplay.js" />
     <Content Include="Scripts\JS\login.js" />
     <Content Include="Scripts\JS\MobileError.js" />
     <Content Include="Scripts\JS\PersonalDetails.js" />
@@ -542,6 +544,7 @@
     <Content Include="Views\Home\Game1.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\ChooseReplay.cshtml" />
+    <Content Include="Views\Admin\ChooseDataOrReplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
