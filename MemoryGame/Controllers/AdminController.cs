@@ -70,6 +70,20 @@ namespace MemoryGame.Controllers
             return "BadRequest";
         }
         
+        public string GetAllUsersData()
+        {
+            var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUsersDataFromDB());
+            return json;
+            /*if (!string.Equals(Session["auth"], "yes"))
+            {
+                var json = JsonConvert.SerializeObject(AdminHandlerModel.GetAllUsersFromDB());
+                return json;
+
+            }*/
+
+            return "BadRequest";
+        }
+        
         // /MemoryGame/Admin/GetReplyOfUser
         public string GetReplyOfUser(AmazonInfoModel amazonInfoModel)
         {

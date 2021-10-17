@@ -67,6 +67,20 @@ namespace MemoryGame.AdminHandler
             }
             return null;
         }
+        
+        public static List<AllUserDataModel> GetAllUsersDataFromDB()
+        {
+            var uri = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            MongoClient dbClient = new MongoClient(uri);
+            /*amazonInfoModel = new AmazonInfoModel();
+            amazonInfoModel.AssId = "1";
+            amazonInfoModel.WorkerId = "436";
+            amazonInfoModel.HitId = "123";*/
+            var userCollection = dbClient.GetDatabase("MemoryGame").GetCollection<AllUserDataModel>("Users").Find(new BsonDocument()).ToList();
+
+            
+            return userCollection;
+        }
 
     }
 }
