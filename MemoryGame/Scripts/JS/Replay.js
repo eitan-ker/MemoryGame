@@ -64,7 +64,7 @@
             //lastTurnTime += time;
         }
     }
-    // EndReplay(totalTime);
+   //  EndReplay(totalTime);
 });
 
 function sleep(ms) {

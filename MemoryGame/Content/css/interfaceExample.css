@@ -4,6 +4,12 @@ body {
     background-size: cover;
 }
 
+
+img {
+    width: auto;
+}
+
+
 h3 {
     text-align: center;
     color: #002966;
@@ -39,8 +45,4 @@ h3 {
 .clickers {
     text-align: center;
     margin-top: 50px;
-}
-
-img {
-    width:auto;
 }

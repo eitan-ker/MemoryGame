@@ -885,10 +885,11 @@ class GameManager{
     }
     async endOfGame() {
 
-        if (this.#gameOrReplay === 0) {
+        if (this.#gameOrReplay === false) {
             setTimeout(function () {
                 window.location.replace("/MemoryGame/Admin/ChooseReplay"); //to prevent page back
-            }, sleepTime);
+            }, 2000);
+            return;
 
         } 
 

@@ -57,7 +57,7 @@ function arrangeData(data) {
             var dic = {
                 workerId: amazonInfo['WorkerId'], assignmentId: amazonInfo['AssId'], HITId: amazonInfo['HitId'],
                 Age: personalInfo[0], Gender: personalInfo[1], Country: personalInfo[2], Education: personalInfo[3],
-                QuizMistakes: verificationRulesInfo['AttempsInfo'].length - 1, PlayerScore: playerScore, AgentsScore: agentsScore,
+                QuizMistakes: verificationRulesInfo['NumOfTries']-1, PlayerScore: playerScore, AgentsScore: agentsScore,
                 HITlength: totalTime, GameLength: gameLength, ServeyLength: serveyLength
             }
          //   console.log(dic);
