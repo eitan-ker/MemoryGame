@@ -2,30 +2,25 @@
     text-align: center;
 }
 
-rplBtn {
-
-}
-
-DataBtn{
-
+h2 {
+    color:white;
 }
 
 
 .btn {
-    text-align: center;
-    margin: 5px;
-    display: inline-block;
-    text-align: center;
+    text-align:center;
+    margin:50px;
     vertical-align: middle;
     border: none;
-    width: 120px;
+    width: 200px;
     height: 80px;
     border-radius: 8px;
     transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
-    background-color: #73bf73;
+    background-color: lightgrey;
     margin-right: 20px;
-    color: white;
-    box-shadow: grey 5px 5px 5px;
+    color: black;
+    font-size: 20px;
+    box-shadow: black 2px 2px 2px 2px;
 }
 
     .btn:focus {
@@ -33,5 +28,5 @@ DataBtn{
     }
 
     .btn:hover {
-        background-color: #79d279;
+        background-color: white;
     }

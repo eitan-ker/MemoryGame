@@ -152,15 +152,5 @@ function Replay(){
     }
 */
 
-/*$.ajax({
-    type: "GET",
-    url: "/MemoryGame/Admin/GetAllUsersData",
-    contentType: "application/json",
-    success: function (data) {
 
-    },
-    error: function (errMsg) {
-        alert("errMsg");
-    }
-});*/
 

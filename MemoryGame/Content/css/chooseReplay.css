@@ -1,14 +1,48 @@
 ﻿
 .tableHeadLine {
     color:whitesmoke;
+    font-size:30px;
     font-weight:600;
 }
 
 .tableRow {
-    color: black;
-}
-
-h2 {
     color: white;
 }
 
+#tableData {
+    width: fit-content();
+}
+
+
+h2 {
+    color: white;
+    font-size:40px;
+    margin:50px;
+}
+
+.back_container {
+    margin: 25px;
+    text-align: left;
+}
+
+.back_btn {
+    vertical-align: middle;
+    border: none;
+    width: 80px;
+    height: 40px;
+    border-radius: 8px;
+    transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
+    background-color: lightgrey;
+    margin-right: 20px;
+    color: black;
+    font-size:20px;
+    box-shadow: black 2px 2px 2px 2px;
+}
+
+    .back_btn:focus {
+        outline: none;
+    }
+
+    .back_btn:hover {
+        background-color: white;
+    }

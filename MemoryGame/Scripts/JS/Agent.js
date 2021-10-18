@@ -124,11 +124,11 @@ class OptimalAgent {
         let lived = this.baseAgent.handlerStatus.getLiveCards();
         console.log("this is the lived card", lived)
         // choose a random card
-        let firstCardIndex = Math.floor(Math.random() * lived.length)
-        await sleep(3000)
+        let firstCardIndex = Math.floor(Math.random() * lived.length);
+        await sleep(3000);
         let firstCard = this.baseAgent.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
-        await sleep(3000)
-        let exposedCards = this.baseAgent.handlerStatus.getExposedCards()
+        await sleep(3000);
+        let exposedCards = this.baseAgent.handlerStatus.getExposedCards();
         // try to find the pair of the first card
         for (let i =0; i<exposedCards.length; i++){
             // if the name is not the same continue to next card
@@ -138,14 +138,14 @@ class OptimalAgent {
             // if the indexes is not the same we find the card pair and we will choose him.
             if (firstCard.index[0] !== exposedCards[i].index[0] && firstCard.index[1] !== exposedCards[i].index[1] ){
                 this.baseAgent.handlerStatus.pickCard(exposedCards[i].index[0], exposedCards[i].index[1]);
-                await sleep(1000)
+                await sleep(1000);
                 return
             }
         }
         // if we don't find the pair of the first card, we will choose a random card
         let secondCardIndex;
         while (true){
-            secondCardIndex = Math.floor(Math.random() * lived.length)
+            secondCardIndex = Math.floor(Math.random() * lived.length);
             if (secondCardIndex !== firstCardIndex){
                 break;
             }
@@ -157,13 +157,13 @@ class OptimalAgent {
         return "OptimalAgent";
     }
     getName(){
-        return this.name
+        return this.name;
     }
     getSuccessNumber(){
-        return this.baseAgent.successNumber
+        return this.baseAgent.successNumber;
     }
     getTurnInfo(){
-        return this.baseAgent.turnInfo
+        return this.baseAgent.turnInfo;
     }
     getAllTurnPerAgent(){
         return this.baseAgent.getAllTurnPerAgent();
