@@ -9,12 +9,10 @@ body {
 }
 
 .out_img {
+    margin-left:10%;
+    width:80%;
 }
 
-
-.inner_img {
-    width: max-content;
-}
 
 
 h3 {
@@ -52,4 +50,9 @@ h3 {
 .clickers {
     text-align: center;
     margin-top: 50px;
+}
+
+
+.inner_img {
+    width: 100%;
 }
