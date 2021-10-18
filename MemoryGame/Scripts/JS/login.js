@@ -14,7 +14,7 @@ function login() {
         contentType: "application/json",
         success: function (data) {
             alert("good");
-            window.location.replace("/MemoryGame/Admin/ChooseReplay");
+            window.location.replace("/MemoryGame/Admin/ChooseDataOrReplay");
         },
         error: function (errMsg) {
             alert("errMsg");

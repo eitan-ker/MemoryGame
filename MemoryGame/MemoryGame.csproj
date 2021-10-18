@@ -363,7 +363,14 @@
     <Content Include="resources\Card_photos\yak.jpeg" />
     <Content Include="resources\Card_photos\zebra.jpeg" />
     <Content Include="resources\Images\capatche.png" />
+    <Content Include="resources\Images\card_back.jpg" />
+    <Content Include="resources\Images\dislike.png" />
+    <Content Include="resources\Images\dislike2.png" />
     <Content Include="resources\Images\Done.png" />
+    <Content Include="resources\Images\hint.png" />
+    <Content Include="resources\Images\interface.PNG" />
+    <Content Include="resources\Images\like.jpg" />
+    <Content Include="resources\Images\like2.jpg" />
     <Content Include="resources\player1.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

@@ -64,7 +64,7 @@ var textBoxData;
 const questions = [
     {
         type: 1,
-        question: 'To what extent did you find Bob to be a competent partner?',
+        question: 'To what extent did you find the Agents to be a competent partners?',
         minRangeValue: 1,
         maxRangeValue: 10,
         baseValue: 1
@@ -75,35 +75,28 @@ const questions = [
     },
     {
         type: 1,
-        question: 'To what extent did you find Bob to be a competent partner?',
+        question: 'To what extent are you satisfied with the Agents?',
         minRangeValue: 1,
         maxRangeValue: 10,
         baseValue: 1
     },
     {
         type: 1,
-        question: 'To what extent are you satisfied with Bob?',
+        question: 'To what extent do you find the Agents to be likeable?',
         minRangeValue: 1,
         maxRangeValue: 10,
         baseValue: 1
     },
     {
         type: 1,
-        question: 'To what extent do you find Bob to be likeable?',
-        minRangeValue: 1,
-        maxRangeValue: 10,
-        baseValue: 1
-    },
-    {
-        type: 1,
-        question: 'To what extent would you recommend Bob to a friend, as a partner to work with?',
+        question: 'To what extent would you recommend the Agents to a friend, as a partners to work with?',
         minRangeValue: 1,
         maxRangeValue: 10,
         baseValue: 1
     },
     {
         type: 2,
-        question: 'If you could choose - would you rather play with or without Bob?',
+        question: 'If you could choose - would you rather play with or without the Agents?',
         answers: [
             { text: 'With Bob' },
             { text: 'Without Bob' }
@@ -119,7 +112,7 @@ const questions = [
     },
     {
         type: 3,
-        question: 'Please state any other thoughts you have about Bob.'
+        question: 'Please state any other thoughts you have about the Agents.'
     },
     {
         type: 3,

@@ -96,8 +96,8 @@ function runReplay(replayData) {
         success: function (data) {
 
             const obj = JSON.parse(data);
-            console.log(obj);
-            console.log(obj._gameModel.configuration.numOfCards);
+     //       console.log(obj);
+     //       console.log(obj._gameModel.configuration.numOfCards);
 
             sessionStorage.setItem("size", JSON.stringify(obj._gameModel.configuration.numOfCards));
             sessionStorage.setItem("turnsArray", JSON.stringify(obj._gameModel.turnInfo));
@@ -119,6 +119,10 @@ function runReplay(replayData) {
         }
     });
 
+}
+
+function back() {
+    window.location.replace("/MemoryGame/Admin/ChooseDataOrReplay");
 }
 
 

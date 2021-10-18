@@ -37,3 +37,7 @@ function makeTable(data) {
     }
     tablearea.appendChild(table);    
 }
+
+function back() {
+    window.location.replace("/MemoryGame/Admin/ChooseDataOrReplay");
+}

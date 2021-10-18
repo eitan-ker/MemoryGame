@@ -41,7 +41,7 @@ $(function () {
     data = {
         overallTime: 200000,// times in milliseconds
         personalTime: 100000,
-        numOfCards: [2, 3],
+        numOfCards: [3, 4],
         numOfAgents: 2,
         // 1 - showing first live card on board.
         // 2 - showing random live card on board.
