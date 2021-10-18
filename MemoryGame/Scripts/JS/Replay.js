@@ -16,7 +16,9 @@
     let config = JSON.parse(sessionStorage.getItem("config"));
 
 
-    let gm = new GameManager(size, config.numOfAgents, config.personalTime,config, boardImages); 
+    typeOfAgent = ["OptimalAgent", "BadAgent"]; // needs to go from config data from DB
+
+    let gm = new GameManager(size, config.numOfAgents, typeOfAgent, config.personalTime,config, boardImages); 
     //let size = config.size;
     document.getElementById("board").innerHTML = gm.CreateBoard(size[0], size[1]);
     let totalTime = 0;
@@ -37,7 +39,7 @@
         }
         if(turn1.usedHint) {
             let sleepTime = turn1.GetHintTime().getSeconds();
-            ReplayHint(gm,turn1,sleepTime);
+            ReplayHint(gm, turn1, sleepTime, config['hintConfig']);
         }
         if(turn1.GetFirstTurnTime() != null){
             let sleepTime = turn1.GetFirstTurnTime().getSeconds();
@@ -68,10 +70,10 @@
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-function ReplayHint(gm, turn1, sleepTime){
+function ReplayHint(gm, turn1, sleepTime, hintConfig ){
     setTimeout(function(){
         console.log("turn:" + turn1.numOfTurn + "card 1" + "sleep:" + sleepTime);
-        gm.GetHint();//(turn1.hint.card.index[0], turn1.hint.card.index[1]);
+        gm.GetHint(hintConfig);//(turn1.hint.card.index[0], turn1.hint.card.index[1]);
     }, sleepTime * 1000);
 }
 function myFunction1(gm, turn1, sleepTime) {
@@ -89,7 +91,7 @@ function myFunction2(gm, turn1, sleepTime) {
 
 function EndReplay(sleepTime) {
     setTimeout(function(){
-        window.location.replace("/MemoryGame/Home/EndGame"); //to prevent page back
+        window.location.replace("/MemoryGame/Admin/ChooseReplay"); //to prevent page back
     }, sleepTime);
     
 }

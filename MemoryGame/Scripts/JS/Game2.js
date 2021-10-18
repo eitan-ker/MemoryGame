@@ -41,7 +41,7 @@ $(function () {
     data = {
         overallTime: 5000000,// times in milliseconds
         personalTime: 100000,
-        numOfCards: [3, 4],
+        numOfCards: [2, 3],
         numOfAgents: 2,
         typeOfAgent:["OptimalAgent","BadAgent"],
         // 1 - showing first live card on board.
@@ -60,18 +60,7 @@ $(function () {
      */
     $("button").click(async function () {
         if (this.id == "hint") {
-
-            switch (data.hintConfig) {
-                case 1:
-                    await gameManager.GetHint1();
-                    break;
-                case 2:
-                    await gameManager.GetHint2();
-                    break;
-                case 3:
-                    await gameManager.GetHint3();
-                    break;
-            }
+            await gameManager.GetHint(data.hintConfig);
             return
         }
         console.log(currentPlayer);

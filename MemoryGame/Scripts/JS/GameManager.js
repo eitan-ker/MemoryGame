@@ -513,7 +513,7 @@ class GameManager{
 
 
             // mutex until cards are flipped back
-            this.checkFlag();
+            //this.checkFlag();
             console.log("33333333333");
 
             document.getElementById(card1_id).parentElement.setAttribute("style", 'background-image: url("../../resources/Images/card_back.jpg");');
@@ -543,6 +543,20 @@ class GameManager{
     
     GetTime(){
         return new Date(this.globalTime.getMinutes(), this.globalTime.getSeconds(), this.globalTime.getMilliseconds());
+    }
+
+    async GetHint(hint_config) {
+        switch (hint_config) {
+            case 1:
+                await this.GetHint1();
+                break;
+            case 2:
+                await this.GetHint2();
+                break;
+            case 3:
+                await this.GetHint3();
+                break;
+        }
     }
 
     async GetHint1(){ // called by click Hint
@@ -609,6 +623,8 @@ class GameManager{
 
     async hintImplement(p_row, p_col) {
         lockClicks = true;
+        hint_lock = true;
+
         let cards = document.getElementsByClassName("cardFrame");
         let card = null;
         for (let i = 0; i < cards.length; i++) {
@@ -644,11 +660,11 @@ class GameManager{
             
             $(card).css({ 'background-image': 'none' });
             card.append(img1);
-            hint_lock = true;
             await sleep(2000);
             $(img1).fadeOut();
             $(card).css({ 'background-image': 'url("../../resources/Images/card_back.jpg")' });
             lockClicks = false;
+            hint_lock = false;
 
 
             //$(this).find('hint_img').fadeOut();
@@ -868,6 +884,15 @@ class GameManager{
         this.#board.updateLivedCard(this.choicesIndexes[0], this.choicesIndexes[1])
     }
     async endOfGame() {
+
+        if (this.#gameOrReplay === 0) {
+            setTimeout(function () {
+                window.location.replace("/MemoryGame/Admin/ChooseReplay"); //to prevent page back
+            }, sleepTime);
+
+        } 
+
+
         document.getElementById("board").innerHTML = "<h1>game over</h1>";
         //this.#agents[0].choosePairTest()
         if (this.globalInterval != null) {
