@@ -63,6 +63,18 @@ class Agent {
         this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
 
     }
+    getType(){
+        return "OptimalAgent";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.successNumber
+    }
+    getTurnInfo(){
+        return this.turnInfo
+    }
     getAllTurnPerAgent(){
         return this.turnInfo;
     }
@@ -90,85 +102,147 @@ class Agent {
     }
 }
 
-function choosePairTest() {
-    let lived = this.handlerStatus.getLivedCards();
-    console.log("test for handler status:")
-    console.log("the live card are: ");
-    console.log(lived);
-    console.log("get board dimensins")
-    console.log(this.handlerStatus.getBoardDimensins())
-    console.log("get Num Of Card On Board")
-    console.log(this.handlerStatus.getNumOfCardOnBoard())
-    console.log("get All Pair Exposed")
-    console.log(this.handlerStatus.getAllPairExposed())
-    console.log("get card")
-    console.log(this.handlerStatus.getCard(lived[0][0], lived[0][1]))
-    console.log("getHint")
-    console.log(this.handlerStatus.getHint())
-    console.log("test for handler history:")
-    console.log("getAgents")
-    let agents = this.handlerHistory.getAgents()
-    console.log(agents)
-    console.log("getAllTurns")
-    console.log(this.handlerHistory.getAllTurns())
-    console.log("getLastTurn")
-    console.log(this.handlerHistory.getLastTurn())
-    console.log("getLastPlayer")
-    console.log(this.handlerHistory.getLastPlayer())
-    console.log("getNumOfTurn")
-    console.log(this.handlerHistory.getNumOfTurn())
-    console.log("getAllTurnPerAgent")
-    console.log(this.handlerHistory.getAllTurnPerAgent(agents[0]))
-    console.log("getAllTimeTurnsPerAgent")
-    console.log(this.handlerHistory.getAllTimeTurnsPerAgent(agents[0]))
-    console.log("getScorePerAgent")
-    console.log(this.handlerHistory.getScorePerAgent(agents[0]))
-    this.handlerStatus.pickCard(lived[0][0], lived[0][1]);
-    this.handlerStatus.pickCard(lived[1][0], lived[1][1]);
 
+class OptimalAgent {
+    constructor(baseAgent, name) {
+        this.name = name;
+        this.baseAgent = baseAgent
+    }
+    async choosePair() {
+        let pairs = this.baseAgent.handlerStatus.getAllPairExposed();
+        // check if we have a pair that already exposed
+        if (pairs.length!== 0){
+            console.log("OptimalAgent: find pair exposed" + pairs[0])
+            let pair = pairs[0];
+            await sleep(3000)
+            this.baseAgent.handlerStatus.pickCard(pair[0].index[0], pair[0].index[1]);
+            await sleep(3000)
+            this.baseAgent.handlerStatus.pickCard(pair[1].index[0], pair[1].index[1]);
+            await sleep(1000)
+            return
+        }
+        let lived = this.baseAgent.handlerStatus.getLiveCards();
+        console.log("this is the lived card", lived)
+        // choose a random card
+        let firstCardIndex = Math.floor(Math.random() * lived.length)
+        await sleep(3000)
+        let firstCard = this.baseAgent.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
+        await sleep(3000)
+        let exposedCards = this.baseAgent.handlerStatus.getExposedCards()
+        // try to find the pair of the first card
+        for (let i =0; i<exposedCards.length; i++){
+            // if the name is not the same continue to next card
+            if (firstCard.name !== exposedCards[i].name){
+                continue;
+            }
+            // if the indexes is not the same we find the card pair and we will choose him.
+            if (firstCard.index[0] !== exposedCards[i].index[0] && firstCard.index[1] !== exposedCards[i].index[1] ){
+                this.baseAgent.handlerStatus.pickCard(exposedCards[i].index[0], exposedCards[i].index[1]);
+                await sleep(1000)
+                return
+            }
+        }
+        // if we don't find the pair of the first card, we will choose a random card
+        let secondCardIndex;
+        while (true){
+            secondCardIndex = Math.floor(Math.random() * lived.length)
+            if (secondCardIndex !== firstCardIndex){
+                break;
+            }
+        }
+        this.baseAgent.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+        await sleep(1000)
+    }
+    getType(){
+        return "OptimalAgent";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.baseAgent.successNumber
+    }
+    getTurnInfo(){
+        return this.baseAgent.turnInfo
+    }
+    getAllTurnPerAgent(){
+        return this.baseAgent.getAllTurnPerAgent();
+    }
+    getAllTimeTurnsPerAgent(){
+        return this.baseAgent.getAllTimeTurnsPerAgent();
+    }
+    getScore(){
+        return this.baseAgent.getScore();
+    }
+    addTurn(turn) {
+        return this.baseAgent.addTurn(turn);
+    }
 }
 
-
-
-class Agent1 {
-    constructor(handler, index, gameManager) {
-        this.handler = handler;
-        this.index = index;
-        this.gameManager = gameManager;
+class BadAgent {
+    constructor(baseAgent, name) {
+        this.name = name;
+        this.baseAgent = baseAgent
     }
-    PlayTurn() {
-    }
-    
-    SetHandler(newHandler){
-        this.handler = newHandler;
-    }
-    choose_random() {
-        let board = this.handler.get_all_card();
-        let i = Math.floor(Math.random() * board.length);
-        let j = Math.floor(Math.random() * board.length);
-        while (i == j) {
-            j = Math.floor(Math.random() * board.length);
-        }
-        return [board[i].indexs, board[j].indexs];
-    }
-    // Method
-    choosePair() {
-        console.log("Agent" + this.index);
-        let choose_array = [];
-        cards = this.handler.get_last_cards_show(4);
-        for (let i = 0; i < cards.length; i++) {
-            for (let j = i + 1; j < cards.length; j++) {
-                if (cards[i].val == cards[j].val) {
-                    choose_array.push(cards[i].indexs);
-                    choose_array.push(cards[j].indexs);
+    async choosePair() {
+        let exposedCards = this.baseAgent.handlerStatus.getExposedCards()
+        let lived = this.baseAgent.handlerStatus.getLiveCards();
+        if (exposedCards.length !== 0){
+            let firstCardIndex = Math.floor(Math.random() * exposedCards.length)
+            await sleep(3000)
+            let card =this.baseAgent.handlerStatus.pickCard(exposedCards[firstCardIndex].index[0], exposedCards[firstCardIndex].index[1]);
+            await sleep(3000)
+            let secondCardIndex;
+            while (true){
+                secondCardIndex = Math.floor(Math.random() * lived.length)
+                if (secondCardIndex !== firstCardIndex){
                     break;
                 }
             }
+            this.baseAgent.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+            await sleep(1000)
+        }else{
+            let firstCardIndex = Math.floor(Math.random() * lived.length)
+            await sleep(3000)
+            this.baseAgent.handlerStatus.pickCard(lived[firstCardIndex][0], lived[firstCardIndex][1]);
+            await sleep(3000)
+            let secondCardIndex;
+            while (true){
+                secondCardIndex = Math.floor(Math.random() * lived.length)
+                if (secondCardIndex !== firstCardIndex){
+                    break;
+                }
+            }
+            this.baseAgent.handlerStatus.pickCard(lived[secondCardIndex][0], lived[secondCardIndex][1]);
+            await sleep(1000)
         }
-        if (choose_array.length == 0) {
-            choose_array = this.choose_random();
-        }
-        return { index: choose_array, time: 20 };
+        
+      
+      
+    }
+    getType(){
+        return "BadAgent";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.baseAgent.successNumber
+    }
+    getTurnInfo(){
+        return this.baseAgent.turnInfo
+    }
+    getAllTurnPerAgent(){
+        return this.baseAgent.getAllTurnPerAgent();
+    }
+    getAllTimeTurnsPerAgent(){
+        return this.baseAgent.getAllTimeTurnsPerAgent();
+    }
+    getScore(){
+        return this.baseAgent.getScore();
+    }
+    addTurn(turn) {
+        return this.baseAgent.addTurn(turn);
     }
 }
 
@@ -184,6 +258,18 @@ class Player {
     }
     async choosePairTest() {
         console.log("Player");
+    }
+    getType(){
+        return "Player";
+    }
+    getName(){
+        return this.name
+    }
+    getSuccessNumber(){
+        return this.successNumber
+    }
+    getTurnInfo(){
+        return this.turnInfo
     }
     getAllTurnPerAgent() {
         return this.turnInfo;
@@ -212,14 +298,3 @@ class Player {
     }
 }
 
-/*
-handler={
-    get_all_card // return all the card that in the board now - only the indexs of the card
-    get_exposed_cards(number_of_card) // return the indexs and the value of the open cards, and it will be sorted by the time that the card was opened
-    get_all_score // get all the score of the players until now
-    get_score(agent_index) // get score for specific player until now
-    get_all_history // return all the turns that have been played - the indexs that was choose, success or fail, the time that take to the player to make the turn
-    get_history(number_of_turn_to_show) // return the last x turn that  have been played - the indexs that was choose, success or fail, the time that take to the player to make the turn
-    get_time_for_turn // return the time for each turn
-    get_all_time_for_players // return the time that each agent play until now
-}*/

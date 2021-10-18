@@ -39,17 +39,18 @@ $(function () {
     // Data is the configuration object
     //assume we've got data object from GET
     data = {
-        overallTime: 200000,// times in milliseconds
+        overallTime: 5000000,// times in milliseconds
         personalTime: 100000,
         numOfCards: [3, 4],
         numOfAgents: 2,
+        typeOfAgent:["OptimalAgent","BadAgent"],
         // 1 - showing first live card on board.
         // 2 - showing random live card on board.
         // 3 - showing last seen card pair.
         hintConfig: 3 
     };
     agentsAmount = data.numOfAgents;
-    gameManager = new GameManager(data.numOfCards, data.numOfAgents, data.personalTime,data, null);
+    gameManager = new GameManager(data.numOfCards, data.numOfAgents,data.typeOfAgent, data.personalTime,data, null);
 
 
     /*

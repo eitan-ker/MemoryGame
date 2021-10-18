@@ -29,7 +29,7 @@ class GameManager{
     #board;
     #boardImages
     #gameOrReplay//for game 1 and for replay 0
-    constructor(size, numOfAgent, personalTime,configuration, replayBoard) {
+    constructor(size, numOfAgent,typeOfAgent, personalTime,configuration, replayBoard) {
         if(replayBoard === null) {
             this.#gameOrReplay = true;
         } else {
@@ -88,7 +88,7 @@ class GameManager{
         
         this.MakePairs();
         this.turnTimeout = null;
-        this.CreateAgents(numOfAgent);
+        this.CreateAgents(numOfAgent, typeOfAgent);
         this.turn = new Turn(this.#agents[0].name, this.globalTime, this.#turnsArray.length + 1);
         if(replayBoard == null) {
             this.personalInterval = setInterval(this.TimerForTurn, 1000);
@@ -330,15 +330,34 @@ class GameManager{
         return tableTag;
     }
 
-    CreateAgents(numOfAgents) {
+    CreateAgents(numOfAgents, typeOfAgent) {
         this.#agents.push(new Player())
-        for (let i = 1; i <= numOfAgents; i++){
-            this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + i));
+        for (let i = 0; i < numOfAgents; i++){
+            switch (typeOfAgent[i]) {
+                case "random":
+                    let type = Math.floor(Math.random() * 2)
+                    if (type ===0){
+                        this.#agents.push(new OptimalAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
+                    }else {
+                        this.#agents.push(new BadAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
+                    }
+                    
+                    break;
+                case "agent":
+                    this.#agents.push(new Agent(new HandlerHistory(this), new HandlerStatus(this), "agent " + (i+1)));
+                    break;
+                case "OptimalAgent":
+                    this.#agents.push(new OptimalAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
+                    break;
+                case "BadAgent":
+                    this.#agents.push(new BadAgent(new Agent(new HandlerHistory(this), new HandlerStatus(this),null), "agent " + (i+1)));
+                    break
+                default:
+                    break;
+            }
+           
         }
-
-
-
-
+        
         //Initialize agents area with desired num of agents
         let player = document.getElementsByClassName("player")[0];
         player.setAttribute("id", "agent" + 0);
@@ -429,6 +448,9 @@ class GameManager{
     getAllPairExposed() {
         return this.#board.getAllPairExposed();
     }
+    getExposedCards(){
+        return this.#board.getExposedCards()
+    }
     getSecondHalf(row, col) {
         return this.#board.boardArray[row][col].GetSecondHalf();
     }
@@ -459,6 +481,7 @@ class GameManager{
         else if (this.choicesIndexes.length == 1) {
             this.ShowCardfromTD(card)
             this.choicesIndexes[1]=[row, col];
+            this.#board.exposeCard(this.#board.boardArray[row][col])
             this.turn.PickCard(this.#board.boardArray[row][col]);
             //console.log(this.choicesIndexes)
             await this.IsPair(JSON.parse(JSON.stringify(this.choicesIndexes))).then(bool => {
@@ -505,6 +528,7 @@ class GameManager{
         else if (this.choicesIndexes.length == 0) {
             this.ShowCardfromTD(card)
             this.choicesIndexes[0]=[row, col];
+            this.#board.exposeCard(this.#board.boardArray[row][col])
             this.turn.PickCard(this.#board.boardArray[row][col]);
         }
         //console.log("this is choices array", this.choicesIndexes)
@@ -845,7 +869,7 @@ class GameManager{
     }
     async endOfGame() {
         document.getElementById("board").innerHTML = "<h1>game over</h1>";
-        this.#agents[0].choosePairTest()
+        //this.#agents[0].choosePairTest()
         if (this.globalInterval != null) {
             clearInterval(this.globalInterval);
         }
@@ -873,10 +897,11 @@ class GameManager{
         let temp = [];
         for (let i = 0; i < this.#agents.length; i++) {
             let agent = {}
-            agent["name"] = this.#agents[i].name;
-            agent["turnInfo"] = this.#agents[i].turnInfo;
-            agent["score"] = this.#agents[i].score;
-            agent["successNumber"] = this.#agents[i].successNumber;
+            agent["type"] = this.#agents[i].getType()
+            agent["name"] = this.#agents[i].getName()
+            agent["turnInfo"] = this.#agents[i].getTurnInfo()
+            agent["score"] = this.#agents[i].getScore()
+            agent["successNumber"] = this.#agents[i].getSuccessNumber()
             temp.push(agent);
         }
         dataForServer["agents"] = temp;
