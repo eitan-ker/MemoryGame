@@ -130,12 +130,12 @@ namespace MemoryGame.Controllers
 
         public ActionResult InterfaceExample()
         {
-            if (!Session["last_page"].Equals("InstructionsTwo"))
+       /*     if (!Session["last_page"].Equals("InstructionsTwo"))
             {
                 return RedirectToAction("ErrorPage");
             }
 
-            Session["last_page"] = "interfaceExample";
+            Session["last_page"] = "interfaceExample";*/
             return View();
         }
 

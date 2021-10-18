@@ -236,6 +236,7 @@
     <Content Include="Content\css\chooseDataOrReplay.css" />
     <Content Include="Content\css\chooseReplay.css" />
     <Content Include="Content\css\consentIndex.css" />
+    <Content Include="Content\css\dataTable.css" />
     <Content Include="Content\css\endings.css" />
     <Content Include="Content\css\feedback.css" />
     <Content Include="Content\css\game1.css" />

@@ -2,23 +2,26 @@
 @{
     ViewData["Title"] = "InterfaceExample";
 }
-<link rel="stylesheet" href="~/Content/css/interfaceExample.css" />
 <script defer src="~/Scripts/JS/InterfaceExample.js"></script>
+
+
+<link rel="stylesheet" href="~/Content/css/interfaceExample.css" />
+
+
 <body>
-    <div style="text-align: center;">
+    <div class="cont">
         <br />
         <h3 style="text-align: center;">
             Here is what your interface will look like:
         </h3>
-        <div>
-            <img src="~/Resources/Images/interface.PNG" alt="Italian Trulli" width="800" height="500">
-        </div>
-        
-        <br />
-        <br />
-        <div class="clickers">
-            <button id="agree_button_id" type="submit" class="Green_Button" onclick="nextPage(); return false;">Continue</button>
+        <div class="out_img">
+            <img src="~/Resources/Images/interface.PNG" alt="Italian Trulli" width="800" height="500" class="inner_img">
         </div>
 
+        <br />
+        <br />
+    </div>
+    <div class="clickers">
+        <button id="agree_button_id" type="submit" class="Green_Button" onclick="nextPage(); return false;">Continue</button>
     </div>
 </body>

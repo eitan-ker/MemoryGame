@@ -4,9 +4,16 @@ body {
     background-size: cover;
 }
 
+.cont {
+    text-align:center;
+}
 
-img {
-    width: auto;
+.out_img {
+}
+
+
+.inner_img {
+    width: max-content;
 }
 
 

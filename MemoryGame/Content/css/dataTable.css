@@ -1,10 +1,17 @@
 ﻿
+#tabledata {
+    width: max-content;
+}
 
+.table {
+    width: max-content;
+    margin-right: 100px;
+}
 
 .tableHeadLine {
-    color:whitesmoke;
-    font-size:30px;
-    font-weight:600;
+    color: whitesmoke;
+    font-size: 30px;
+    font-weight: 600;
 }
 
 .tableRow {
@@ -15,8 +22,8 @@
 
 h2 {
     color: white;
-    font-size:40px;
-    margin:50px;
+    font-size: 40px;
+    margin: 50px;
 }
 
 .back_container {
@@ -34,7 +41,7 @@ h2 {
     background-color: lightgrey;
     margin-right: 20px;
     color: black;
-    font-size:20px;
+    font-size: 20px;
     box-shadow: black 2px 2px 2px 2px;
 }
 
@@ -45,4 +52,3 @@ h2 {
     .back_btn:hover {
         background-color: white;
     }
-
