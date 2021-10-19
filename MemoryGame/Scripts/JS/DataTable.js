@@ -10,6 +10,8 @@
     }
 });
 
+var numOfAgents = 0;
+var mistakesInfo = {};
 var dataForTable = [];
 
 function arrangeData(data) {
@@ -41,6 +43,23 @@ function arrangeData(data) {
                     playerScore = allScores[j]['score'];
                 }
             }
+            numOfAgents = gameInfo['agents'].length - 1;
+            var gameLength = gameInfo['endTime'] - gameInfo['startTime'];
+            gameLength = countMin(gameLength);
+            var boardSize = gameInfo['configuration']['numOfCards'];
+            boardSize = boardSize[0] + "x" + boardSize[1];
+            // calculate agents and player mistakes
+            for (let i = 0; i < numOfAgents+1; i++) {
+                mistakesInfo[gameInfo['agents'][i]['name']] = 0 ;
+            }
+            var turnsLength = gameInfo['turnInfo'].length;
+            for (let i = 0; i < turnsLength; i++) {
+                if (gameInfo['turnInfo'][i]['success'] === false) {
+                    var name = gameInfo['turnInfo'][i]['agent']
+                    mistakesInfo[name] = mistakesInfo[name] + 1;
+                }
+            }
+
             // Personal data extraction
             personalInfo = parsedData[i]['_personalDetails']['ArrayOfAnswers'][0];
             // time in pages data extraction
@@ -48,8 +67,6 @@ function arrangeData(data) {
             var timesLength = timeInPages.length;
             var totalTime = Date.parse(timeInPages[timesLength - 1]['EndTime']) - Date.parse(timeInPages[0]['BeginTime']);
             totalTime = countMin(totalTime);
-            var gameLength = Date.parse(timeInPages[6]['EndTime']) - Date.parse(timeInPages[6]['BeginTime']);
-            gameLength = countMin(gameLength);
             var serveyLength = Date.parse(timeInPages[timesLength - 1]['EndTime']) - Date.parse(timeInPages[timesLength - 1]['BeginTime']);
             serveyLength = countMin(serveyLength);
             // Quiz data extraction
@@ -58,6 +75,7 @@ function arrangeData(data) {
                 workerId: amazonInfo['WorkerId'], assignmentId: amazonInfo['AssId'], HITId: amazonInfo['HitId'],
                 Age: personalInfo[0], Gender: personalInfo[1], Country: personalInfo[2], Education: personalInfo[3],
                 QuizMistakes: verificationRulesInfo['NumOfTries']-1, PlayerScore: playerScore, AgentsScore: agentsScore,
+                NumberOfAgents: numOfAgents, BoardSize: boardSize,
                 HITlength: totalTime, GameLength: gameLength, ServeyLength: serveyLength
             }
          //   console.log(dic);
@@ -70,6 +88,7 @@ function arrangeData(data) {
         }
 
     }
+
     loadData();
 }
 
@@ -84,7 +103,9 @@ function countMin(num) {
 //const datademo = [{ id: "1", score: "14", info: "bla", time_in_pages: "150" }, { id: "2", score: "15", info: "bla2", time_in_pages: "250" }];
 
 const order = ["workerId", "assignmentId", "HITId", "Age", "Gender", "Country", "Education", "QuizMistakes", "PlayerScore",
-    "AgentsScore", "HITlength", "GameLength", "ServeyLength"];
+    "AgentsScore", "NumberOfAgents", "BoardSize", "HITlength", "GameLength", "ServeyLength"];
+
+
 
 function loadData() {
     makeTable(dataForTable);
