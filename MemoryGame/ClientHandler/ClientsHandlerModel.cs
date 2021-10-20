@@ -24,6 +24,7 @@ namespace MemoryGame.ClientHandler
         public static int AddNewUser(AmazonInfoModel amazonInfoModel)
         {
             AllUserDataModel userModel = new AllUserDataModel();
+            userModel._isClientFinishedGame = false;
             userModel._amazonInfoModel = amazonInfoModel;
             mtx.WaitOne();
             dictOfUsers[amazonInfoModel.WorkerId] = userModel;
@@ -140,6 +141,20 @@ namespace MemoryGame.ClientHandler
             string workerId = amazonInfoModel.WorkerId;
             mtx.WaitOne();
             dictOfUsers[workerId]._initData = initData;
+            mtx.ReleaseMutex();
+            return 1;
+        }
+        
+        public static int AddIsClientFinishedGameModel(AmazonInfoModel amazonInfoModel)
+        {
+            if (!CheckIfUserExist(amazonInfoModel))
+            {
+                return 0;
+            }
+
+            string workerId = amazonInfoModel.WorkerId;
+            mtx.WaitOne();
+            dictOfUsers[workerId]._isClientFinishedGame = true;
             mtx.ReleaseMutex();
             return 1;
         }

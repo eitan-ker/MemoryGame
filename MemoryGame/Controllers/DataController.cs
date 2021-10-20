@@ -138,6 +138,15 @@ namespace MemoryGame.Controllers
             Console.WriteLine($"{res.ToString()}");
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
+        
+        public ActionResult ClientFinishedGame()
+        {
+            AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
+            
+            int res = ClientsHandlerModel.AddIsClientFinishedGameModel(amazonInfoModel);
+            //Console.WriteLine($"{res.ToString()}");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
 
         public string GetScore()
         {
