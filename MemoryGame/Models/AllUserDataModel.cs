@@ -20,6 +20,7 @@ namespace MemoryGame.Models
         public FeedBackModel _feedBackModels;
         public EndGameModel _endGameModel;
         public InitData _initData;
+        public bool _isClientFinishedGame;
 
 
     }
