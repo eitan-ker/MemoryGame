@@ -11,7 +11,10 @@ var totalScore = 0;
 
 var card_mutex = false;
 var player_turn = false;
-
+/**
+ * all the game functionality activate through this class
+ * params: size- 2D array [rows, cols], numOfAgent,typeOfAgent, personalTime,configuration, replayBoard
+ * **/
 class GameManager{
     #scores;
     #choosen_card;
@@ -196,6 +199,7 @@ class GameManager{
     }
     async TurnTimeout() {
         if(!this.#gameOrReplay) {
+            await sleep(1500);
             if (img.length > 0) {
                 for (let i = 0; i < img.length; i++) {
                     $(img[i]).fadeOut();

@@ -35,7 +35,8 @@ class Card{
 }
 
 /*
-* object for board, the constructor gets the dimentions of the board (2D array),
+* object for board, 
+* params: gets the dimentions of the board (2D array),
 * and the cards (array of objects cards)
 * */
 class Board{
