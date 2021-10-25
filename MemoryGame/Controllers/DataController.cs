@@ -154,6 +154,9 @@ namespace MemoryGame.Controllers
         {
             return System.Configuration.ConfigurationManager.AppSettings["Score"].ToString();
         }
+
+
+    
         public string InitGameData()
         {
 
