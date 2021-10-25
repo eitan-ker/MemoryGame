@@ -57,11 +57,25 @@ $(function () {
         fontSize: 40,
         'margin-top': ($("#board_info").height() - $("#board_info").find("p").height()) / 2
     });
-    //data = sessionStorage.getItem('configurationData')
+
+    temp_data = sessionStorage.getItem('configurationData');
+    console.log("################");
+
+    console.log(temp_data);
+
+    console.log("**************");
+    data = JSON.parse(temp_data);
+    
+    console.log(data);
+
+
+    console.log("**************");
+
+
 
     // Data is the configuration object
     //assume we've got data object from GET
-    data = {
+   /* data = {
         overallTime: 5000000,// times in milliseconds
         personalTime: 100000,
         numOfCards: [2, 3],
@@ -71,7 +85,7 @@ $(function () {
         // 2 - showing random live card on board.
         // 3 - showing last seen card pair.
         hintConfig: 3 
-    };
+    };*/
     agentsAmount = data.numOfAgents;
     gameManager = new GameManager(data.numOfCards, data.numOfAgents,data.typeOfAgent, data.personalTime,data, null);
 

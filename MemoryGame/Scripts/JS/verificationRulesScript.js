@@ -26,7 +26,7 @@ $(function () {
                 success: function (data) {
                 },
                 error: function (errMsg) {
-                    alert(errMsg);
+                    alert("1");
                 }
             });
         }
@@ -263,7 +263,7 @@ function nextPage(e) {
                 //sendTime(0);
             },
             error: function (errMsg) {
-                alert(errMsg);
+                alert("2");
             }
         });
         sendTime(0)
@@ -288,7 +288,7 @@ function nextPage(e) {
                     sendTime(1);
                 },
                 error: function (errMsg) {
-                    alert(errMsg);
+                    alert("3");
                 }
             });
 
@@ -387,7 +387,7 @@ function sendTime(flag) {
             }
         },
         error: function (errMsg) {
-            alert(errMsg);
+            alert("4");
         }
     });
 

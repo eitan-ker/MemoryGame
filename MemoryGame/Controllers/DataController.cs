@@ -165,8 +165,8 @@ namespace MemoryGame.Controllers
             
             initData.NumOfAgents = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfAgents"].ToString());
             initData.typeOfAgent = new List<string>();
-            initData.typeOfAgent[0] = System.Configuration.ConfigurationManager.AppSettings["typeOfAgent1"].ToString();
-            initData.typeOfAgent[1] = System.Configuration.ConfigurationManager.AppSettings["typeOfAgent2"].ToString();
+            initData.typeOfAgent.Add(System.Configuration.ConfigurationManager.AppSettings["typeOfAgent1"].ToString());
+            initData.typeOfAgent.Add(System.Configuration.ConfigurationManager.AppSettings["typeOfAgent2"].ToString());
             initData.HintConfig = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["HintConfig"].ToString());
             
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();

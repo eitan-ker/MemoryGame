@@ -4,14 +4,22 @@ $(function () {
     $.ajax({
         type: "GET",
         dataType: 'json',
-        url: "/MemoryGame/Data/GetInitData",
+        url: "/MemoryGame/Data/InitGameData",
         // The key needs to match your method's input parameter (case-sensitive).
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            sessionStorage.setItem('configurationData', data);
+            console.log("################");
+            str_data = JSON.stringify(data);
+
+            console.log(data);
+            console.log(str_data);
+
+
+            console.log("**************");
+            sessionStorage.setItem('configurationData', str_data);
         },
         error: function (errMsg) {
-            alert('2');
+            alert('err');
         }
     });
     sessionStorage.setItem('currentPage', "InstructionsTwo");
@@ -27,7 +35,7 @@ $(function () {
                 success: function (data) {
                 },
                 error: function (errMsg) {
-                    alert('3');
+                    alert('err');
                 }
             });
         }
@@ -49,7 +57,7 @@ function NextPage() {
             window.location.replace("/MemoryGame/Home/interfaceExample"); //to prevent page back
         },
         error: function (errMsg) {
-            alert('4');
+            alert('err');
         }
     });
    
