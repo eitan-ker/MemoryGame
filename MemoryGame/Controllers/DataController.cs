@@ -164,6 +164,9 @@ namespace MemoryGame.Controllers
             initData.NumOfCards.Add(Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfCards2"].ToString()));
             
             initData.NumOfAgents = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["NumOfAgents"].ToString());
+            initData.typeOfAgent = new List<string>();
+            initData.typeOfAgent[0] = System.Configuration.ConfigurationManager.AppSettings["typeOfAgent1"].ToString();
+            initData.typeOfAgent[1] = System.Configuration.ConfigurationManager.AppSettings["typeOfAgent2"].ToString();
             initData.HintConfig = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["HintConfig"].ToString());
             
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();

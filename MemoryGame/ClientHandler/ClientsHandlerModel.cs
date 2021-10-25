@@ -187,10 +187,10 @@ namespace MemoryGame.ClientHandler
             var uri = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             MongoClient dbClient = new MongoClient(uri);
             var userCollection = dbClient.GetDatabase("MemoryGame").GetCollection<BsonDocument>("Users");
-            mtx.WaitOne();
+            //mtx.WaitOne();
             await userCollection.InsertOneAsync(dictOfUsers[workerId].ToBsonDocument());
             dictOfUsers.Remove(workerId);
-            mtx.ReleaseMutex();
+            //mtx.ReleaseMutex();
             return true;
         }
 
