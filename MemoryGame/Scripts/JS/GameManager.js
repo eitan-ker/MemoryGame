@@ -98,6 +98,7 @@ class GameManager{
             this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
             this.#boardImages = this.#board.boardArray;
         } else{
+            this.personalInterval = setInterval(this.TimerForTurn, 1000);
             this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
         }
         /*else {
