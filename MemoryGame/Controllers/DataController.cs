@@ -96,12 +96,14 @@ namespace MemoryGame.Controllers
         }
         public ActionResult TimeInPage( TimeInPageModel timeInPageModel)
         {
+            
             AmazonInfoModel amazonInfoModel = CreateAmazonInfoModel();
             int isGood = ClientsHandlerModel.AddTimeModel(amazonInfoModel, timeInPageModel);
             if (isGood == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
         public async Task<ActionResult> IsNewClient()
