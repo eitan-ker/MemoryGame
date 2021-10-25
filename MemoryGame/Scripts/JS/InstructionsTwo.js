@@ -2,29 +2,6 @@
 var done = false;
 $(function () {
     $.ajax({
-        type: "Get",
-        url: "/MemoryGame/Data/GetScore",
-        contentType: "application/json",
-        success: function (data) {
-            score = parseInt(data);
-            sessionStorage.setItem('score_target', score);
-            document.getElementById("textbox").innerHTML = document.getElementById("textbox").innerHTML.replace("20", data);
-           // var newval = $('.Running_Text').text().replace("20", data);
-            //console.log(newval)
-           // $('.Running_Text').text(newval);
-            score /= 2
-            //newval = $('.Running_Text').text().replace("10", score);
-            //$('.Running_Text').text(newval);
-            document.getElementById("textbox").innerHTML = document.getElementById("textbox").innerHTML.replace("10", score);
-            //document.getElementById("score_target").innerHTML = score;
-            //document.getElementById("score_target_for_each").innerHTML = score;
-
-        },
-        error: function (errMsg) {
-            alert("1");
-        }
-    });
-    $.ajax({
         type: "GET",
         dataType: 'json',
         url: "/MemoryGame/Data/GetInitData",

@@ -34,13 +34,15 @@ function nextPage() {
         url: "/MemoryGame/Data/TimeInPage",
         data: stringTosend,
         contentType: "application/json",
-        success: function (data) { },
+        success: function (data) {
+            done = true;
+            window.location.replace("/MemoryGame/Home/verificationRules"); //to prevent page back
+        },
         error: function (errMsg) {
             alert(errMsg);
         }
     });
-    done = true;
-    window.location.replace("/MemoryGame/Home/verificationRules"); //to prevent page back
+    
 }
 function checkTime(i) {
     if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10

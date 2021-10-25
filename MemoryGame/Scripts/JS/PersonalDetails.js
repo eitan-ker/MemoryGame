@@ -97,9 +97,11 @@ function SubmitAnswers() {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function () {
+                    done = true
                     nextPage("/MemoryGame/Home/TooManyTries");
                 },
                 error: function (jqXHR, exception) {
+                    done = true
                     nextPage("/MemoryGame/Home/ErrorPage")
                 }
             });
@@ -118,9 +120,11 @@ function SubmitAnswers() {
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function () {
+                done = true
                 nextPage("/MemoryGame/Home/Game1");
             },
             error: function (jqXHR, exception) {
+                done = true
                 nextPage("/MemoryGame/Home/ErrorPage")
             }
         });

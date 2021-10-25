@@ -28,7 +28,30 @@ var img = [];
 var card_num = 0;
 var hint_lock = false;
 var timeOver = false;
+
+
+var done = false;
+
 $(function () {
+
+    window.onbeforeunload = function () {
+        if (this.done == false) {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "/MemoryGame/Data/ClientIsDone",
+                // The key needs to match your method's input parameter (case-sensitive).
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                },
+                error: function (errMsg) {
+                    alert(errMsg);
+                }
+            });
+        }
+    }
+
+
     $("#board_info").append("<p>Loading</p>");
     $("#board_info").find("p").css({
         fontSize: 40,

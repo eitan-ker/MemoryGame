@@ -979,6 +979,7 @@ class GameManager{
         //this.done = true;
         //await this.Replay();
         //sleep(this.GetTime().getMinutes() * 60000, this.GetTime().getSeconds() * 1000);
+        done = true;
         window.location.replace("/MemoryGame/Home/EndGame"); //to prevent page back
     }
 

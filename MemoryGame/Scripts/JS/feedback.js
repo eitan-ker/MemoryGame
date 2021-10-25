@@ -317,6 +317,7 @@ function sendTime() {
         data: stringTosend,
         contentType: "application/json",
         success: function (data) {
+            done = true
             window.location.replace("/MemoryGame/Home/EndPage");
         },
         error: function (errMsg) {

@@ -1,6 +1,7 @@
 ﻿var startTime;
-var done = false;
 
+
+var done = false;
 $(function () {
     sessionStorage.setItem('currentPage', "ConsentIndex");
     startTime = MyGetTime()
@@ -21,6 +22,28 @@ $(function () {
         }
     }
 });
+
+
+/*
+var done = false;
+window.onbeforeunload = function () {
+    if (this.done == false) {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/MemoryGame/Data/ClientIsDone",
+            // The key needs to match your method's input parameter (case-sensitive).
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+            },
+            error: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
+}
+*/
+
 function Disagree() {
     var endTime = MyGetTime()
 

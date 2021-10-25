@@ -24,7 +24,6 @@ $(function () {
 
 function NextPage() {
     sessionStorage.setItem('currentPage', "InstructionsOne");
-    done = true;
     var endTime = MyGetTime()
 
     var data = { BeginTime: startTime, EndTime: endTime, NameOfPage: "InstructionsOne" }
@@ -37,6 +36,7 @@ function NextPage() {
         data: stringTosend,
         contentType: "application/json",
         success: function (data) {
+            done = true
             window.location.replace("/MemoryGame/Home/InstructionsTwo"); //to prevent page back
         },
         error: function (errMsg) {

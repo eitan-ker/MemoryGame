@@ -160,7 +160,7 @@ function sendInfo() {
             alert(errMsg);
         }
     });
-    this.done = true;
+    done = true;
     window.location.replace("/MemoryGame/Home/Feedback"); //to prevent page back
     
 
