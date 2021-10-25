@@ -86,6 +86,7 @@ namespace MemoryGame.Models.Game
         public List<TurnInfo> turnInfo { get; set; }
         public int score { get; set; }
         public int successNumber { get; set; }
+        public string type { get; set; }
     }
 
     public class Configuration

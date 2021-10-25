@@ -97,7 +97,9 @@ class GameManager{
             gm = this;
             this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
             this.#boardImages = this.#board.boardArray;
-        } 
+        } else{
+            this.Intervals(numOfAgent, personalTime, this.globalTime, this.#agents,  this.#turnsArray, this.turn, this.#board);
+        }
         /*else {
             this.#board.boardArray = this.#boardImages;
         }*/
@@ -202,7 +204,23 @@ class GameManager{
                 img = [];
                 var z = 2;
             }
-            
+            if (firstRound === true) {
+                $($("#agent_area").children()[0]).css("background-color", "yellow");
+                firstRound = false;
+                currentPlayer += 1;
+                return;
+            }
+            if (currentPlayer === this.#agents.length - 1) {
+                currentPlayer = 0;
+                $($("#agent_area").children()[this.#agents.length - 1]).css("background-color", "rgb(164 179 241 / 55%)");
+                $($("#agent_area").children()[currentPlayer % this.#agents.length]).css("background-color", "yellow");
+                
+            } else {
+                currentPlayer += 1;
+                $($("#agent_area").children()[currentPlayer % this.#agents.length - 1]).css("background-color", "rgb(164 179 241 / 55%)");
+                $($("#agent_area").children()[currentPlayer % this.#agents.length]).css("background-color", "yellow");
+                
+            }
             return;
         }
         //console.log("we in TurnTimeout function")

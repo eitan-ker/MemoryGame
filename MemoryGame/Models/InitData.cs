@@ -18,6 +18,9 @@ namespace MemoryGame.Models
         [JsonProperty(PropertyName = "numOfAgents")]
         public int NumOfAgents { get; set; }
         
+        [JsonProperty(PropertyName = "typeOfAgent")]
+        public List<string> typeOfAgent { get; set; }
+        
         [JsonProperty(PropertyName = "hintConfig")]
         public int HintConfig { get; set; }
     }
