@@ -98,16 +98,16 @@ const questions = [
         type: 2,
         question: 'If you could choose - would you rather play with or without the Agents?',
         answers: [
-            { text: 'With Bob' },
-            { text: 'Without Bob' }
+            { text: 'With the Agents' },
+            { text: 'Without the Agents' }
         ]
     },
     {
         type: 2,
         question: 'In your opinion, who contributed more to completing the game?',
         answers: [
-            { text: 'With Bob' },
-            { text: 'Without Bob' }
+            { text: 'With the Agents' },
+            { text: 'Without the Agents' }
         ]
     },
     {

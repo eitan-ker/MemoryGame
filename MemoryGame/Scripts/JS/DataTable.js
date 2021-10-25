@@ -115,9 +115,10 @@ function countMin(num) {
 //const datademo = [{ id: "1", score: "14", info: "bla", time_in_pages: "150" }, { id: "2", score: "15", info: "bla2", time_in_pages: "250" }];
 
 const order = ["workerId", "assignmentId", "HITId", "Age", "Gender", "Country", "Education", "QuizMistakes",
-    "HITlength", "GameLength", "ServeyLength", "BoardSize", "NumberOfAgents",/*time per turn, total time*/
-    "PlayerScore", "AgentsScore"/*player,agents mistakes*, Q-A/];
-
+    "HITlength", "GameLength", "ServeyLength", "BoardSize", "NumberOfAgents",
+    "PlayerScore", "AgentsScore"];
+/*player,agents mistakes*, Q-A*/
+/*time per turn, total time*/
 
 
 function loadData() {
