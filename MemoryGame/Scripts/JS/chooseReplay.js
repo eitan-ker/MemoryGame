@@ -1,4 +1,7 @@
-﻿// A LIST OF ALL USERS
+﻿
+var toShow = false;
+
+// A LIST OF ALL USERS
 console.log("all users");
 $.ajax({
     type: "GET",
@@ -29,36 +32,108 @@ function dataTable(data) {
         table.setAttribute("class", "table");
         // one extra row for the cols names
         for (let i = 0; i < parsedData.length + 1; i++) {
-            let row = table.insertRow();
-            row.setAttribute("class", "tableHeadLine")
-            for (let j = 0; j < colNum; j++) {
-                if (i == 0) {
-                    let cell = row.insertCell();
-                    if (j == 0 || j == colNum - 1) {
-                        if (j == 0) {
-                            cell.textContent = "index";
-                        } else {
-                            cell.textContent = "Run Replay";
+
+            if (i > 0) {
+                // get if ClientIsFinied - flag
+                var workerid = parsedData[i - 1][parsedKeys[0]];
+                var assid = parsedData[i - 1][parsedKeys[1]];
+                var hitid = parsedData[i - 1][parsedKeys[2]];
+                var data = { WorkerId: workerid, AssId: assid, HitId: hitid }
+                var stringTosend = JSON.stringify(data);
+
+                console.log(stringTosend);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/MemoryGame/Admin/GetReplyOfUser",
+                    data: stringTosend,
+                    contentType: "application/json",
+                    success: function (data) {
+                        const obj = JSON.parse(data);
+                        // gets true/false
+                        var flag = (obj._isClientFinishedGame);
+                        if (flag === true) {
+                            let row = table.insertRow();
+                            row.setAttribute("class", "tableHeadLine")
+                            for (let j = 0; j < colNum; j++) {
+                                // first row - header
+                                if (i == 0) {
+                                    let cell = row.insertCell();
+                                    if (j == 0 || j == colNum - 1) {
+                                        if (j == 0) {
+                                            cell.textContent = "index";
+                                        } else {
+                                            cell.textContent = "Run Replay";
+                                        }
+                                    } else {
+                                        cell.textContent = parsedKeys[j - 1];
+                                    }
+                                } else {
+                                    // content of table
+
+                                    let cell = row.insertCell();
+                                    row.setAttribute("class", "tableRow")
+
+                                    if (j == 0 || j == colNum - 1) {
+                                        if (j == 0) {
+                                            // first col just index
+                                            cell.textContent = i;
+                                        } else {
+                                            // last col btn for running replay
+                                            // "0000" is a unique char to differ between the ids
+                                            cell.innerHTML = '<button class="btn btn-primary btn-xs my-xs-btn" type="button"'
+                                                + 'onClick = "runReplay(' + parsedData[i - 1][parsedKeys[0]] + "0000" + parsedData[i - 1][parsedKeys[1]] + "0000" + parsedData[i - 1][parsedKeys[2]] + ')" > '
+                                                + '<span class="glyphicon glyphicon-pencil"></span>Run Replay</button>';
+
+                                        }
+                                    } else {
+                                        cell.textContent = parsedData[i - 1][parsedKeys[j - 1]];
+                                    }
+                                }
+                            }
                         }
-                    } else {
-                        cell.textContent = parsedKeys[j - 1];
+                    },
+                    error: function (errMsg) {
+                        alert("could not load isFiniehd");
                     }
-                } else {
-                    let cell = row.insertCell();
-                    row.setAttribute("class", "tableRow")
-
-                    if (j == 0 || j == colNum - 1) {
-                        if (j == 0) {
-                            cell.textContent = i;
+                });
+            } else {
+                let row = table.insertRow();
+                row.setAttribute("class", "tableHeadLine")
+                for (let j = 0; j < colNum; j++) {
+                    // first row - header
+                    if (i == 0) {
+                        let cell = row.insertCell();
+                        if (j == 0 || j == colNum - 1) {
+                            if (j == 0) {
+                                cell.textContent = "index";
+                            } else {
+                                cell.textContent = "Run Replay";
+                            }
                         } else {
-                            // "0000" is a unique char to differ between the ids
-                            cell.innerHTML = '<button class="btn btn-primary btn-xs my-xs-btn" type="button"'
-                                + 'onClick = "runReplay(' + parsedData[i - 1][parsedKeys[0]] + "0000" + parsedData[i - 1][parsedKeys[1]] + "0000" + parsedData[i - 1][parsedKeys[2]] +')" > '
-                            + '<span class="glyphicon glyphicon-pencil"></span>Run Replay</button>';
-
+                            cell.textContent = parsedKeys[j - 1];
                         }
                     } else {
-                        cell.textContent = parsedData[i - 1][parsedKeys[j - 1]];
+                        // content of table
+
+                        let cell = row.insertCell();
+                        row.setAttribute("class", "tableRow")
+
+                        if (j == 0 || j == colNum - 1) {
+                            if (j == 0) {
+                                // first col just index
+                                cell.textContent = i;
+                            } else {
+                                // last col btn for running replay
+                                // "0000" is a unique char to differ between the ids
+                                cell.innerHTML = '<button class="btn btn-primary btn-xs my-xs-btn" type="button"'
+                                    + 'onClick = "runReplay(' + parsedData[i - 1][parsedKeys[0]] + "0000" + parsedData[i - 1][parsedKeys[1]] + "0000" + parsedData[i - 1][parsedKeys[2]] + ')" > '
+                                    + '<span class="glyphicon glyphicon-pencil"></span>Run Replay</button>';
+
+                            }
+                        } else {
+                            cell.textContent = parsedData[i - 1][parsedKeys[j - 1]];
+                        }
                     }
                 }
             }
@@ -81,11 +156,11 @@ function runReplay(replayData) {
 
 
     //REPLY OF SPECIFIC USER
-    console.log("spcific user");
-    var workerid = ids[0].toString()
-    var assid = ids[1].toString()
-    var hitid = ids[2].toString()
-    var data = { WorkerId: workerid, AssId: assid, HitId: hitid }
+    console.log("spcific user");;
+    var workerid = ids[0].toString();
+    var assid = ids[1].toString();
+    var hitid = ids[2].toString();
+    var data = { WorkerId: workerid, AssId: assid, HitId: hitid };
     var stringTosend = JSON.stringify(data);
     console.log(stringTosend);
     $.ajax({
