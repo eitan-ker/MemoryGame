@@ -13,6 +13,7 @@
 var numOfAgents = 0;
 var mistakesInfo = {};
 var dataForTable = [];
+var QA = []
 
 function arrangeData(data) {
     var parsedData = JSON.parse(data);
@@ -30,6 +31,21 @@ function arrangeData(data) {
             endGameInfo = parsedData[i]['_endGameModel'];
             // feedback data
             feedbackInfo = parsedData[i]['_feedBackModels'];
+            var answers_Arr = []
+            var size1 = feedbackInfo['Answers'].length
+            for (let j = 0; j < size1; j++) {
+                var size2 = feedbackInfo['Answers'][j].length;
+                for (let k = 0; k < size2; k++) {
+                    answers_Arr.push(feedbackInfo['Answers'][j][k])
+                }
+
+            }
+            for (let j = 0; j < answers_Arr.length; j++) {
+                var q = feedbackInfo['Questions'][j];
+                var a = answers_Arr[j];
+                QA.push('Q: ' + q + '   A: ' + a);
+            }
+
             // Game data extraction
             gameInfo = parsedData[i]['_gameModel'];
             var scores_size = gameInfo['scores'].length
@@ -48,19 +64,29 @@ function arrangeData(data) {
             gameLength = countMin(gameLength);
             var boardSize = gameInfo['configuration']['numOfCards'];
             boardSize = boardSize[0] + "x" + boardSize[1];
+            var timePerTurn = gameInfo['configuration']['personalTime'];
+            timePerTurn = countMin(timePerTurn);
+            var timePerGame = gameInfo['configuration']['overallTime'];
+            timePerGame = countMin(timePerGame);
+
 
 
             // calculate agents and player mistakes
-            /*for (let i = 0; i < numOfAgents+1; i++) {
-                mistakesInfo[gameInfo['agents'][i]['name']] = 0 ;
-            }
+            var agent_mistakes = 0;
+            var player_mistakes = 0;
+
             var turnsLength = gameInfo['turnInfo'].length;
-            for (let i = 0; i < turnsLength; i++) {
-                if (gameInfo['turnInfo'][i]['success'] === false) {
-                    var name = gameInfo['turnInfo'][i]['agent']
+            for (let k = 0; k < turnsLength; k++) {
+                if (gameInfo['turnInfo'][k]['success'] === false) {
+                    var name = gameInfo['turnInfo'][k]['agent'];
+                    if (name === "Player") {
+                        player_mistakes += 1;
+                    } else {
+                        agent_mistakes += 1
+                    }
                     mistakesInfo[name] = mistakesInfo[name] + 1;
                 }
-            }*/
+            }
 
             // Personal data extraction
             personalInfo = parsedData[i]['_personalDetails']['ArrayOfAnswers'][0];
@@ -78,11 +104,16 @@ function arrangeData(data) {
                 Age: personalInfo[0], Gender: personalInfo[1], Country: personalInfo[2], Education: personalInfo[3],
                 QuizMistakes: verificationRulesInfo['NumOfTries']-1, PlayerScore: playerScore, AgentsScore: agentsScore,
                 NumberOfAgents: numOfAgents, BoardSize: boardSize,
-                HITlength: totalTime, GameLength: gameLength, ServeyLength: serveyLength
+                HITlength: totalTime, GameLength: gameLength, ServeyLength: serveyLength, PlayerNumMistakes: player_mistakes,
+                AgentsNumMistakes: agent_mistakes, TimePerTurn: timePerTurn, TimePerGame: timePerGame,
+                Q1: QA[0], Q2: QA[1], Q3: QA[2], Q4: QA[3], Q5: QA[4], Q6: QA[5], Q7: QA[6], Q8: QA[7], Q9: QA[8],
             }
+             
+           
          //   console.log(dic);
 
 
+            QA = [];
 
             dataForTable.push(dic);
         } catch {
@@ -90,6 +121,7 @@ function arrangeData(data) {
         }
 
     }
+
 
     // calculate agents and player mistakes
     countMistakes(parsedData);
@@ -115,10 +147,10 @@ function countMin(num) {
 //const datademo = [{ id: "1", score: "14", info: "bla", time_in_pages: "150" }, { id: "2", score: "15", info: "bla2", time_in_pages: "250" }];
 
 const order = ["workerId", "assignmentId", "HITId", "Age", "Gender", "Country", "Education", "QuizMistakes",
-    "HITlength", "GameLength", "ServeyLength", "BoardSize", "NumberOfAgents",
-    "PlayerScore", "AgentsScore"];
-/*player,agents mistakes*, Q-A*/
-/*time per turn, total time*/
+    "HITlength", "GameLength", "ServeyLength", "BoardSize", "NumberOfAgents", "TimePerTurn", "TimePerGame",
+    "PlayerScore", "AgentsScore", "PlayerNumMistakes", "AgentsNumMistakes", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6",
+    "Q7", "Q8", "Q9"];
+/*Q-A*/
 
 
 function loadData() {

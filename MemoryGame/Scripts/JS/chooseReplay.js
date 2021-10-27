@@ -1,5 +1,6 @@
 ﻿
 var toShow = false;
+var counter = 0
 
 // A LIST OF ALL USERS
 console.log("all users");
@@ -53,6 +54,8 @@ function dataTable(data) {
                         // gets true/false
                         var flag = (obj._isClientFinishedGame);
                         if (flag === true) {
+
+                            counter = counter + 1;
                             let row = table.insertRow();
                             row.setAttribute("class", "tableHeadLine")
                             for (let j = 0; j < colNum; j++) {
@@ -77,7 +80,7 @@ function dataTable(data) {
                                     if (j == 0 || j == colNum - 1) {
                                         if (j == 0) {
                                             // first col just index
-                                            cell.textContent = i;
+                                            cell.textContent = counter;
                                         } else {
                                             // last col btn for running replay
                                             // "0000" is a unique char to differ between the ids
@@ -178,6 +181,17 @@ function runReplay(replayData) {
             sessionStorage.setItem("turnsArray", JSON.stringify(obj._gameModel.turnInfo));
             sessionStorage.setItem("boardImages", JSON.stringify(obj._gameModel.initBoard));
             sessionStorage.setItem("config", JSON.stringify(obj._gameModel.configuration));
+            // agents type parse
+            var actros = obj._gameModel.agents;
+            var str_agents = [];
+            var actros_size = actros.length
+            for (let i = 0; i < actros_size; i++) {
+                if ((actros[i]['name']) != 'Player') {
+                    str_agents.push(actros[i]['type'])
+                }
+            }
+            sessionStorage.setItem("agents", JSON.stringify(str_agents));
+
 
 
             window.location.replace("/MemoryGame/Home/Replay");

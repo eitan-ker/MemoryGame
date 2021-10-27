@@ -14,9 +14,13 @@
     let turnsArray = JSON.parse(sessionStorage.getItem("turnsArray"));
     let boardImages = JSON.parse(sessionStorage.getItem("boardImages"));
     let config = JSON.parse(sessionStorage.getItem("config"));
+    let typeOfAgent = JSON.parse(sessionStorage.getItem("agents"));
+    // agents parse data
+   // let actors = JSON.parse(sessionStorage.getItem("config"));
 
 
-    typeOfAgent = ["OptimalAgent", "BadAgent"]; // needs to go from config data from DB
+
+   //typeOfAgent = ["OptimalAgent", "BadAgent"]; // needs to go from config data from DB
 
     let gm = new GameManager(size, config.numOfAgents, typeOfAgent, config.personalTime,config, boardImages); 
     //let size = config.size;
