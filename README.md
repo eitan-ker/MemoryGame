@@ -93,6 +93,6 @@ A user will be deleted from the dict only after we upload the user data to datab
 We can access a user in the dict using the cookies from the user (which holds his workerid).
 Because we have a thread that downloads the info from the database and put this data in the UserModel in the dict and a different thread (the main thread that answers the front end) that may wants to also add or delete info from the dict so we use a mutex each time we touch the dict. 
 The class is divided into 3 parts. 
-The first is to add info to dict from the frontend. 
-The second is to download info from the database and upload data to the database. 
-The third is to provide the frontend with the data he needs(usually the data we downloaded from the database)
+1. The first is to add info to dict from the frontend. 
+2. The second is to download info from the database and upload data to the database. 
+3. The third is to provide the frontend with the data he needs(usually the data we downloaded from the database)
